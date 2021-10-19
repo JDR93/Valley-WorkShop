@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Valley Workshop</title>
+    <title><?php echo $data['page_title']; ?></title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,6 +12,9 @@
   <body>
 
     <h4>Sea Bienvenido al taller.</h4>
+
+    <?php echo base_url(); ?>
+    
       
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

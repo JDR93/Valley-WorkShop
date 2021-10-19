@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
-    <link  rel="icon" href="./Assets/img/nebula.jpg" type="image/png" />
+
+    <link rel="icon" href="./Assets/img/service.png" type="image/png" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="./Assets/css/login.css">
 </head>
@@ -16,13 +17,12 @@
     <!------------ Thanks Daniel Almeida for the reference  ----------->
     <!-- https://dribbble.com/shots/4027518-Login-screen-intermethod -->
 
-
+    
     <form method="POST" id="formulario_login">
-
 
         <div class="login-wrapper">
             <div class="login-left">
-                <img src="../../img/nebula.jpg">
+                <img src="./Assets/img/nebula.jpg">
                 <div class="h1">Enter the Nebula</div>
             </div>
             <div class="login-right">
@@ -37,7 +37,7 @@
                     <input type="submit" id="enviar_login" name="submit" class="btn btn-secondary btn-ingresar btn_login" value="ingresar">
                 </div>
 
-                 <h4 class="registrarse">¿No tienes una cuenta? <a href="#">Registrarme</a></h4> 
+                <!-- <h4 class="registrarse">¿No tienes una cuenta? <a href="#">Registrarme</a></h4> -->
 
             </div>
 
@@ -62,23 +62,23 @@
 
 
                 jQuery.ajax({
-                        url: 'verificar.php',
+                        url: 'Login/verificar',
                         type: 'POST',
                         dataType: 'json',
                         data: $(this).serialize(),
 
-                        
+
                         beforeSend: function() {
                             $('.btn_login').val('Validando...');
                         }
-                        
-                        
+
+
                     })
                     .done(function(respuesta) {
                         console.log(respuesta);
                         if (!respuesta.error) {
                             if (respuesta.tipo == 'Admin') {
-                                location.href = '/ingresos/inicio';
+                                location.href = '<?php echo base_url()?>Dashboard';
                             }
 
                         } else {
@@ -99,9 +99,9 @@
                             setTimeout(function() {
                                 $('.error').slideUp('slow');
                             }, 2000);
-                            
-                             $('.btn_login').val('INGRESAR');
-                            
+
+                            $('.btn_login').val('INGRESAR');
+
                         }
                     })
                     .fail(function(resp) {
@@ -115,9 +115,9 @@
         });
     </script>
 
-    
 
-    
+
+
     <form method="POST" id="formulario_register" method="insertar.php">
 
         <div class="login-register">
@@ -143,8 +143,8 @@
 
     </form>
 
-    
-    
+
+
 
 
     <script>
@@ -157,7 +157,7 @@
 
         // Acciones registrarme
 
-        
+
         var openRegister = document.querySelector('.registrarse');
         var loginRight = document.querySelector('.login-right');
         var loginRegister = document.querySelector('.login-register');
@@ -173,8 +173,6 @@
             loginRight.classList.remove("open-register");
             loginRegister.classList.remove("open-register");
         });
-        
-        
     </script>
 
 </body>

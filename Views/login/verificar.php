@@ -1,7 +1,7 @@
 
 <?php
-require_once "../../conection.php";
-require_once "../../models/User.php";
+require_once "./Config/conection.php";
+require_once "./Models/User.php";
 
 sleep(1);
 

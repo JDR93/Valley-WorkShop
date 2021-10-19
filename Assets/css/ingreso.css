@@ -1,53 +1,84 @@
-
+/* ////////////////////////////////////////////////
+AJUSTES GENERALES 
+//////////////////////////////////////////////// */
 
 body {
     background-color: #f1f1f1;
 }
 
+.btn  {
+    font-size: 1em;
+}
+
+/* ////////////////////////////////////////////////
+AJUSTES
+//////////////////////////////////////////////// */
+
 .conteiner-principal {
-    margin-top: 1em;
+    margin-top: 2em;
     padding: 1em;
     box-shadow: 0 0 1em #bbbbbb;
+    font-size: .8em;
 }
 
-    .btn , .lista{
-        font-size: .8em;
-    }
-    .conteiner-ingreso .card-header {
-        padding: .5em 0 .5em 1em;
-        font-size: .8em;
-        font-weight: bold;
-    }
 
-    .conteiner-ingreso .card-body {
-        padding: .5em;
-    }
-
-    .conteiner-ingreso .card-body .form-group{
-        margin-bottom: .5em;
-    }
-
-    .conteiner-ingreso .card-body input{
-        font-size: .8em;
-    }
-
-
-
-.card-h4 {
-    margin-bottom: .5em;
-    
-}
 
     .title-prinicpal {
-        padding: .2em 0;
-        background-color: #f1f1f1;
+        background-color: #F7F7F7;
         text-align: center;
         font-family: 'Roboto Condensed', sans-serif;
         font-weight: bold;
-        margin: 0;
+        margin-bottom: 1em;
+        padding: .5em 0;
+    }
+    .form-group {
+        margin-bottom: .6em;
+    }
+
+    .form-control {
+        font-size: 1em;
+    }
+
+        .title-prinicpal p{
+            margin-bottom: 0;
+            font-size: 1.1em;
+        }
+
+
+    .card-header {
+        font-weight: bold;
+        font-size: .9em;
+    }
+
+    .card-body {
+        padding: .5em;
+    }
+
+    .conteiner-servicios {
+        width: 800px;
     }
 
 
+    .agregar_servicio {
+        border-radius: 100%;
+        background: linear-gradient(243.87deg, #01B6B7 2.6%, #35528C 60.6%);
+        border: none;
+        padding: .2em;
+        font-size: 4em;
+        color: #fff;
+    }
+
+
+
+
+   
+
+
+
+
+/* ////////////////////////////////////////////////
+COLOR BOTONES
+//////////////////////////////////////////////// */   
 
 .registrar_vehiculo {
     background: linear-gradient(243.87deg, #ACC34F 2.6%, #00AA79 60.6%); 
@@ -58,30 +89,14 @@ body {
     }
 
 
-.conteiner-servicios {
-    padding: .5em .5em 0 .5em;
-    margin-top: .5em;
-}
-
-.conteiner-list .form-group {
-    padding: 0;
-}
-
-
-.seleccionador {
-    font-size: .7em;
-}
-
 .agregar_servicio {
-    background: linear-gradient(243.87deg, #01B6B7 2.6%, #35528C 60.6%);
-    border: none;
+    
     
 }
     .agregar_servicio:hover {
         background: linear-gradient(243.87deg, #01B6B7 2.6%, #01B6B7 60.6%);
 
     }
-
 
 .ingresar_vehiculo {
     background: linear-gradient(243.87deg, #36538D 2.6%, #00B8B8 60.6%);
@@ -101,3 +116,38 @@ body {
     .cancelar:hover {
         background: linear-gradient(243.87deg, #FF9000 2.6%, #FF9000 60.6%);
     }  
+
+
+
+/* ////////////////////////////////////////////////
+HORIZONTAL SCROLL
+//////////////////////////////////////////////// */  
+
+.conteiner-servicios {
+    margin: 2em 0;
+}
+
+    .image-container{
+        left: 35%;
+        width: 100%;
+      }
+      
+      .scroll-horizontal{
+        overflow-x: scroll;
+        overflow-y: hidden;
+        display:block;
+        width:100%;
+      }
+      
+      .image-group {
+        white-space:nowrap;
+        width:auto;
+      }
+      
+      
+      .image-placeholer{
+        display: inline-block;
+        background: lightgreen;
+        width: 80px;
+        height: 80px;
+      }

@@ -1,11 +1,12 @@
 <?php
 
-class Pagines {
+class Pagines extends Controllers{
     public function inicio(){
-        include "./views/pagines/inicio.php";
+        $this->views->getView($this,"inicio");
     }
     public function error(){
-        include "./views/pagines/error.php";
+        $this->views->getView($this,"error");
+
     }
 }
 

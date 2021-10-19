@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+ @import url('https://fonts.googleapis.com/css?family=Roboto');
 
 body{
 	font-family: 'Roboto', sans-serif;
@@ -10,7 +10,7 @@ body{
 i {
 	margin-right: 10px;
 }
-/*----------bootstrap-navbar-css------------*/
+/* ----------bootstrap-navbar-css------------ */
 .navbar-logo{
 	padding: 15px;
 	color: #fff;
@@ -179,3 +179,4 @@ button:focus {
 .quinto-item i:hover{
 	color: rgb(255, 255, 255);
 }
+

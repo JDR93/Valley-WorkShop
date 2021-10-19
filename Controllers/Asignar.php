@@ -1,11 +1,20 @@
 <?php
 
 
-class Asignar
+class Asignar extends Controllers
 {
-    public function inicio()
+
+    public function __construct()
     {
-        include "./views/asignar/asignarVeh.php"; 
+        parent::__construct();
+    }
+    
+    public function asignar()
+    {   
+        $data['page_title'] = "Asignar Vehiculo";
+        $data['page_name'] = "Asignar vehiculo";
+        $data['page_tag'] = "";
+        $this->views->getView($this,"asignarVeh",$data);
     }
 
 }

@@ -1,22 +1,25 @@
 <?php
 
 
-class Ingresos
+class Ingresos extends Controllers
 {
 
     public function __construct()
     {
-        
+        parent::__construct();
     }
 
-    public function inicio()
+    public function ingresos()
     {
-        include "./views/ingresos/ingresoVehicular.php"; 
+        $data['page_title'] = "Ingreso de vehiculo";
+        $data['page_name'] = "Ingresar vehiculo";
+        $data['page_tag'] = "";
+        $this->views->getView($this,"ingresoVehicular",$data);
     }
 
     public function insertar()
     {
-        include "./views/ingresos/insertar.php"; 
+        $this->views->getView($this,"insertar");
     }
 
 }

@@ -13,7 +13,7 @@ class User {
     }
 
     public function insertar($user,$pass,$email,$tipo){
-        require_once "../../conection.php";
+        require_once "./Config/conection.php";
         $conexion = BD::instanciar();
         $resulset = $conexion->prepare('INSERT INTO users(user,pass,email,tipo_user) VALUES(?,?,?,?)');
 
@@ -23,7 +23,7 @@ class User {
     }
 
     public function verificar($usuario){
-        require_once "../../conection.php";
+        require_once "./Config/conection.php";
         $conexion = BD::instanciar();
         $resulset = $conexion->prepare('SELECT * FROM users WHERE user = ?');
         $resulset->execute([$usuario]);

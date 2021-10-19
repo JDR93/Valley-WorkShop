@@ -45,18 +45,22 @@ function test(){
 
   
   
-  /*
+  
   // --------------add active class-on another-page move----------
   jQuery(document).ready(function($){
 	// Get current path and find target link
 	var path = window.location.pathname.split("/").pop();
 
-	console.log("Imprimiento path: "+path);
+	console.log(path);
 	 
 	// Account for home page with empty path
-	if ( path == '' ) {
-	  path = 'index.html';
+	if ( path == 'Ingresos' ) {
+	  path = 'http://localhost/valleyworkshop/Ingresos';
 	}
+
+	if ( path == 'Asignar' ) {
+		path = 'http://localhost/valleyworkshop/Asignar';
+	  }
 
   
 	var target = $('#navbarSupportedContent ul li a[href="'+path+'"]');
@@ -64,6 +68,5 @@ function test(){
 	target.parent().addClass('active');
   });
 
-  */
 
 
