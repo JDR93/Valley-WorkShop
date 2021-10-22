@@ -1,1 +1,0 @@
-<h2>Bienvenido has logrado entrar</h2>

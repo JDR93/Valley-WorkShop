@@ -1,19 +1,14 @@
 <?php
 
     function headerAdmin($data=""){
-        $view_header = "Views/Template_admin/header.php";
+        $view_header = "Views/template_admin/header_admin.php";
         require_once($view_header);
     }
     function footerAdmin($data=""){
-        $view_footer = "Views/Template_admin/footer.php";
+        $view_footer = "Views/template_admin/footer_admin.php";
         require_once($view_footer);
     }
-    function ingresoVehiculo($data=""){
-        $view_ingreso = "Views/ingresos/ingresoVehicular.php";
-        require_once($view_ingreso);
-    }
-
-    
+  
 
     //Obteniendo url principal
     function base_url(){

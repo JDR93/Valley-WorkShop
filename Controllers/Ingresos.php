@@ -11,9 +11,9 @@ class Ingresos extends Controllers
 
     public function ingresos()
     {
-        $data['page_title'] = "Ingreso de vehiculo";
+        $data['page_title'] = "INGRESO DE VEHICULO";
         $data['page_name'] = "Ingresar vehiculo";
-        $data['page_tag'] = "";
+        $data['page_tag'] = "Ingresos";
         $this->views->getView($this,"ingresoVehicular",$data);
     }
 

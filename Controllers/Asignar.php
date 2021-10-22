@@ -11,10 +11,10 @@ class Asignar extends Controllers
     
     public function asignar()
     {   
-        $data['page_title'] = "Asignar Vehiculo";
-        $data['page_name'] = "Asignar vehiculo";
-        $data['page_tag'] = "";
-        $this->views->getView($this,"asignarVeh",$data);
+        $data['page_title'] = "Asignar mecanico";
+        $data['page_name'] = "Asignar mecanico";
+        $data['page_tag'] = "Asignacion";
+        $this->views->getView($this,"asignarMec",$data);
     }
 
 }

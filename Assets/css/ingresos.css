@@ -1,0 +1,193 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.page-content {
+  padding-top: 0 !important;
+}
+
+.page_title {
+  margin: 0;
+}
+
+form {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 1em 0;
+}
+
+fieldset {
+  padding: 32px;
+  border: 1px solid #ccc;
+  border-radius: 16px;
+  scroll-margin: 32px;
+}
+fieldset:not(:last-child) {
+  margin-bottom: 32px;
+}
+fieldset fieldset {
+  padding: 16px;
+  border-radius: 8px;
+}
+fieldset fieldset legend {
+  font-size: 1em;
+  padding: 0 8px;
+  margin-left: -8px;
+}
+
+legend {
+  font-size: 1.5em;
+  font-weight: 500;
+  margin-left: -16px;
+  padding: 0 16px;
+}
+
+label {
+  font-weight: 500;
+  color: #555;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: center;
+}
+label:not(:last-child) {
+  margin-bottom: 0.5em;
+}
+@media (max-width: 600px) {
+  label {
+    grid-template-columns: 1fr;
+  }
+  label input, label select {
+    margin-top: 8px;
+  }
+}
+
+input:not([type=checkbox]) {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+}
+
+input, select {
+  font-family: inherit;
+  padding: 0.4em;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+input:focus, select:focus {
+  outline: none;
+}
+
+.next, .next:visited {
+  text-decoration: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: #3498db;
+  float: right;
+  border: none;
+  font-size: inherit;
+  cursor: pointer;
+}
+.next:hover, .next:visited:hover {
+  background-color: #5faee3;
+  text-decoration: none;
+}
+.next:focus, .next:visited:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px white, 0 0 0 4px #3498db;
+}
+
+input[type=checkbox]:focus {
+  outline: 2px solid #3498db;
+}
+
+.checkbox-label {
+  display: inline-block;
+}
+
+#fieldset-billing-address {
+  display: none;
+}
+
+.progress-bar {
+  width: 100vw;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: #3498db;
+  height: 8px;
+  transition: transform 0.5s ease;
+  transform: scaleX(0.25);
+  transform-origin: left;
+}
+
+.btn-registrar_vehiculo {
+  width: 80%;
+  margin: 2em auto;
+  text-align: center;
+}
+
+.container-service {
+  width: 100%;
+  height: 300px;
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 0.4em;
+}
+
+.container-service ul {
+  width: 500%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.container-service li {
+  border: 1px solid red;
+  width: 300px;
+  margin-right: 1em;
+  height: 200px;
+  background: rgba(255, 0, 0, 0.1);
+  float: left;
+}
+
+.demo-card-square.mdl-card {
+  width: 220px;
+  height: 250px;
+  float: left;
+  margin: 1rem;
+  position: relative;
+}
+
+.demo-card-square.mdl-card:hover {
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+}
+
+.demo-card-square > .mdl-card__title {
+  color: #fff;
+  background: #03a9f4;
+}
+
+.demo-card-square > .mdl-card__accent {
+  background: #ff9800;
+}
+
+body {
+  padding: 20px;
+  background: #fafafa;
+  position: relative;
+}
+
+select {
+  color: white;
+  background-color: #9c9c9c;
+}
+
+/*# sourceMappingURL=ingresos.css.map */

@@ -16,4 +16,9 @@ class Login extends Controllers
     {
         $this->views->getView($this,"verificar");
     }
+
+    public function cerrar_session()
+    {
+        $this->views->getView($this,"cerrar_session");
+    }
 }

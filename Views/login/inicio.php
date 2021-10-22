@@ -21,10 +21,12 @@
     <form method="POST" id="formulario_login">
 
         <div class="login-wrapper">
+            
             <div class="login-left">
                 <img src="./Assets/img/nebula.jpg">
                 <div class="h1">Enter the Nebula</div>
             </div>
+
             <div class="login-right">
                 <div class="h2">Administración</div>
                 <div class="form-group">
@@ -37,7 +39,7 @@
                     <input type="submit" id="enviar_login" name="submit" class="btn btn-secondary btn-ingresar btn_login" value="ingresar">
                 </div>
 
-                <!-- <h4 class="registrarse">¿No tienes una cuenta? <a href="#">Registrarme</a></h4> -->
+                <h4 class="registrarse">¿No tienes una cuenta? <a href="#">Registrarme</a></h4>
 
             </div>
 

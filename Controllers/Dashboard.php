@@ -12,10 +12,9 @@ class Dashboard extends Controllers
     {   
         $data['page_title'] = "Administración";
         $data['page_name'] = "";
-        $data['page_tag'] = "";
+        $data['page_tag'] = "Administración";
         $this->views->getView($this,"dashboard",$data);
     }
-
 
 }
 
