@@ -3,8 +3,6 @@
 require_once "./Config/conection.php";
 require_once "./Models/User.php";
 
-sleep(1);
-
 if (!(empty($_POST['user_login']) || empty($_POST['pass_login']))) {
 
     // Almacenando datos

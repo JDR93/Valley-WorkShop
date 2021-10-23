@@ -76,12 +76,6 @@
                         dataType: 'json',
                         data: $(this).serialize(),
 
-
-                        beforeSend: function() {
-                            $('.btn_login').val('Validando...');
-                        }
-
-
                     })
                     .done(function(respuesta) {
                         if (!respuesta.error) {
@@ -105,13 +99,10 @@
                                 }, 2000);
                             } else {
                                 $('.error').slideDown('slow');
+                                setTimeout(function() {
+                                    $('.error').slideUp('slow');
+                                }, 2000);
                             }
-
-                            setTimeout(function() {
-                                $('.error').slideUp('slow');
-                            }, 2000);
-
-                            $('.btn_login').val('INGRESAR');
 
                         }
                     })
@@ -133,7 +124,7 @@
             <div class="h2">Recuperar contraseña</div>
 
             <div class="form-group">
-                <input type="text" id="correo_register" name="correo_register" placeholder="Digite su correo electronico" autocomplete="off">
+                <input type="text" id="correo" name="correo_register" placeholder="Digite su correo electronico" autocomplete="off">
             </div>
             <div class="button-area">
                 <input type="button" id="enviar_correo" name="enviar_correo" class="btn btn-secondary btn-ingresar btn_recuperar" value="Recuperar">
@@ -148,7 +139,7 @@
     <script>
         $('#enviar_correo').click(function() {
 
-            var correo = document.getElementById('correo_register').value;
+            var correo = document.getElementById('correo').value;
             var ruta = "correo=" + correo;
 
             jQuery.ajax({
@@ -156,12 +147,6 @@
                     type: 'POST',
                     dataType: 'json',
                     data: ruta,
-
-
-                    beforeSend: function() {
-                        $('.btn_recuperar').val('Validando...');
-                    }
-
                 })
                 .done(function(respuesta) {
                     console.log("success");
@@ -177,7 +162,7 @@
                         }, 2000);
 
                     }
-                    
+
                     if (respuesta.filter == false) {
                         $('.error_correo').slideDown('slow');
                         setTimeout(function() {
@@ -191,6 +176,7 @@
                         setTimeout(function() {
                             $('.correo_enviado').slideUp('slow');
                         }, 4000);
+                        document.getElementById("correo").value = "";
 
                     }
 

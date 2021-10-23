@@ -11,10 +11,6 @@ require_once "Libraries/PHPMailer-master/src/SMTP.php";
 
 $correo = $_POST["correo"];
 
-
-
-
-
 if (!empty($correo)) {
 
     if (filter_var($correo, FILTER_VALIDATE_EMAIL) != true) {
