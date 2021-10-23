@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="JD Enterprise">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión</title>
+    <title><?php echo $data['page_tag']; ?></title>
 
     <link rel="icon" href="./Assets/img/service.png" type="image/png" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="./Assets/css/login.css">
+    <link rel="stylesheet" href="<?php base_url() ?>Assets/css/login.css">
 </head>
 
 <body>
@@ -17,11 +18,11 @@
     <!------------ Thanks Daniel Almeida for the reference  ----------->
     <!-- https://dribbble.com/shots/4027518-Login-screen-intermethod -->
 
-    
+
     <form method="POST" id="formulario_login">
 
         <div class="login-wrapper">
-            
+
             <div class="login-left">
                 <img src="./Assets/img/nebula.jpg">
                 <div class="h1">Enter the Nebula</div>
@@ -39,7 +40,7 @@
                     <input type="submit" id="enviar_login" name="submit" class="btn btn-secondary btn-ingresar btn_login" value="ingresar">
                 </div>
 
-                <h4 class="registrarse">¿No tienes una cuenta? <a href="#">Registrarme</a></h4>
+                <h4 class="registrarse">¿Olvidaste la contraseña? <a href="#">Recuperar</a></h4>
 
             </div>
 
@@ -49,6 +50,12 @@
             <div class="error_campo_vacio">
                 <span>Digite los campos vacios.</span>
             </div>
+            <div class="error_correo">
+                <span>Porfavor dígite un correo válido.</span>
+            </div>
+            <div class="correo_enviado">
+                <span>Se ha enviado un email a tu cuenta de correo.</span>
+            </div>
 
 
     </form>
@@ -57,14 +64,14 @@
     <!--/////////////////////////////////////////////
         JQUERY PARA LOGIN-INGRESO
         ///////////////////////////////////////////// -->
+
     <script>
         $(function(login) {
             jQuery(document).on('submit', '#formulario_login', function(event) {
                 event.preventDefault();
 
-
                 jQuery.ajax({
-                        url: 'Login/verificar',
+                        url: '<?php base_url() ?>Login/verificar',
                         type: 'POST',
                         dataType: 'json',
                         data: $(this).serialize(),
@@ -77,10 +84,9 @@
 
                     })
                     .done(function(respuesta) {
-                        console.log(respuesta);
                         if (!respuesta.error) {
-                            if (respuesta.tipo == 'Admin') {
-                                location.href = '<?php echo base_url()?>Dashboard';
+                            if (respuesta.tipo == 'Admininstrador') {
+                                location.href = '<?php echo base_url() ?>Dashboard';
                             }
 
                         } else {
@@ -88,6 +94,9 @@
 
                             user = $(".user_login").val();
                             pass = $(".pass_login").val();
+
+                            console.log(user);
+                            console.log(pass);
 
                             if (user.length == 0 || pass.length == 0) {
                                 $('.error_campo_vacio').slideDown('slow');
@@ -118,32 +127,83 @@
     </script>
 
 
-
-
-    <form method="POST" id="formulario_register" method="insertar.php">
+    <form method="POST" id="formulario_recuperar" action="">
 
         <div class="login-register">
-            <div class="h2">Registrar Usuario</div>
+            <div class="h2">Recuperar contraseña</div>
+
             <div class="form-group">
-                <input type="text" id="user_register" name="user_register" placeholder="Nombre de usuario" autocomplete="off">
-            </div>
-            <div class="form-group">
-                <input type="text" id="tipo_register" name="tipo_register" placeholder="Tipo de usuario" autocomplete="off">
-            </div>
-            <div class="form-group">
-                <input type="text" id="correo_register" name="correo_register" placeholder="Correo electronico" autocomplete="off">
-            </div>
-            <div class="form-group">
-                <input type="password" id="pass_register" name="pass_register" placeholder="Contraseña" autocomplete="off">
+                <input type="text" id="correo_register" name="correo_register" placeholder="Digite su correo electronico" autocomplete="off">
             </div>
             <div class="button-area">
-                <input type="SUBMIT" id="enviar_registro" name="submit" class="btn btn-secondary btn-ingresar btn_registrar" value="Registrarse">
-                <h4 class="registrarse ingresar">¿Ya tienes cuenta? <a href="#">Ingresar</a></h4>
+                <input type="button" id="enviar_correo" name="enviar_correo" class="btn btn-secondary btn-ingresar btn_recuperar" value="Recuperar">
+                <h4 class="registrarse ingresar">¿La recordaste? <a href="#">Ingresar</a></h4>
             </div>
-
         </div>
-
     </form>
+
+
+
+
+    <script>
+        $('#enviar_correo').click(function() {
+
+            var correo = document.getElementById('correo_register').value;
+            var ruta = "correo=" + correo;
+
+            jQuery.ajax({
+                    url: '<?php base_url() ?>Login/recuperar',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: ruta,
+
+
+                    beforeSend: function() {
+                        $('.btn_recuperar').val('Validando...');
+                    }
+
+                })
+                .done(function(respuesta) {
+                    console.log("success");
+                    console.log("error: " + respuesta.error);
+                    console.log("correo: " + respuesta.correo);
+                    console.log("filter: " + respuesta.filter);
+
+
+                    if (respuesta.correo == '' && respuesta.error) {
+                        $('.error_campo_vacio').slideDown('slow');
+                        setTimeout(function() {
+                            $('.error_campo_vacio').slideUp('slow');
+                        }, 2000);
+
+                    }
+                    
+                    if (respuesta.filter == false) {
+                        $('.error_correo').slideDown('slow');
+                        setTimeout(function() {
+                            $('.error_correo').slideUp('slow');
+                        }, 4000);
+
+                    }
+
+                    if (respuesta.send) {
+                        $('.correo_enviado').slideDown('slow');
+                        setTimeout(function() {
+                            $('.correo_enviado').slideUp('slow');
+                        }, 4000);
+
+                    }
+
+
+                })
+                .fail(function(resp) {
+                    console.log(resp.responseText);
+                })
+                .always(function() {
+                    console.log("complete");
+                });
+        });
+    </script>
 
 
 

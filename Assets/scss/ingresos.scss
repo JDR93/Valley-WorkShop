@@ -1,22 +1,8 @@
-$blue: #3498db;
+@import url(https://fonts.googleapis.com/css?family=Roboto:100,300,400,900,700,500,300,100);
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: system-ui, sans-serif;
-  padding: 0 16px;
-  box-sizing:border-box;
-}
-
-.page-content {
-  padding-top: 0 !important;
-}
-.page_title{
-  margin: 0;
-}
-
+///////////////////////////////////////////////////////////
+///////// AJUSTES GENERALES ///////////////////////////////
+///////////////////////////////////////////////////////////
 
 form {
   max-width: 100%;
@@ -24,40 +10,15 @@ form {
   padding: 1em 0;
 }
 
-fieldset {
-  padding: 32px;
-  border: 1px solid #ccc;
-  border-radius: 16px;
-  scroll-margin: 32px;
-  
-  &:not(:last-child) {
-    margin-bottom: 32px;
-  }
-  
-  fieldset {
-    padding: 16px;
-    border-radius: 8px;
-    legend {
-      font-size: 1em;
-      padding: 0 8px;
-      margin-left: -8px;
-    }
-  }
-}
-
-legend {
-  font-size: 1.5em;
-  font-weight: 500;
-  margin-left: -16px;
-  padding: 0 16px;
-}
-
 label {
-  font-weight: 500;
-  color: #555;
+  font-weight: 600;
+  color: #666;
   display: grid;
   grid-template-columns: 1fr 2fr;
   align-items: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: .82em;
+
   
   &:not(:last-child) {
     margin-bottom: .5em;
@@ -73,7 +34,6 @@ label {
 }
 
 input:not([type=checkbox]) {
-  
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
@@ -84,6 +44,8 @@ input, select {
   font-family: inherit;
   padding: .4em;
   border-radius: 8px;
+  color: #999;
+  font-weight: 500;
   border: 1px solid #ccc;
   &:focus {
     outline: none;
@@ -95,77 +57,37 @@ input, select {
   color: white;
   padding: 8px 16px;
   border-radius: 8px;
-  background-color: $blue;
   float: right;
   border: none;
   font-size: inherit;
   cursor: pointer;
   
   &:hover {
-    background-color: lighten($blue, 10%);
     text-decoration: none;
   }
   
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 2px white, 0 0 0 4px $blue;
   }
 }
 
-input[type=checkbox]:focus {
-    outline: 2px solid $blue;
-}
-
-.checkbox-label {
-  display: inline-block;
-}
-
-#fieldset-billing-address {
-  display: none;
-}
-
-.progress-bar {
-  width: 100vw;
-  position: fixed;
-  left: 0;
-  top: 0;
-  background-color: $blue;
-  height: 8px;
-  transition: transform 0.5s ease;
-  transform: scaleX(0.25);
-  transform-origin: left;
-}
-
-.btn-registrar_vehiculo {
-  width: 80%;
-  margin: 2em auto;
-  text-align: center;
-}
 //////////////////////////////////////////////////////////////////////
 // SCROLL HORIZONTAL
 //////////////////////////////////////////////////////////////////////
 
-.container-service {
-  width:100%;
-  height: 300px;
-  overflow-x: scroll;  
-  -webkit-overflow-scrolling: touch;
-  border-radius: .4em;
+.container-service{
+  overflow-x: scroll; 
+  padding-bottom: 1em; 
 }
 .container-service ul {
-  width: 500%;
+
   list-style: none;
-  margin: 0;
   padding: 0;
+  display: -webkit-box;
 }
  
  
 .container-service li {
-  border: 1px solid red;
-  width: 300px;
-  margin-right: 1em;
-  height: 200px;
-  background: hsla( 0, 100%, 50%, 0.1 );
   float: left;
 }
 
@@ -173,33 +95,56 @@ input[type=checkbox]:focus {
 // CARD STYLE 
 //////////////////////////////////////////////////////////////////////
 
-.demo-card-square.mdl-card {
-  width: 220px;
-  height: 250px;
-  float: left;
-  margin: 1rem;
-  position: relative;
+.card-header {
+  font-weight: bolder;
+  font-size: .9em;
+  font-family: 'Roboto', sans-serif;
+  color: #444;
 }
 
-.demo-card-square.mdl-card:hover {
-  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12), 0 5px 5px -3px rgba(0, 0, 0, .2);
+.container-card_service {
+  width: 340px;
+  font-family: 'Roboto', sans-serif;
 }
 
-.demo-card-square > .mdl-card__title {
+.container-card_service .card {
+  border-radius: .4em;
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+}
+.container-card_service .card-header {
+  width: 100%;
+  height: 120px;
+  padding: 0;
+  background-color: #fff;
+}
+
+.container-card_service .card-header img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.container-card_service .card-body {
+  padding: 0;
+}
+
+.container-card_service .card-title {
+  font-size: .8em;
+  background-color: #03A9F4;
+  padding: 1em;
+  padding-top: 1.2em;
   color: #fff;
-  background: #03a9f4;
+  height: 60px;
+  width: 100%;
+  border-radius: .4em .4em 0 0;
 }
 
-.demo-card-square > .mdl-card__accent {
-  background: #ff9800;
-}
+.container-card_service .card-text {
+  padding: 1em;
+  font-size: .8em;
+  color: #666;
+  height: 140px;
 
-body {
-  padding: 20px;
-  background: #fafafa;
-  position: relative;
 }
-
 //////////////////////////////////////////////////////////////////////
 // OTROS AJUSTES
 //////////////////////////////////////////////////////////////////////
@@ -207,4 +152,12 @@ body {
 select {
   color: rgb(255, 255, 255);
   background-color: rgb(156, 156, 156);
+}
+
+.agregar-service {
+  height: 50px;
+  font-weight: 600;
+  font-family: 'Roboto', sans-serif;
+  color: rgb(48, 48, 48);
+  font-size: .8em;
 }

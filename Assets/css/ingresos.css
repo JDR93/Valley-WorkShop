@@ -1,59 +1,18 @@
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: system-ui, sans-serif;
-  padding: 0 16px;
-  box-sizing: border-box;
-}
-
-.page-content {
-  padding-top: 0 !important;
-}
-
-.page_title {
-  margin: 0;
-}
-
+@import url(https://fonts.googleapis.com/css?family=Roboto:100,300,400,900,700,500,300,100);
 form {
   max-width: 100%;
   margin: 0 auto;
   padding: 1em 0;
 }
 
-fieldset {
-  padding: 32px;
-  border: 1px solid #ccc;
-  border-radius: 16px;
-  scroll-margin: 32px;
-}
-fieldset:not(:last-child) {
-  margin-bottom: 32px;
-}
-fieldset fieldset {
-  padding: 16px;
-  border-radius: 8px;
-}
-fieldset fieldset legend {
-  font-size: 1em;
-  padding: 0 8px;
-  margin-left: -8px;
-}
-
-legend {
-  font-size: 1.5em;
-  font-weight: 500;
-  margin-left: -16px;
-  padding: 0 16px;
-}
-
 label {
-  font-weight: 500;
-  color: #555;
+  font-weight: 600;
+  color: #666;
   display: grid;
   grid-template-columns: 1fr 2fr;
   align-items: center;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.82em;
 }
 label:not(:last-child) {
   margin-bottom: 0.5em;
@@ -78,6 +37,8 @@ input, select {
   font-family: inherit;
   padding: 0.4em;
   border-radius: 8px;
+  color: #999;
+  font-weight: 500;
   border: 1px solid #ccc;
 }
 input:focus, select:focus {
@@ -89,105 +50,96 @@ input:focus, select:focus {
   color: white;
   padding: 8px 16px;
   border-radius: 8px;
-  background-color: #3498db;
   float: right;
   border: none;
   font-size: inherit;
   cursor: pointer;
 }
 .next:hover, .next:visited:hover {
-  background-color: #5faee3;
   text-decoration: none;
 }
 .next:focus, .next:visited:focus {
   outline: none;
-  box-shadow: 0 0 0 2px white, 0 0 0 4px #3498db;
-}
-
-input[type=checkbox]:focus {
-  outline: 2px solid #3498db;
-}
-
-.checkbox-label {
-  display: inline-block;
-}
-
-#fieldset-billing-address {
-  display: none;
-}
-
-.progress-bar {
-  width: 100vw;
-  position: fixed;
-  left: 0;
-  top: 0;
-  background-color: #3498db;
-  height: 8px;
-  transition: transform 0.5s ease;
-  transform: scaleX(0.25);
-  transform-origin: left;
-}
-
-.btn-registrar_vehiculo {
-  width: 80%;
-  margin: 2em auto;
-  text-align: center;
 }
 
 .container-service {
-  width: 100%;
-  height: 300px;
   overflow-x: scroll;
-  -webkit-overflow-scrolling: touch;
-  border-radius: 0.4em;
+  padding-bottom: 1em;
 }
 
 .container-service ul {
-  width: 500%;
   list-style: none;
-  margin: 0;
   padding: 0;
+  display: -webkit-box;
 }
 
 .container-service li {
-  border: 1px solid red;
-  width: 300px;
-  margin-right: 1em;
-  height: 200px;
-  background: rgba(255, 0, 0, 0.1);
   float: left;
 }
 
-.demo-card-square.mdl-card {
-  width: 220px;
-  height: 250px;
-  float: left;
-  margin: 1rem;
-  position: relative;
+.card-header {
+  font-weight: bolder;
+  font-size: 0.9em;
+  font-family: "Roboto", sans-serif;
+  color: #444;
 }
 
-.demo-card-square.mdl-card:hover {
+.container-card_service {
+  width: 340px;
+  font-family: "Roboto", sans-serif;
+}
+
+.container-card_service .card {
+  border-radius: 0.4em;
   box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
 }
 
-.demo-card-square > .mdl-card__title {
+.container-card_service .card-header {
+  width: 100%;
+  height: 120px;
+  padding: 0;
+  background-color: #fff;
+}
+
+.container-card_service .card-header img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.container-card_service .card-body {
+  padding: 0;
+}
+
+.container-card_service .card-title {
+  font-size: 0.8em;
+  background-color: #03A9F4;
+  padding: 1em;
+  padding-top: 1.2em;
   color: #fff;
-  background: #03a9f4;
+  height: 60px;
+  width: 100%;
+  border-radius: 0.4em 0.4em 0 0;
 }
 
-.demo-card-square > .mdl-card__accent {
-  background: #ff9800;
-}
-
-body {
-  padding: 20px;
-  background: #fafafa;
-  position: relative;
+.container-card_service .card-text {
+  padding: 1em;
+  font-size: 0.8em;
+  color: #666;
+  height: 140px;
 }
 
 select {
   color: white;
   background-color: #9c9c9c;
+}
+
+.agregar-service {
+  height: 50px;
+  font-weight: 600;
+  font-family: "Roboto", sans-serif;
+  color: #303030;
+  font-size: 0.8em;
 }
 
 /*# sourceMappingURL=ingresos.css.map */

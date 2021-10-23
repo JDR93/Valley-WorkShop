@@ -3,7 +3,7 @@ require_once("Config/config.php");
 require_once ("Helpers/Helpers.php");
 
 
-$url = !empty($_GET['url']) ? $_GET['url'] : 'login/inicio'; //Varaible puesta en el archivo .htaccess
+$url = !empty($_GET['url']) ? $_GET['url'] : 'login/login'; //Varaible puesta en el archivo .htaccess
 //si la variable $url no esta vacia sera igual a la misma sino sera igual a ruta predeterminada.
 $arrayUrl = explode('/',$url);
 

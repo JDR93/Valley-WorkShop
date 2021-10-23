@@ -58,24 +58,106 @@
                 Servicios registrados
             </div>
             <div class="card-body">
-
                 <div class="container-service">
                     <ul>
-                        <!-- Square card -->
-                        <div class="mdl-card mdl-shadow--2dp demo-card-square">
-                            <div class="mdl-card__title mdl-card--expand">
-                                <h2 class="mdl-card__title-text">Titulo</h2>
+
+                        <li>
+                            <!-- Square card -->
+                            <div class="container container-card_service">
+                                <div class="card">
+                                    <h4 class="card-title">Cambio de filtro de aire y cables de alta con bujias preparadas</h4>
+                                    <div class="card-header">
+                                        <img style="width: 100%;" src="<?php base_url() ?>Assets/img/filtro.jpg" alt="">
+                                    </div>
+                                    <div class="card-body">
+
+                                        <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio, deleniti?</p>
+                                    </div>
+
+
+                                    <div class="card-footer text-muted">
+                                        <span class="badge bg-secondary" style="width: 100%; color: #fff; padding: 1em 2em; background-color: #aaa !important; float: right; ">$35.000</span>
+                                    </div>
+
+
+
+
+                                </div>
                             </div>
-                            <div class="mdl-card__supporting-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenan convallis.
+                        </li>
+                        <li>
+                            <!-- Square card -->
+                            <div class="container container-card_service">
+                                <div class="card">
+                                    <h4 class="card-title">Cambio de filtro de aire y cables de alta con bujias preparadas</h4>
+                                    <div class="card-header">
+                                        <img style="width: 100%;" src="<?php base_url() ?>Assets/img/filtro.jpg" alt="">
+                                    </div>
+                                    <div class="card-body">
+
+                                        <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio, deleniti?</p>
+                                    </div>
+
+
+                                    <div class="card-footer text-muted">
+                                        <span class="badge bg-secondary" style="width: 100%; color: #fff; padding: 1em 2em; background-color: #aaa !important; float: right; ">$35.000</span>
+                                    </div>
+
+
+
+
+                                </div>
                             </div>
-                            <div class="mdl-card__actions mdl-card--border">
-                                <a class="btn btn-danger" style="color: #fff;">
-                                    Remover
-                                </a>
-                                <span style="font-size: 1em; font-weight: bold; margin: .8em;" class="mdl-card__supporting-text">$56.500</span>
+                        </li>
+                        <li>
+                            <!-- Square card -->
+                            <div class="container container-card_service">
+                                <div class="card">
+                                    <h4 class="card-title">Cambio de filtro de aire y cables de alta con bujias preparadas</h4>
+                                    <div class="card-header">
+                                        <img style="width: 100%;" src="<?php base_url() ?>Assets/img/filtro.jpg" alt="">
+                                    </div>
+                                    <div class="card-body">
+
+                                        <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio, deleniti?</p>
+                                    </div>
+
+
+                                    <div class="card-footer text-muted">
+                                        <span class="badge bg-secondary" style="width: 100%; color: #fff; padding: 1em 2em; background-color: #aaa !important; float: right; ">$35.000</span>
+                                    </div>
+
+
+
+
+                                </div>
                             </div>
-                        </div>
+                        </li>
+                        <li>
+                            <!-- Square card -->
+                            <div class="container container-card_service">
+                                <div class="card">
+                                    <h4 class="card-title">Cambio de filtro de aire y cables de alta con bujias preparadas</h4>
+                                    <div class="card-header">
+                                        <img style="width: 100%;" src="<?php base_url() ?>Assets/img/filtro.jpg" alt="">
+                                    </div>
+                                    <div class="card-body">
+
+                                        <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio, deleniti?</p>
+                                    </div>
+
+
+                                    <div class="card-footer text-muted">
+                                        <span class="badge bg-secondary" style="width: 100%; color: #fff; padding: 1em 2em; background-color: #aaa !important; float: right; ">$35.000</span>
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
+                        </li>
+
                     </ul>
                 </div>
             </div>
@@ -114,7 +196,7 @@
                             <tr>
                                 <td><a class="cut" style="font-weight: bolder; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 1em; border-radius: .3em; margin: .2em 0 0 -2em; padding:.6em 1em; color: #fff; background-color: red; ">X</a><span contenteditable></span></td>
                                 <td><span></span></td>
-                                <td><span data-prefix>$</span><span>0</span></td>
+                                <td><span data-prefix>$</span><span>32000</span></td>
                                 <td><span contenteditable>1</span></td>
                                 <td><span data-prefix>$</span><span>600.00</span></td>
                             </tr>

@@ -21,14 +21,6 @@ if (empty($_SESSION['user'])) {
     <link rel="stylesheet" href="<?php base_url() ?>Assets/css/ingresos.css">
     <link rel="stylesheet" href="<?php base_url() ?>Assets/css/facturacion.css">
     <link rel="stylesheet" href="<?php base_url() ?>Assets/css/productos.css">
-
-
-
-    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.min.js"></script>
-    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.blue-orange.min.css">
-    <!-- Material Design icon font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
 </head>
 
 <body>

@@ -4,7 +4,12 @@ include "./models/User.php";
 
 class Login extends Controllers
 {
-    public function inicio()
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function login()
     {
         $data['page_title'] = "Login";
         $data['page_name'] = "Login administradores";
@@ -21,4 +26,10 @@ class Login extends Controllers
     {
         $this->views->getView($this,"cerrar_session");
     }
+
+    public function recuperar()
+    {
+        $this->views->getView($this,"recuperar");
+    }
+
 }

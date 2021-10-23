@@ -1,0 +1,136 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:100,300,400,900,700,500,300,100);
+
+
+#invoiceholder h1{
+  font-size: 1.5em;
+  color: #222;
+}
+#invoiceholder h2{font-size: .9em;}
+#invoiceholder h3{
+  font-size: 1.2em;
+  font-weight: 300;
+  line-height: 2em;
+}
+#invoiceholder p{
+  font-size: .7em;
+  color: #666;
+  line-height: 1.2em;
+}
+
+#invoiceholder{
+  width:100%;
+  height: 100%;
+  font-size: 1.4em;
+  font-family: 'Roboto', sans-serif;
+}
+
+
+#invoiceholder #invoice{
+  position: relative;
+  margin: 0 auto;
+  width: 800px;
+  background: #FFF;
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+
+}
+
+[id*='invoice-']{ /* Targets all id with 'col-' */
+  border-bottom: 1px solid #EEE;
+  padding: 30px;
+}
+
+#invoice-top{min-height: 120px;}
+#invoice-mid{min-height: 120px;}
+#invoice-bot{ min-height: 250px;}
+
+#invoiceholder .logo{
+  float: left;
+	height: 60px;
+	width: 60px;
+	background: url(http://michaeltruong.ca/images/logo1.png) no-repeat;
+	background-size: 60px 60px;
+}
+#invoiceholder .clientlogo{
+  float: left;
+	height: 60px;
+	width: 60px;
+	background: url(http://michaeltruong.ca/images/client.jpg) no-repeat;
+	background-size: 60px 60px;
+  border-radius: 50px;
+}
+#invoiceholder .info{
+  display: block;
+  float:left;
+  margin-left: 20px;
+}
+#invoiceholder .title{
+  float: right;
+}
+#invoiceholder .title p{text-align: right;}
+#invoiceholder #project{margin-left: 52%;}
+#invoiceholder table{
+  width: 100%;
+  border-collapse: collapse;
+}
+#invoiceholder td{
+  padding: 5px 0 5px 15px;
+  border: 1px solid #EEE
+}
+#invoiceholder .tabletitle{
+  padding: 5px;
+  background: #EEE;
+}
+#invoiceholder .service{border: 1px solid #EEE;}
+#invoiceholder .item{width: 50%;}
+.itemtext{font-size: .9em;}
+
+#legalcopy{
+  margin-top: 30px;
+}
+#invoiceholder form{
+  float:right;
+  margin-top: 30px;
+  text-align: right;
+}
+
+
+#invoiceholder .effect2
+{
+  position: relative;
+}
+.effect2:before, .effect2:after
+{
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 15px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width:300px;
+  background: #777;
+  -webkit-box-shadow: 0 15px 10px #777;
+  -moz-box-shadow: 0 15px 10px #777;
+  box-shadow: 0 15px 10px #777;
+  -webkit-transform: rotate(-3deg);
+  -moz-transform: rotate(-3deg);
+  -o-transform: rotate(-3deg);
+  -ms-transform: rotate(-3deg);
+  transform: rotate(-3deg);
+}
+.effect2:after
+{
+  -webkit-transform: rotate(3deg);
+  -moz-transform: rotate(3deg);
+  -o-transform: rotate(3deg);
+  -ms-transform: rotate(3deg);
+  transform: rotate(3deg);
+  right: 10px;
+  left: auto;
+}
+
+
+
+.legal{
+  width:70%;
+}

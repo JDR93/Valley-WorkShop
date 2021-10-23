@@ -1,0 +1,10 @@
+
+.btn-select {
+    width: 100%;
+    height: 40px;
+    font-weight: 600;
+    font-family: 'Roboto', sans-serif;
+    color: rgb(255, 255, 255);
+    font-size: 1em;
+    padding-top: .8em;
+}

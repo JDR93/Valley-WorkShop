@@ -1,7 +1,7 @@
 <nav id="sidebar" class="sidebar-wrapper">
     <div class="sidebar-content">
         <div class="sidebar-brand">
-            <a href="#">Administracion</a>
+            <a href="#"><?php echo $_SESSION['rol']; ?></a>
             <div id="close-sidebar">
                 <i class="fas fa-times"></i>
             </div>
@@ -22,6 +22,14 @@
             </div>
         </div>
         <!-- sidebar-header  -->
+
+        <?php 
+        
+        if($_SESSION['rol'] == 'Ingresos'){
+            
+        }
+        
+        ?>
 
         <div class="sidebar-menu">
             <ul>

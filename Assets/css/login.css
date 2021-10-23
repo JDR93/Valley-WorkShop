@@ -333,7 +333,6 @@ input[type="checkbox"]:checked:after {
     z-index: 4;
     top: -35.2px;
     color: #fff;
-    background-color: green;
     width: 50%;
     float: right;
     text-align: center;
@@ -348,10 +347,37 @@ input[type="checkbox"]:checked:after {
     z-index: 4;
     top: -35.2px;
     color: #fff;
-    background-color: green;
     width: 50%;
     float: right;
     text-align: center;
     background: linear-gradient(198.08deg, #ca770b 35.34%, #dfd43d 224.21%);
+
+  }
+
+  .error_correo{
+    display: none;
+    padding: .5em;
+    position: relative;
+    z-index: 4;
+    top: -35.2px;
+    color: #fff;
+    width: 50%;
+    float: right;
+    text-align: center;
+    background: linear-gradient(198.08deg, #135cee 35.34%, #cb1be6 224.21%);
+
+  }
+
+  .correo_enviado{
+    display: none;
+    padding: .5em;
+    position: relative;
+    z-index: 4;
+    top: -35.2px;
+    color: #fff;
+    width: 50%;
+    float: right;
+    text-align: center;
+    background: linear-gradient(198.08deg, #468134 50.34%, #791e72 224.21%);
 
   }
