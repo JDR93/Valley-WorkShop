@@ -79,9 +79,9 @@
                     })
                     .done(function(respuesta) {
                         if (!respuesta.error) {
-                            if (respuesta.tipo == 'Admininstrador') {
+                            //if (respuesta.tipo == 'Admininstrador') {
                                 location.href = '<?php echo base_url() ?>Dashboard';
-                            }
+                            //}
 
                         } else {
                             var user, pass;

@@ -57,24 +57,6 @@
     transition: all 0.3s ease;
   }
   
-  /*----------------page-wrapper----------------*/
-  
-  .page-wrapper {
-    height: 100vh;
-  }
-  
-  .page-wrapper .theme {
-    width: 40px;
-    height: 40px;
-    display: inline-block;
-    border-radius: 4px;
-    margin: 2px;
-  }
-  
-  .page-wrapper .theme.chiller-theme {
-    background: #1e2229;
-  }
-  
   /*----------------toggeled sidebar----------------*/
   
   .page-wrapper.toggled .sidebar-wrapper {
@@ -194,12 +176,6 @@
     font-size: 8px;
     margin-right: 4px;
     color: #5cb85c;
-  }
-  
-  /*-----------------------sidebar-search------------------------*/
-  
-  .sidebar-wrapper .sidebar-search > div {
-    padding: 10px 20px;
   }
   
   /*----------------------sidebar-menu-------------------------*/

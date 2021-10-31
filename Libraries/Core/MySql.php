@@ -1,6 +1,6 @@
 <?php
 
-require_once "conection.php";
+require_once "./Config/conection.php";
 
 class Mysql extends BD
 {

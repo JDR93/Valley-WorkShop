@@ -17,10 +17,6 @@ function GetDynamicTextBox(value) {
 }
 
 
-
-
-
-
 // NEW TABLE
 
 /* Shivving (IE8 is not supported, but at least it won't look as awful)

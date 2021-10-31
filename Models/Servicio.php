@@ -9,10 +9,10 @@ class Servicio extends Mysql {
         parent::__construct();
     }
 
-    public function insertarServicio($codigo,$nombre,$costo){
-        $query_insert = "INSERT INTO servicio (codigo,nombre,costo) 
-        VALUES (?,?,?)";
-        $arrData = [$codigo,$nombre,$costo];
+    public function insertarServicio($codigo,$nombre,$descripcion,$costo,$imagen,$estado){
+        $query_insert = "INSERT INTO servicio (codigo,nombre,descripcion,costo,imagen,estado) 
+        VALUES (?,?,?,?,?,?)";
+        $arrData = [$codigo,$nombre,$descripcion,$costo,$imagen,$estado];
         $requuest_insert = $this->insert($query_insert,$arrData);
         return $requuest_insert;
     }

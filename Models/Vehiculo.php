@@ -9,10 +9,10 @@ class Vehiculo extends Mysql {
         parent::__construct();
     }
 
-    public function insertarVehiculo($placa,$marca,$linea,$anio,$tipo,$id_propietario){
-        $query_insert = "INSERT INTO vehiculo (placa,marca,linea,anio,tipo,id_propietario)
+    public function insertarVehiculo($placa,$marca,$modelo,$anio,$tipo,$id_propietario){
+        $query_insert = "INSERT INTO vehiculo (placa,marca,modelo,anio,tipo,id_propietario)
         VALUES (?,?,?,?,?,?)";
-        $arrData = [$placa,$marca,$linea,$anio,$tipo,$id_propietario];
+        $arrData = [$placa,$marca,$modelo,$anio,$tipo,$id_propietario];
         $request_insert = $this->insert($query_insert,$arrData);
         return $request_insert;
     }
@@ -36,9 +36,9 @@ class Vehiculo extends Mysql {
         return $request_select;
     }
 
-    public function updateVehiculo($request_id, $placa,$marca,$linea,$anio,$tipo,$id_propietario){
-        $query_update = "UPDATE vehiculo SET placa = ?, marca = ?, linea = ?, anio = ?, tipo = ?, id_propietario WHERE id = $request_id)";
-        $arrData = [$placa,$marca,$linea,$anio,$tipo,$id_propietario];
+    public function updateVehiculo($request_id, $placa,$marca,$modelo,$anio,$tipo,$id_propietario){
+        $query_update = "UPDATE vehiculo SET placa = ?, marca = ?, modelo = ?, anio = ?, tipo = ?, id_propietario WHERE id = $request_id)";
+        $arrData = [$placa,$marca,$modelo,$anio,$tipo,$id_propietario];
         $requuest_insert = $this->update($query_update,$arrData);
         if($request_id){
             return $requuest_insert;
