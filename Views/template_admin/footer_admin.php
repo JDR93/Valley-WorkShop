@@ -8,6 +8,11 @@
     <script src="<?php base_url() ?>Assets/js/productos.js"></script>
 <?php } ?>
 
+<?php if ($data['page_name'] == 'Registrar servicio') { ?>
+    <script src="<?php base_url() ?>Assets/js/function_file.js"></script>
+    <script src="<?php base_url() ?>Assets/js/registrar_servicio.js"></script>
+<?php } ?>
+
 <script src="<?php base_url() ?>Assets/js/side_menu.js"></script>
 
 </body>

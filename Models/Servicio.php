@@ -1,6 +1,6 @@
 <?php
 
-require_once "./Libraries/Core/MySql.php";
+require_once "../../Libraries/Core/MySql.php";
 
 
 class Servicio extends Mysql {
@@ -9,10 +9,10 @@ class Servicio extends Mysql {
         parent::__construct();
     }
 
-    public function insertarServicio($codigo,$nombre,$descripcion,$costo,$imagen,$estado){
-        $query_insert = "INSERT INTO servicio (codigo,nombre,descripcion,costo,imagen,estado) 
-        VALUES (?,?,?,?,?,?)";
-        $arrData = [$codigo,$nombre,$descripcion,$costo,$imagen,$estado];
+    public function insertarServicio($codigo,$nombre,$descripcion,$costo,$imagen){
+        $query_insert = "INSERT INTO servicio (codigo,nombre,descripcion,costo,imagen) 
+        VALUES (?,?,?,?,?)";
+        $arrData = [$codigo,$nombre,$descripcion,$costo,$imagen];
         $requuest_insert = $this->insert($query_insert,$arrData);
         return $requuest_insert;
     }
@@ -23,33 +23,21 @@ class Servicio extends Mysql {
         return $request_select;
     }
 
-    public function getServicio($id){
-        $query_select = "SELECT * FROM servicio WHERE id = $id";
+    public function getServicio($code){
+        $query_select = "SELECT * FROM servicio WHERE codigo = $code";
         $request_select = $this->select($query_select);
-
-        if($request_select){
-            echo "Encontrado correctamente.";
-        }else{
-            echo "No se encontro el servicio seleccionado.";
-        }
 
         return $request_select;
     }
 
-    public function updateServicio($request_id,$codigo,$nombre,$costo){
-        $query_update = "UPDATE servicio SET codigo = ?, nombre = ?, costo = ? WHERE id = $request_id)";
-        $arrData = [$codigo,$nombre,$costo];
+    public function updateServicio($request_id,$codigo,$nombre,$costo,$descripcion){
+        $query_update = "UPDATE servicio SET codigo = ?, nombre = ?, costo = ?, descripcion = ? WHERE id = $request_id";
+        $arrData = [$codigo,$nombre,$costo,$descripcion];
         $requuest_insert = $this->update($query_update,$arrData);
-        if($request_id){
-            return $requuest_insert;
-        }else{
-            echo "Algo salio mal.";
-        }
-        
     }
 
-    public function removerServicio($id){
-        $query_delete = "DELETE FROM servicio WHERE id = $id";
+    public function removerServicio($code){
+        $query_delete = "DELETE FROM servicio WHERE codigo = $code";
         $request_delete = $this->delete($query_delete);
         return $request_delete;
     }

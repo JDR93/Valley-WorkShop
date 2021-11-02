@@ -14,6 +14,7 @@ if (empty($_SESSION['user'])) {
 <head>
     <meta charset="UTF-8">
     <title><?php echo $data['page_tag'] ?></title>
+    
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css'>
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.13/css/all.css'>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -26,7 +27,7 @@ if (empty($_SESSION['user'])) {
     <link rel="stylesheet" href="<?php base_url() ?>Assets/css/facturacion.css">
     <link rel="stylesheet" href="<?php base_url() ?>Assets/css/productos.css">
 
-    <?php if ($data['page_name'] == 'Registrar servicios') { ?>
+    <?php if ($data['page_name'] == 'Registrar servicio') { ?>
         <link rel="stylesheet" href="<?php base_url() ?>Assets/css/registrar_servicios.css">
     <?php } ?>
 </head>

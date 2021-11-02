@@ -1,161 +1,54 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:100,300,400,900,700,500,300,100);
-/* ///////////////////////////////////////////////////
-   /////////// TARJETA 
-/////////////////////////////////////////////////// */
-.container-tarjeta {
-  font-family: "Roboto", sans-serif;
-  border-radius: 0 0 0.4em 0.4em;
-  box-shadow: 0 8px 40px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
-}
-
-.container-img img {
-  padding: 1em;
-}
-
-.container-text .title .code {
-  font-size: 0.9em;
-  font-weight: bold;
-  color: #fff;
-  padding: 0.7em 1em;
-  background-color: #F4A903;
-  flex-grow: 1;
-}
-
-.container-text .title .nombre {
-  font-size: 0.9em;
-  font-weight: bold;
-  color: #fff;
-  padding: 0.7em 1em;
-  background-color: #03A9F4;
-  flex-grow: 15;
-}
-
-.container-text .descp {
-  padding: 1em;
-  font-size: 0.8em;
-}
-
-.container-costo {
-  padding-right: 1em;
-  padding-bottom: 1em;
-  justify-content: end;
-}
-
-.container-costo .costo {
-  background-color: #707070;
-  padding: 0.8em 4em;
-  font-size: 0.9em;
-  font-weight: bolder;
-  color: #fff;
-}
-
-/* ///////////////////////////////////////////////////
-   /////////// END TARJETA 
-/////////////////////////////////////////////////// */
-.form-registrar_productos {
-  padding-top: 0;
-}
-
-/*
-.form-registrar_productos .form-control {
-    font-size: .8em;
-}
-
-.container-circle-down {
-    width: 100%;
-
-}
-.container-circle-down {
-    display: flex;
-    justify-content: center;
-}
-.container-circle-down a {
-    color: #079b33;
-    font-size: 3em;
-    transition: 1s ease all;
-    margin: 0 .2em;
-}
-.container-circle-down a:hover {
-    color: #212529;
-}
-
-#text-next {
-    color: #fff;
-    padding: 1.2em;
-    position: none;
-    display: none;
-}
-
-#container-table {
-    margin-top: 2em;
-}
-
-#btn-up {
-    position: fixed;
-    left: 97%;
-    bottom: 10px;
-}
-
-#btn-up i{
-    color: #E0A800;
-    opacity: 30%;
-    font-size: 3em;
-    transition: ease-in all .5s;
-}
-#btn-up i:hover{
-    opacity: 80%;
+.card {
+  border: 1px solid rgb(192, 192, 192);
 }
 
 
-
-#btn-down{
-    position: fixed;
-    left: 18%;
-    bottom: 10px;
-}
-
-#btn-down i{
-    color: #31353D;
-    opacity: 15%;
-    font-size: 3em;
-    transition: ease-in all .5s;
-}
-
-#btn-down i:hover{
-    opacity: 80%;
-}
-
-.pagination {
-    margin: 0;
-}
-
-.pagination .active {
-    background-color: #F4A903;
-}
-
-.pagination .active:hover {
-    background-color: #F4A903 !important;
-}
-
-.pie-paginacion {
-    width: 100%;
-    display: flex;
+form {
+    max-width: 100%;
     margin: 0 auto;
-    justify-content: center;
+    padding: 0;
+
+  }
+
+  label {
+    font-weight: 600;
+    color: #666;
+    font-family: "Roboto", sans-serif;
+    font-size: 0.82em;
+  }
+
+  input, select, textarea {
+    font-family: inherit !important;
+    border-radius: 8px !important;
+    color: rgb(83, 83, 83) !important;
+    border: 1px solid rgb(182, 182, 182) !important;
+    font-size: .8em !important;
+    font-weight: bold;
+  }
+
+  input::placeholder , textarea::placeholder {
+      color: rgb(129, 129, 129) !important;
+      font-weight: 100;
+      font-size: 1.1em; 
+  }
+
+  .btn-choose {
+    border-radius: 8px 0 0 8px;
+  }
+
+  .input-choose {
+    border-radius: 0 !important;
+  }
+
+  .btn-reset {
+    border-radius: 0 8px 8px 0;
+  }
+
+#registrar {
+    height: 50;
+    font-weight: 600;
+    font-family: "Roboto", sans-serif;
+    color: #303030;
+    font-size: 0.8em;
 }
 
-.container-acciones {
-
-}
-    .container-acciones #editar , #eliminar {
-        color: #fff;
-        margin: .1em;
-    }
-
-
-html {
-    scroll-behavior: smooth;
-}
-*/
-
-/*# sourceMappingURL=registrar_servicios.css.map */

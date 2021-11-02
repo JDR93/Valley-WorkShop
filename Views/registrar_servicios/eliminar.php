@@ -1,12 +1,17 @@
 <?php 
 
-require_once "./Models/Servicio.php";
+require_once "../../Models/Servicio.php";
 
-$id = $_POST['eliminar'];
-echo json_encode(['id'=>$id]);
+if(isset($_POST['code'])){
+    $code = $_POST['code'];
 
-$service = new Servicio();
-$service->removerServicio($id);
-
+    $service = new Servicio();
+    $result = $service->removerServicio($code);
+    if(!$result){
+        die("Ha ocurrido un problema... ");
+    }
+    echo "Eliminado satisfactoriamente.";
+}
 
 ?>
+

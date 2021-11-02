@@ -1,6 +1,6 @@
 <?php
 
-require_once "./Config/conection.php";
+require_once "../../Config/conection.php";
 
 class Mysql extends BD
 {
@@ -35,7 +35,7 @@ class Mysql extends BD
         $this->query = $query;
 
         $selectAll = $this->conexion->query($query);
-        $data = $selectAll->fetchAll(PDO::FETCH_BOTH);
+        $data = $selectAll->fetchAll(PDO::FETCH_OBJ);
         return $data;
     }
 
@@ -45,7 +45,7 @@ class Mysql extends BD
 
         $result = $this->conexion->prepare($this->query);
         $result->execute();
-        $data = $result->fetch(PDO::FETCH_BOTH);
+        $data = $result->fetch(PDO::FETCH_OBJ);
         return $data;
     }
 

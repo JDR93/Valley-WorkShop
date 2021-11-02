@@ -1,40 +1,43 @@
 <?php
-require_once "./Models/Servicio.php";
 
+require_once "../../Models/Servicio.php";
 
-$codigo = $_POST["txtCodigo"];
-$nombre = $_POST["txtNombre"];
-$descripcion = $_POST["txtDesc"];
-$costo = $_POST["txtCosto"];
-$estado = (!empty($_POST["txtEstado"])) ? $_POST["txtEstado"] : 'off' ;
+$codigo = $_POST["codigo"];
+$precio = $_POST["precio"];
+$nombre = $_POST["nombre"];
+$imagen = (isset($_FILES['imagen']['name'])) ? $_FILES['imagen']['name'] : "imagen.jpg";
+$descripcion = $_POST["descripcion"];
 
+if (!(empty($_POST["codigo"]) || empty($_POST["nombre"]) || empty($_POST["descripcion"]) || empty($_POST["precio"]) )){
 
-$imagen = (isset($_FILES['txtImagen']['name'])) ? $_FILES['txtImagen']['name'] : "imagen.jpg";
-
-
-
-if (!(empty($_POST["txtCodigo"]) || empty($_POST["txtNombre"]) || empty($_POST["txtDesc"]) || empty($_POST["txtCosto"]) )){
-
-
+/*
     $fecha = new DateTime();
     if ($imagen != "") {
-        $nombreArchivo = $fecha->getTimestamp() . "_" . $_FILES["txtImagen"]["name"];
+        $nombreArchivo = $fecha->getTimestamp() . "_" . $_FILES["imagen"]["name"];
     } else {
         $nombreArchivo = "imagen.jpg";
     }
 
 
-    $tmpImagen = $_FILES["txtImagen"]["tmp_name"];
+    $tmpImagen = $_FILES["imagen"]["tmp_name"];
 
     if ($tmpImagen != "") {
         move_uploaded_file($tmpImagen, "./Assets/img/images.services/" . $nombreArchivo); // move_uploaded_file: Funcion del sistema de archivos
     }
 
-    $service = new Servicio();
     $imagen = $nombreArchivo;
-    $insercion = $service->insertarServicio($codigo, $nombre, $descripcion, $costo, $imagen, $estado);
+*/
+    $service = new Servicio();
+    $insercion = $service->insertarServicio($codigo, $nombre, $descripcion, $precio, $imagen);
     
-    echo json_encode(['codigo' => $codigo,'nombre' => $nombre,'descripcion' => $descripcion,'costo' => $costo,'imagen' => $imagen, 'estado'=>$estado]);
+    if(!$insercion){
+        die ("Algo fallo...");
+    }
+    echo "Servicio insertado";
+    
 } else {
     echo json_encode(['error' => true]);
 }
+
+
+?>
