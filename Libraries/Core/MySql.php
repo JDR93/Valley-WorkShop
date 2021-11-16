@@ -1,6 +1,6 @@
 <?php
 
-require_once "../../Config/conection.php";
+require_once "Config/conection.php";
 
 class Mysql extends BD
 {
@@ -15,6 +15,8 @@ class Mysql extends BD
 
     public function insert($query, $array)
     {
+
+
         $this->query = $query;
         $this->array = $array;
 
@@ -62,10 +64,9 @@ class Mysql extends BD
     public function delete($query)
     {
         $this->query = $query;
-        
+
         $result = $this->conexion->prepare($this->query);
         $data = $result->execute();
         return $data;
-        
     }
 }

@@ -8,87 +8,171 @@
         <h2 class="page_title" style="font-family: 'Bebas Neue'; color: #707070"><?php echo $data['page_title'] ?></h2>
         <hr>
 
-        <form>
+
+        <form id="Formulario" method="POST">
             <div class="row">
                 <div class="col-6">
 
                     <div class="card">
+
                         <div class="card-header">
-                            Datos del vehículo
-                        </div>
-                        <div class="card-body">
-                            <label>
-                                Placa
-                                <input type="text" name="txtPlaca" required>
-                            </label>
-                            <label>
-                                Marca
-                                <input type="text" name="txtMarca" required>
-                            </label>
-                            <label>
-                                Línea
-                                <input type="text" name="txtLinea" required>
-                            </label>
-                            <label>
-                                Modelo
-                                <input type="text" name="txtModelo" required>
-                            </label>
-                            <label>
-                                Tipo
-                                <select name="tipo" required>
-                                    <option value="A">Automovil</option>
-                                    <option value="M">Motocicleta</option>
-                                </select>
-                            </label>
+                            Datos del Vehículo
                         </div>
 
+                        <div class="card-body">
+
+                            <div class="col-12">
+                                <input name="" type="hidden" id="">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="placa">Placa:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control-plaintext px-2" name="placa" id="placa" autocomplete="off" placeholder="Placa del vehiculo">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="marca">Marca:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control-plaintext px-2" name="marca" id="marca" autocomplete="off" placeholder="Marca del vehiculo">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="linea">Linea:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control-plaintext px-2" name="linea" id="linea" autocomplete="off" placeholder="Linea del vehiculo">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="modelo">Modelo:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control-plaintext px-2" name="modelo" id="modelo" autocomplete="off" placeholder="Modelo del vehiculo">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="tipo">Tipo:</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control-plaintext px-2" id="exampleFormControlSelect1">
+                                            <option value="A">Automovil</option>
+                                            <option value="M">Motocicleta</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
                     </div>
+
+                    <button type="button" name="registrar" id="registrarVehiculo" class="btn btn-success btn-lg btn-block my-4 disabled">Registrar Vehiculo</button>
+
                 </div>
 
                 <div class="col-6">
 
                     <div class="card">
+
                         <div class="card-header">
-                            Datos del propietario
+                            Datos del Propietario
                         </div>
+
+
                         <div class="card-body">
-                            <label>
-                                Identificación
-                                <input type="text" name="txtIdentificacion" required>
-                            </label>
-                            <label>
-                                Nombres
-                                <input type="text" name="txtNombres" required>
-                            </label>
-                            <label>
-                                Apellidos
-                                <input type="text" name="txtApellidos" required>
-                            </label>
-                            <label>
-                                Genero
-                                <select name="Genero" required>
-                                    <option value="M">Masculino</option>
-                                    <option value="F">Femenino</option>
-                                </select>
-                            </label>
-                            <label>
-                                Teléfono
-                                <input type="text" name="txtTelefono" required>
-                            </label>
-                            <label>
-                                Correo
-                                <input type="text" name="txtCorreo" required>
-                            </label>
-                            <label>
-                                Dirección
-                                <input type="text" name="txtDireccion" required>
-                            </label>
+
+                            <div class="col-12">
+                                <input name="idService" type="hidden" id="idService">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="identificacion">Identificacion:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control-plaintext px-2" name="identificacion" id="identificacion" autocomplete="off" placeholder="Identificacion del propietario">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="nombres">Nombres:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control-plaintext px-2" name="nombres" id="nombres" autocomplete="off" placeholder="Nombres del propietario">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="apellidos">Apellidos:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control-plaintext px-2" name="apellidos" id="apellidos" autocomplete="off" placeholder="Apellidos del propietario">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12">
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="genero">Genero:</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control-plaintext px-2" id="exampleFormControlSelect1">
+                                            <option value="M">Masculino</option>
+                                            <option value="F">Femenino</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="telefono">Telefono:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control-plaintext px-2" name="telefono" id="telefono" autocomplete="off" placeholder="Telefono del propietario">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="correo">Correo:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control-plaintext px-2" name="correo" id="correo" autocomplete="off" placeholder="Correo del propietario">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="direccion">Direccion:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control-plaintext px-2" name="direccion" id="direccion" autocomplete="off" placeholder="Direccion del propietario">
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </div>
+
+
+
+
+
                     </div>
-
-
-
-
 
                 </div>
             </div>
@@ -96,19 +180,35 @@
             <div class="row my-4">
 
                 <div class="col-12">
+                    <div class="form-group row">
 
-                    <div class="row">
-                        <div class="col-9" style="margin: auto;">
-                            <select name="servicio" class="w-100" required>
-                                <option value="id">Revision al funcionamiento del sistema electrico - $12800</option>
-                                <option value="id">Revision al funcionamiento del sistema electrico - $12800</option>
+                        <div class="col-sm-9">
+                            <select id="servicio" name="servicio" class="form-control-plaintext px-2 py-3">
+
+                                <?php
+
+                                require_once "Config/conection.php";
+
+                                $conection = BD::instanciar();
+                                $result = $conection->query("SELECT * FROM servicio");
+                                $array = $result->fetchAll(PDO::FETCH_BOTH);
+
+                                foreach ($array as $row) { ?>
+                                    <option value="<?php echo $row[1]; ?>"><?php echo $row[1] . " - " . $row[2] . " - " . $row[4]; ?></option>
+                                <?php } ?>
+
                             </select>
                         </div>
+
+
                         <div class="col-3">
-                            <button type="button" class="w-100 btn btn-warning agregar-service" data-toggle="modal" data-target="#exampleModalCenter">
-                                Agregar servicio
-                            </button>
+                            <button type="button" name="registrar" id="agregarServicio" class="btn btn-warning btn-lg btn-block agregar-service">Agregar Servicio</button>
                         </div>
+
+                    </div>
+
+                    <div id="error-duplicate-msj" style="display: none; background-color: #35528C; text-align: center">
+                        <h5 style="color: #fff; font-family: 'Bebas Neue', cursive; padding: .5em; margin: 0;"><i style="color:#fff" class="fas fa-exclamation-triangle mr-2"></i>El servicio ya se encunetra registrado.</h5>
                     </div>
 
                     <div class="card my-4">
@@ -116,110 +216,16 @@
                             Servicios agregados
                         </div>
                         <div class="card-body">
-                            <div class="container-service">
-                                <ul>
-
-                                    <li>
-                                        <!-- Square card -->
-                                        <div class="container container-card_service">
-                                            <div class="card">
-                                                <h4 class="card-title">Cambio de filtro de aire y cables de alta con bujias preparadas</h4>
-                                                <div class="card-header">
-                                                    <img style="width: 100%;" src="<?php base_url() ?>Assets/img/filtro.jpg" alt="">
-                                                </div>
-                                                <div class="card-body">
-
-                                                    <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio, deleniti?</p>
-                                                </div>
-
-
-                                                <div class="card-footer text-muted">
-                                                    <span class="badge bg-secondary" style="width: 100%; color: #fff; padding: 1em 2em; background-color: #aaa !important; float: right; ">$35.000</span>
-                                                </div>
-
-
-
-
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <!-- Square card -->
-                                        <div class="container container-card_service">
-                                            <div class="card">
-                                                <h4 class="card-title">Cambio de filtro de aire y cables de alta con bujias preparadas</h4>
-                                                <div class="card-header">
-                                                    <img style="width: 100%;" src="<?php base_url() ?>Assets/img/filtro.jpg" alt="">
-                                                </div>
-                                                <div class="card-body">
-
-                                                    <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio, deleniti?</p>
-                                                </div>
-
-
-                                                <div class="card-footer text-muted">
-                                                    <span class="badge bg-secondary" style="width: 100%; color: #fff; padding: 1em 2em; background-color: #aaa !important; float: right; ">$35.000</span>
-                                                </div>
-
-
-
-
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <!-- Square card -->
-                                        <div class="container container-card_service">
-                                            <div class="card">
-                                                <h4 class="card-title">Cambio de filtro de aire y cables de alta con bujias preparadas</h4>
-                                                <div class="card-header">
-                                                    <img style="width: 100%;" src="<?php base_url() ?>Assets/img/filtro.jpg" alt="">
-                                                </div>
-                                                <div class="card-body">
-
-                                                    <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio, deleniti?</p>
-                                                </div>
-
-
-                                                <div class="card-footer text-muted">
-                                                    <span class="badge bg-secondary" style="width: 100%; color: #fff; padding: 1em 2em; background-color: #aaa !important; float: right; ">$35.000</span>
-                                                </div>
-
-
-
-
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <!-- Square card -->
-                                        <div class="container container-card_service">
-                                            <div class="card">
-                                                <h4 class="card-title">Cambio de filtro de aire y cables de alta con bujias preparadas</h4>
-                                                <div class="card-header">
-                                                    <img style="width: 100%;" src="<?php base_url() ?>Assets/img/filtro.jpg" alt="">
-                                                </div>
-                                                <div class="card-body">
-
-                                                    <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio, deleniti?</p>
-                                                </div>
-
-
-                                                <div class="card-footer text-muted">
-                                                    <span class="badge bg-secondary" style="width: 100%; color: #fff; padding: 1em 2em; background-color: #aaa !important; float: right; ">$35.000</span>
-                                                </div>
-
-
-
-
-                                            </div>
-                                        </div>
-                                    </li>
-
+                            <div class="container-service" id="container-service">
+                                <ul id="listar-servicios">
                                 </ul>
                             </div>
                         </div>
 
+                    </div>
+
+                    <div id="error-services-null" style="display: none; background-color: #35528C; text-align: center">
+                        <h5 style="color: #fff; font-family: 'Bebas Neue', cursive; padding: .5em; margin: 0;"><i style="color:#fff" class="fas fa-exclamation-triangle mr-2"></i>El servicio ya se encunetra registrado.</h5>
                     </div>
 
 
@@ -227,9 +233,9 @@
             </div>
 
             <div class="row">
-                <button type="submit" class="btn btn-primary ingresar_vehiculo p-4 my-2 w-100" style=" box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12), 0 5px 5px -3px rgba(0, 0, 0, .2);">
-                    Ingresar vehiculo
-                </button>
+
+                <button type="button" style="color: #fff;" name="ingresarVehiculo" id="ingresarVehiculo" class="btn btn-primary btn-lg btn-block agregar-service">Ingresar Vehículo</button>
+
             </div>
         </form>
 

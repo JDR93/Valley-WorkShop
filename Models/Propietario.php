@@ -4,17 +4,38 @@ require_once "./Libraries/Core/MySql.php";
 
 
 class Propietario extends Mysql {
-    public function __construct()
+
+    private $id;
+    private $nuid;
+    private $nombres;
+    private $apellidos;
+    private $genero;
+    private $telefono;
+    private $correo;
+    private $direccion;
+
+
+    public function __construct($nuid,$nombres,$apellidos,$genero,$telefono,$correo,$direccion)
     {
         parent::__construct();
+
+        $this->nuid = $nuid;
+        $this->nombres = $nombres;
+        $this->apellidos = $apellidos;
+        $this->genero = $genero;
+        $this->telefono = $telefono;
+        $this->correo = $correo;
+        $this->direccion = $direccion;
     }
 
-    public function insertarPropietario($nuid,$nombres,$apellidos,$genero,$telefono,$correo,$direccion){
-        $query_insert = "INSERT INTO propietario (nuid, nombres, apellidos, genero, telefono, correo, direccion) 
-        VALUES (?,?,?,?,?,?,?)";
-        $arrData = [$nuid,$nombres,$apellidos,$genero,$telefono,$correo,$direccion];
-        $requuest_insert = $this->insert($query_insert,$arrData);
-        return $requuest_insert;
+    public function __get($name)
+    {
+        return $this->$name;
+    }
+
+    public function __set($name, $value)
+    {
+        $this->$name = $value;
     }
 
     public function mostrarPropietarios(){
@@ -23,18 +44,7 @@ class Propietario extends Mysql {
         return $request_select;
     }
 
-    public function getPropietario($id){
-        $query_select = "SELECT * FROM propietario WHERE id = $id";
-        $request_select = $this->select($query_select);
-
-        if($request_select){
-            echo "Encontrado correctamente.";
-        }else{
-            echo "No se encontro el propietario seleccionado.";
-        }
-
-        return $request_select;
-    }
+    
 
     public function updatePropietario($request_id, $nuid,$nombres,$apellidos,$genero,$telefono,$correo,$direccion){
         $query_update = "UPDATE propietario SET nuid = ?, nombres = ?, apellidos = ?, genero = ?, telefono = ?, correo = ?, direccion = ?, WHERE id = $request_id)";

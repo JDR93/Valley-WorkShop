@@ -1,3 +1,8 @@
+html {
+  scroll-behavior: smooth;
+}
+
+
 .card {
   border: 1px solid rgb(192, 192, 192);
 }
@@ -7,7 +12,6 @@ form {
     max-width: 100%;
     margin: 0 auto;
     padding: 0;
-
   }
 
   label {
@@ -44,6 +48,11 @@ form {
     border-radius: 0 8px 8px 0;
   }
 
+  #resultado td:last-child #btn-edit {
+    margin: 0;
+    margin-left: .2em;
+  }
+
 #registrar {
     height: 50;
     font-weight: 600;
@@ -52,3 +61,83 @@ form {
     font-size: 0.8em;
 }
 
+.error {
+  display: initial;
+  color: #D62F31;
+}
+
+#registrado-msj {
+  display: none;
+}
+
+#resultado td {
+  vertical-align:  inherit;
+}
+
+#show-sidebar {
+  z-index: 1;
+}
+
+
+@media only screen and (max-width: 1412px) {
+
+  .page-wrapper.toggled .page-content {
+    padding-left: 260px !important;
+  }
+
+  .page-wrapper .page-content > div {
+    padding: 20px 30px !important;
+  }
+
+  #resultado td:last-child {
+    padding: 0;
+  }
+  
+ }
+
+
+@media only screen and (max-width: 1240px) {
+
+  .page-wrapper.toggled .page-content {
+    padding-left: 260px !important;
+  }
+
+  .page-wrapper .page-content > div {
+    padding: 20px 30px !important;
+  }
+
+  #comienzo-pag .card {
+    word-wrap: normal;
+  }
+
+  #resultado td:last-child {
+    padding: 0;
+  }
+  
+}
+
+@media only screen and (max-width: 1200px) {
+
+  .table thead th:last-child  {
+    width: 4% !important;
+  }
+
+  #resultado td button {
+    display: block;
+    margin: .2em auto !important;
+  }
+
+  .container {
+    max-width: 1260px;
+  }
+
+}
+
+@media only screen and (max-width: 720px) {
+  .table th{
+    padding: 0 .2em;
+  }
+  .table td {
+    padding: 0;
+  }
+}

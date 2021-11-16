@@ -1,6 +1,6 @@
 <?php
 
-require_once "../../Models/Servicio.php";
+require_once "Models/Servicio.php";
 
 $code = $_POST['code'];
 

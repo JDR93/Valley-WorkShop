@@ -1,8 +1,9 @@
 <?php
-
+require_once "./Models/Mantenimiento.php";
 
 class Ingresos extends Controllers
 {
+
 
     public function __construct()
     {
@@ -18,10 +19,27 @@ class Ingresos extends Controllers
     }
 
     public function insertar()
-    {
+    {   
         $this->views->getView($this,"insertar");
     }
 
+    public function buscar()
+    {
+        $this->views->getView($this,"buscar");
+    }
+    public function agregarServicio()
+    {
+        $this->views->getView($this,"agregarServicio");
+    }
+
+    public function registrarVehiculo()
+    {
+        $this->views->getView($this,"registrarVehiculo");
+    }
+    public function ingresar()
+    {
+        $this->views->getView($this,"ingresar");
+    }
 }
 
 

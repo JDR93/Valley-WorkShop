@@ -4,55 +4,35 @@
 ///////// AJUSTES GENERALES ///////////////////////////////
 ///////////////////////////////////////////////////////////
 
-form {
-  max-width: 100%;
-  margin: 0 auto;
+.container-ingresos form {
   padding: 1em 0;
 }
 
-label {
+.container-ingresos label {
   font-weight: 600;
   color: #666;
   display: grid;
   grid-template-columns: 1fr 2fr;
   align-items: center;
-  font-family: 'Roboto', sans-serif;
-  font-size: .82em;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.82em;
 
-  
-  &:not(:last-child) {
-    margin-bottom: .5em;
+  .container-ingresos &:not(:last-child) {
+    margin-bottom: 0.5em;
   }
-  
+
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
-    
-    input, select {
+
+    input,
+    select {
       margin-top: 8px;
     }
   }
 }
 
-input:not([type=checkbox]) {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  appearance: none;
-}
-
-input, select {
-  font-family: inherit;
-  padding: .4em;
-  border-radius: 8px;
-  color: #999;
-  font-weight: 500;
-  border: 1px solid #ccc;
-  &:focus {
-    outline: none;
-  }
-}
-
-.next, .next:visited {
+.next,
+.next:visited {
   text-decoration: none;
   color: white;
   padding: 8px 16px;
@@ -61,11 +41,11 @@ input, select {
   border: none;
   font-size: inherit;
   cursor: pointer;
-  
+
   &:hover {
     text-decoration: none;
   }
-  
+
   &:focus {
     outline: none;
   }
@@ -75,40 +55,38 @@ input, select {
 // SCROLL HORIZONTAL
 //////////////////////////////////////////////////////////////////////
 
-.container-service{
-  overflow-x: scroll; 
-  padding-bottom: 1em; 
+.container-service {
+  overflow-x: scroll;
+  padding-bottom: 1em;
 }
 .container-service ul {
-
   list-style: none;
   padding: 0;
   display: -webkit-box;
 }
- 
- 
+
 .container-service li {
   float: left;
 }
 
 //////////////////////////////////////////////////////////////////////
-// CARD STYLE 
+// CARD STYLE
 //////////////////////////////////////////////////////////////////////
 
 .card-header {
   font-weight: bolder;
-  font-size: .9em;
-  font-family: 'Roboto', sans-serif;
+  font-size: 0.8em;
+  font-family: "Roboto", sans-serif;
   color: #444;
 }
 
 .container-card_service {
   width: 340px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .container-card_service .card {
-  border-radius: .4em;
+  border-radius: 0.4em;
   box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
 }
 .container-card_service .card-header {
@@ -128,36 +106,77 @@ input, select {
 }
 
 .container-card_service .card-title {
-  font-size: .8em;
-  background-color: #03A9F4;
+  font-size: 0.8em;
+  background-color: #03a9f4;
   padding: 1em;
   padding-top: 1.2em;
   color: #fff;
   height: 60px;
   width: 100%;
-  border-radius: .4em .4em 0 0;
+  border-radius: 0.4em 0.4em 0 0;
 }
 
 .container-card_service .card-text {
   padding: 1em;
-  font-size: .8em;
+  font-size: 0.8em;
   color: #666;
   height: 140px;
-
 }
 //////////////////////////////////////////////////////////////////////
 // OTROS AJUSTES
 //////////////////////////////////////////////////////////////////////
 
-select {
-  color: rgb(255, 255, 255);
-  background-color: rgb(156, 156, 156);
-}
-
 .agregar-service {
   height: 50px;
   font-weight: 600;
-  font-family: 'Roboto', sans-serif;
   color: rgb(48, 48, 48);
-  font-size: .8em;
+  font-size: 0.8em;
+}
+
+#registrarVehiculo,
+#agregarServicio {
+  
+  height: 50;
+  font-weight: 600;
+  font-family: "Roboto", sans-serif;
+  color: #ffffff;
+  font-size: 0.8em;
+  padding: 2em;
+}
+
+#agregarServicio {
+  color: #303030;
+  padding: 0;
+}
+
+#ingresarVehiculo {
+  font-weight: 600;
+  font-family: "Roboto", sans-serif;
+  color: #ffffff;
+  font-size: 0.8em;
+  padding: 0;
+}
+
+input::placeholder {
+  color: #5c5c5c !important;
+}
+
+.container-service {
+  height: 427px;
+  overflow-y: hidden;
+  min-width: 600px;
+  scroll-behavior: smooth;
+}
+
+#code-tarjeta {
+  position: absolute;
+  border-radius: 0 0.2em 0.2em 0;
+  left: 0;
+  top: 70px;
+  width: 30%;
+  color: #fff;
+  padding: 1em 2em;
+  background-color: orange;
+  float: right;
+  box-shadow: 0 3px 1px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
 }

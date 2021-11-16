@@ -1,59 +1,73 @@
 <?php
 
 require_once "./Libraries/Core/MySql.php";
+require_once "./Models/Taller.php";
 
 
 class Mantenimiento extends Mysql {
-    public function __construct()
+
+    private $id;
+    private $estado;
+    private $id_vehiculo;
+    private $id_mecanico;
+
+    private $serivicios = array();
+    private $consumos = array();
+
+    public function __construct($id_vehiculo)
     {
         parent::__construct();
-    }
 
-    public function insertarMantenimiento($state ,$id_vehiculo){
-        $query_insert = "INSERT INTO mantenimiento (state ,id_vehiculo) 
+        $this->id_vehiculo = $id_vehiculo;
+
+        $query_insert = "INSERT INTO mantenimiento (estado, id_vehiculo)
         VALUES (?,?)";
-        $arrData = [$state , $id_vehiculo];
-        $requuest_insert = $this->insert($query_insert,$arrData);
-        return $requuest_insert;
-    }
+        $arrData = ['P',$id_vehiculo];
+        $request_insert = $this->insert($query_insert,$arrData);
+        $this->id = $request_insert;
 
-    public function mostrarMantenimientos(){
-        $query_select = "SELECT * FROM mantenimiento";
-        $request_select = $this->selectAll($query_select);
-        return $request_select;
-    }
+        /*
+        $this->vehiculo = $vehiculo;
 
-    public function getMantenimiento($id){
-        $query_select = "SELECT * FROM mantenimiento WHERE id = $id";
-        $request_select = $this->select($query_select);
+        $porpietario = $vehiculo->getPropietario();
 
-        if($request_select){
-            echo "Encontrado correctamente.";
-        }else{
-            echo "No se encontro el mantenimiento seleccionado.";
-        }
+        $query_insert = "INSERT INTO propietario (nuid,nombres,apellidos,genero,telefono,correo,direccion)
+        VALUES (?,?,?,?,?,?,?)";
+        $arrData = [$porpietario->nuid, $porpietario->nombres, $porpietario->apellidos,
+                     $porpietario->genero, $porpietario->telefono, $porpietario->correo, $porpietario->direccion];
 
-        return $request_select;
-    }
-
-    public function updateMantenimiento($request_id,$codigo,$nombre,$costo){
-        $query_update = "UPDATE mantenimiento SET codigo = ?, nombre = ?, costo = ? WHERE id = $request_id)";
-        $arrData = [$codigo,$nombre,$costo];
-        $requuest_insert = $this->update($query_update,$arrData);
-        if($request_id){
-            return $requuest_insert;
-        }else{
-            echo "Algo salio mal.";
-        }
+        $id_prop = $this->insert($query_insert,$arrData);
         
+        $query_insert = "INSERT INTO vehiculo (placa,marca,modelo,anio,tipo,id_propietario)
+        VALUES (?,?,?,?,?,?)";
+        $arrData = [$vehiculo->placa,$vehiculo->marca,$vehiculo->modelo,$vehiculo->modelo,$vehiculo->tipo,$id_prop];
+        $id_veh = $this->insert($query_insert,$arrData);
+
+        $query_insert = "INSERT INTO mantenimiento (estado, id_vehiculo)
+        VALUES (?,?)";
+        $arrData = ['P',$id_veh];
+        $request_insert = $this->insert($query_insert,$arrData);
+        return $request_insert;
+
+        */
     }
 
-    public function removerMantenimiento($id){
-        $query_delete = "DELETE FROM mantenimiento WHERE id = $id";
-        $request_delete = $this->delete($query_delete);
-        return $request_delete;
+    public function __get($name)
+    {
+        return $this->$name;
     }
 
+    public function __set($name, $value)
+    {
+        $this->$name = $value;
+    }
+
+    public function addServicio($id_servicio){
+        $query_insert = "INSERT INTO mantenimiento_servicios (id_mantenimiento,id_servicio)
+        VALUES (?,?)";
+        $arrData = [$this->id,$id_servicio];
+        $this->insert($query_insert,$arrData);
+    }
 
 }
 

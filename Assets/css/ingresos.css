@@ -1,11 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:100,300,400,900,700,500,300,100);
-form {
-  max-width: 100%;
-  margin: 0 auto;
+.container-ingresos form {
   padding: 1em 0;
 }
 
-label {
+.container-ingresos label {
   font-weight: 600;
   color: #666;
   display: grid;
@@ -14,38 +12,21 @@ label {
   font-family: "Roboto", sans-serif;
   font-size: 0.82em;
 }
-label:not(:last-child) {
+.container-ingresos .container-ingresos label:not(:last-child) {
   margin-bottom: 0.5em;
 }
 @media (max-width: 600px) {
-  label {
+  .container-ingresos label {
     grid-template-columns: 1fr;
   }
-  label input, label select {
+  .container-ingresos label input,
+.container-ingresos label select {
     margin-top: 8px;
   }
 }
 
-input:not([type=checkbox]) {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  appearance: none;
-}
-
-input, select {
-  font-family: inherit;
-  padding: 0.4em;
-  border-radius: 8px;
-  color: #999;
-  font-weight: 500;
-  border: 1px solid #ccc;
-}
-input:focus, select:focus {
-  outline: none;
-}
-
-.next, .next:visited {
+.next,
+.next:visited {
   text-decoration: none;
   color: white;
   padding: 8px 16px;
@@ -55,10 +36,12 @@ input:focus, select:focus {
   font-size: inherit;
   cursor: pointer;
 }
-.next:hover, .next:visited:hover {
+.next:hover,
+.next:visited:hover {
   text-decoration: none;
 }
-.next:focus, .next:visited:focus {
+.next:focus,
+.next:visited:focus {
   outline: none;
 }
 
@@ -79,7 +62,7 @@ input:focus, select:focus {
 
 .card-header {
   font-weight: bolder;
-  font-size: 0.9em;
+  font-size: 0.8em;
   font-family: "Roboto", sans-serif;
   color: #444;
 }
@@ -113,7 +96,7 @@ input:focus, select:focus {
 
 .container-card_service .card-title {
   font-size: 0.8em;
-  background-color: #03A9F4;
+  background-color: #03a9f4;
   padding: 1em;
   padding-top: 1.2em;
   color: #fff;
@@ -129,17 +112,58 @@ input:focus, select:focus {
   height: 140px;
 }
 
-select {
-  color: white;
-  background-color: #9c9c9c;
-}
-
 .agregar-service {
   height: 50px;
   font-weight: 600;
-  font-family: "Roboto", sans-serif;
   color: #303030;
   font-size: 0.8em;
+}
+
+#registrarVehiculo,
+#agregarServicio {
+  height: 50;
+  font-weight: 600;
+  font-family: "Roboto", sans-serif;
+  color: #ffffff;
+  font-size: 0.8em;
+  padding: 2em;
+}
+
+#agregarServicio {
+  color: #303030;
+  padding: 0;
+}
+
+#ingresarVehiculo {
+  font-weight: 600;
+  font-family: "Roboto", sans-serif;
+  color: #ffffff;
+  font-size: 0.8em;
+  padding: 0;
+}
+
+input::placeholder {
+  color: #5c5c5c !important;
+}
+
+.container-service {
+  height: 427px;
+  overflow-y: hidden;
+  min-width: 600px;
+  scroll-behavior: smooth;
+}
+
+#code-tarjeta {
+  position: absolute;
+  border-radius: 0 0.2em 0.2em 0;
+  left: 0;
+  top: 70px;
+  width: 30%;
+  color: #fff;
+  padding: 1em 2em;
+  background-color: orange;
+  float: right;
+  box-shadow: 0 3px 1px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
 }
 
 /*# sourceMappingURL=ingresos.css.map */

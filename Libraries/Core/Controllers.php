@@ -5,6 +5,7 @@ class Controllers {
     {
         $this->views = new Views();
         $this->loadModel();
+        $taller = new Taller('19932701', 'WorkShop');
     }
 
     public function loadModel(){

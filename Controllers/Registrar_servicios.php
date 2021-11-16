@@ -22,13 +22,29 @@ class Registrar_servicios extends Controllers
         $this->views->getView($this,"insertar");
     }
 
-    public function pagination()
-    {   
-        $this->views->getView($this,"pagination");
-    }
     public function eliminar()
     {   
         $this->views->getView($this,"eliminar");
+    }
+
+    public function editar()
+    {   
+        $this->views->getView($this,"editar");
+    }
+
+    public function obtener()
+    {   
+        $this->views->getView($this,"obtener");
+    }
+
+    public function listar()
+    {   
+        $this->views->getView($this,"listar");
+    }
+
+    public function buscar()
+    {   
+        $this->views->getView($this,"buscar");
     }
 
 }

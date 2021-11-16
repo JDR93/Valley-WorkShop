@@ -1,5 +1,7 @@
 <?php
 
+require_once "Models/Taller.php";
+
 class Views {
 
     function getView($controller,$view,$data=""){

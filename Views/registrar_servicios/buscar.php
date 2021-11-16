@@ -1,11 +1,11 @@
 <?php
-require_once "../../Config/conection.php";
+require_once "Config/conection.php";
 
 $valor = $_POST["valor"];
 
 if(!empty($valor)){
     $conexion = BD::instanciar();
-    $result = $conexion->query("SELECT * FROM servicio WHERE nombre LIKE '$valor%'");
+    $result = $conexion->query("SELECT * FROM servicio WHERE nombre LIKE '$valor%' OR codigo LIKE '$valor%' ");
     $array = $result->fetchAll(PDO::FETCH_OBJ);
     
     if(!$result){

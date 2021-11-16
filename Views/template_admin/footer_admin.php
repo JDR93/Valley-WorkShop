@@ -13,6 +13,10 @@
     <script src="<?php base_url() ?>Assets/js/registrar_servicio.js"></script>
 <?php } ?>
 
+<?php if ($data['page_name'] == 'Ingresar vehiculo') { ?>
+    <script src="<?php base_url() ?>Assets/js/ingresar_vehiculo.js?v=<?php echo time(); ?>"></script>
+<?php } ?>
+
 <script src="<?php base_url() ?>Assets/js/side_menu.js"></script>
 
 </body>

@@ -1,17 +1,147 @@
 
 $(document).ready(function () {
 
-    let edit = false;
+    window.addEventListener("resize", function(event) {
+        if (document.body.clientWidth < 1150) {
+            $("#close-sidebar").click();
+        }   
+    })
+    
+        
+
+    edit = false;
+
+    ////////////////////////////////////////////////////
+    // VALIDACION DE DATOS
+    ////////////////////////////////////////////////////
+
+    $("#Formulario").validate({
+        rules: {
+            codigo: {
+                digits: true,
+                required: true,
+
+            },
+            precio: {
+                digits: true,
+                required: true,
+            },
+            nombre: {
+                required: true,
+                rangelength: [1, 255]
+            }
+
+        },
+        messages: {
+            codigo: {
+                digits: "Campo no valido",
+                required: "Campo requerido",
+            },
+            precio: {
+                digits: "Campo no valido",
+                required: "Campo requerido",
+            },
+            nombre: {
+                required: "Campo requerido",
+                rangelength: "Cadena de texto vacía"
+            }
+        }
+
+
+    });
+
+
+    $("#Formulario").on('submit', function (event) {
+
+        if (edit == false) {
+            ElUrl = 'http://localhost/valleyworkshop/registrar_servicios/insertar';
+        } else if (edit == true) {
+            ElUrl = "http://localhost/valleyworkshop/registrar_servicios/editar";
+        }
+
+        var validator = $("#Formulario").validate();
+        if (validator.form()) {
+            $.ajax({
+                type: 'POST',
+                url: ElUrl,
+                data: new FormData(this),
+                dataType: 'json',
+                contentType: false,
+                cache: false,
+                processData: false
+
+            }).done(function (respuesta) {
+
+                console.log(respuesta);
+
+            }).fail(function (resp) {
+
+                respuesa = resp.responseText;
+                array = respuesa.split(" ");
+
+                array.forEach(function (value) {
+                    if (value == 'codigo') {
+                        $("#codigo").focus();
+                        $("#error-duplicate-msj h5").html('<i style="color:orange" class="fas fa-exclamation-triangle mr-2"></i>' + resp.responseText);
+
+                        $('#error-duplicate-msj').slideDown('slow');
+                        setTimeout(function () {
+                            $('#error-duplicate-msj').slideUp('slow');
+                        }, 4000);
+                    }
+                    if (value == 'nombre') {
+                        $("#nombre").focus();
+                        $("#error-duplicate-msj h5").html('<i style="color:orange" class="fas fa-exclamation-triangle mr-2"></i>' + resp.responseText);
+
+                        $('#error-duplicate-msj').slideDown('slow');
+                        setTimeout(function () {
+                            $('#error-duplicate-msj').slideUp('slow');
+                        }, 4000);
+                    }
+                    if (value == 'registrado') {
+                        $('#registrado-msj').slideDown('slow');
+                        setTimeout(function () {
+                            $('#registrado-msj').slideUp('slow');
+                        }, 3000);
+                        document.getElementById("Formulario").reset();
+                    }
+
+                    if (value == 'editado') {
+                        $('#editado-msj').slideDown('slow');
+                        setTimeout(function () {
+                            $('#editado-msj').slideUp('slow');
+                        }, 3000);
+                        $("#div_cancelar_edicion").attr('style', 'display: none;');
+                        $("#registrar").replaceWith('<button type="submit" name="registrar" id="registrar" class="btn btn-warning btn-lg btn-block">Registrar servicio</button>');
+                        document.getElementById("Formulario").reset();
+                    }
+
+
+                });
+
+            }).always(function () {
+                listarServicios();
+                console.log("complete");
+            });
+            event.preventDefault();
+        }
+    });
+
+
+
 
     listarServicios();
-
     $("#input-buscar").keyup(function () {
+
+        if ($(this).val() == '') {
+            listarServicios();
+        }
 
         if ($(this).val()) {
             let valor = $(this).val();
 
             $.ajax({
-                url: "/valleyworkshop/Views/registrar_servicios/buscar.php",
+                url: "http://localhost/valleyworkshop/registrar_servicios/buscar",
                 type: "POST",
                 data: { valor },
                 success: function (respuesta) {
@@ -19,11 +149,21 @@ $(document).ready(function () {
                     let template = '';
 
                     servicios.forEach(servicio => {
-                        template += `<tr serviceCode="${servicio.codigo}" ><td> ${servicio.codigo} </td>` + `<td> ${servicio.nombre} </td>` +
-                            `<td> ${servicio.costo} </td>` + `<td> ${servicio.imagen} </td>` +
+
+                        if ((servicio.imagen) == 'imagen.png') {
+                            src = "Assets/img/imagen.png";
+                        } else {
+                            src = "Assets/img/images.services/" + servicio.imagen;
+                        }
+    
+                        template += `<tr serviceCode="${servicio.codigo}" > ` +
+                            `<td> ${servicio.codigo} </td>` +
+                            `<td> ${servicio.nombre} </td>` +
+                            `<td> ${servicio.costo} </td>` +
+                            `<td style="padding: 0;"><img style="width: 100%; padding: .5em;" src="${src}"></td>` +
                             `<td> ${servicio.descripcion}</td>` +
-                            `<td><button id="btn-delete" type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>` +
-                            `<button id="btn-edit" type="button" class="btn btn-success ml-2"><i class="fas fa-pencil-alt"></i></button></td></tr>`
+                            `<td><button id="btn-delete" type="button" class="btn btn-danger" data-toggle="modal" data-target="#contenido-modal"><i class="far fa-trash-alt"></i></button>` +
+                            `<button id="btn-edit" type="button" class="btn btn-success"><i class="fas fa-pencil-alt"></i></button></td></tr>`
                     });
 
                     $("#resultado").html(template);
@@ -36,51 +176,30 @@ $(document).ready(function () {
     })
 
 
-
-    $("#Formulario").submit(function (e) {
-        const postData = {
-            codigo: $('#codigo').val(),
-            precio: $("#precio").val(),
-            nombre: $('#nombre').val(),
-            imagen: $('#imagen').val(),
-            descripcion: $('#descripcion').val(),
-            id: $("#idService").val()
-        };
-
-        let url = edit === false ? '/valleyworkshop/Views/registrar_servicios/insertar.php' : "/valleyworkshop/Views/registrar_servicios/editar.php";
-
-
-
-
-        $.post(url, postData, function (respuesta) {
-
-            console.log(respuesta);
-            edit = false;
-
-            $("#registrar").replaceWith('<button type="submit" name="registrar" id="registrar" class="btn btn-warning btn-lg btn-block">Registrar servicio</button>');
-            listarServicios();
-
-            $("#Formulario").trigger('reset');
-
-        });
-        e.preventDefault();
-    })
-
-
     function listarServicios() {
         $.ajax({
-            url: '/valleyworkshop/Views/registrar_servicios/listar.php',
+            url: 'http://localhost/valleyworkshop/registrar_servicios/listar',
             type: 'GET',
             success: function (respuesta) {
                 let services = JSON.parse(respuesta);
                 let template = '';
 
                 services.forEach(servicio => {
-                    template += `<tr serviceCode="${servicio.codigo}" ><td> ${servicio.codigo} </td>` + `<td> ${servicio.nombre} </td>` +
-                        `<td> ${servicio.costo} </td>` + `<td> ${servicio.imagen} </td>` +
+
+                    if ((servicio.imagen) == 'imagen.png') {
+                        src = "Assets/img/imagen.png";
+                    } else {
+                        src = "Assets/img/images.services/" + servicio.imagen;
+                    }
+
+                    template += `<tr serviceCode="${servicio.codigo}" > ` +
+                        `<td> ${servicio.codigo} </td>` +
+                        `<td> ${servicio.nombre} </td>` +
+                        `<td> ${servicio.costo} </td>` +
+                        `<td style="padding: 0;"><img style="width: 100%; padding: .5em;" src="${src}"></td>` +
                         `<td> ${servicio.descripcion}</td>` +
                         `<td><button id="btn-delete" type="button" class="btn btn-danger" data-toggle="modal" data-target="#contenido-modal"><i class="far fa-trash-alt"></i></button>` +
-                        `<button id="btn-edit" type="button" class="btn btn-success ml-2"><i class="fas fa-pencil-alt"></i></button></td></tr>`
+                        `<button id="btn-edit" type="button" class="btn btn-success"><i class="fas fa-pencil-alt"></i></button></td></tr>`
                 });
 
                 $("#resultado").html(template);
@@ -88,31 +207,44 @@ $(document).ready(function () {
         });
     }
 
+    $("#cancelar_edicion").click(function () {
+        $("#div_cancelar_edicion").attr('style', 'display: none;');
+        $("#registrar").replaceWith('<button type="submit" name="registrar" id="registrar" class="btn btn-warning btn-lg btn-block">Registrar servicio</button>');
+        document.getElementById("Formulario").reset();
+    })
 
 
     $(document).on('click', "#btn-delete", function () {
 
+        let element = $(this)[0].parentElement.parentElement;
+        let code = $(element).attr('serviceCode');
+
 
         document.getElementById("aceptar").addEventListener('click', function () {
-            console.log("Eliminando");
-            let element = $("#btn-delete")[0].parentElement.parentElement;
-            let code = $(element).attr('serviceCode');
-            $.post('/valleyworkshop/Views/registrar_servicios/eliminar.php', { code }, function (respuesta) {
-                console.log(respuesta);
+
+            $.post('http://localhost/valleyworkshop/registrar_servicios/eliminar', { code }, function (respuesta) {
                 listarServicios();
                 $("#cerrar").click()
-
             });
+        });
 
-
+        document.getElementById("cerrar").addEventListener('click', function () {
+            element = null;
+            code = null;
         });
 
     });
 
     $(document).on('click', "#btn-edit", function () {
+
+        window.scroll(0, 0);
+
+        $("#div_cancelar_edicion").attr('style', 'display: block;').attr('class', 'col-3');
+
         let element = $(this)[0].parentElement.parentElement;
         let code = $(element).attr('serviceCode');
-        $.post('/valleyworkshop/Views/registrar_servicios/obtener.php', { code }, function (respuesta) {
+
+        $.post('http://localhost/valleyworkshop/registrar_servicios/obtener', { code }, function (respuesta) {
             const service = JSON.parse(respuesta);
 
             $('#idService').val(service.id);
@@ -120,17 +252,18 @@ $(document).ready(function () {
             $('#precio').val(service.costo);
             $('#nombre').val(service.nombre);
             $('#descripcion').val(service.descripcion);
+            $('#imagen-input').val(service.imagen);
             edit = true;
-            $("#registrar").replaceWith('<button style="color:#fff;" type="submit" name="registrar" id="registrar" class="btn btn-success btn-lg btn-block">Editando servicio</button>')
-
+            $("#registrar").replaceWith('<button style="color:#fff;" type="submit" name="registrar" id="registrar" class="btn btn-success btn-lg btn-block">Editar servicio</button>')
         })
 
     })
 
 
-
-
-
-
 })
+
+
+
+
+
 

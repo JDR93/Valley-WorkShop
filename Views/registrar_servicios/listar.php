@@ -1,9 +1,9 @@
 <?php 
 
-require_once "../../Models/Servicio.php";
+require_once "Models/Servicio.php";
 
-$service = new Servicio();
-$restult = $service->mostrarServicios();
+$taller = new Taller('19932701', 'WorkShop');
+$restult = $taller->getServicios();
 
 $json = array();
 
@@ -19,6 +19,5 @@ foreach($restult as $row){
 
 $jsonString = json_encode($json);
     echo $jsonString;
-
-
 ?>
+
