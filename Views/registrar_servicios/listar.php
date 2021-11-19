@@ -2,7 +2,7 @@
 
 require_once "Models/Servicio.php";
 
-$taller = new Taller('19932701', 'WorkShop');
+$taller = new Taller();
 $restult = $taller->getServicios();
 
 $json = array();

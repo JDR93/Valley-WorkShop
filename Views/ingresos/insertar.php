@@ -1,12 +1,14 @@
 <?php
+sleep(1);
 
+require_once "Models/Taller.php";
+$taller = new Taller();
 
-require_once "Models/Mantenimiento.php";
-require_once "Models/Servicio.php";
-require_once "Models/Propietario.php";
-require_once "Models/Vehiculo.php";
+if(!isset($_POST)){
+    die('No autorizado');
+}
 
-// OBTENIENDO CON METODO POST DATOS DEL PROPIETARIO
+// OBTENIENDO DATOS DEL PROPIETARIO
 $identificacion = $_POST['identificacion'];
 $nombres = $_POST['nombres']; 
 $apellidos = $_POST['apellidos'];
@@ -15,13 +17,34 @@ $telefono = $_POST['telefono'];
 $correo = $_POST['correo'];
 $direccion = $_POST['direccion'];
 
-// OBTENIENDO CON METODO POST DATOS DEL VEHICULO
+// OBTENIENDO DATOS DEL VEHICULO
 $placa = $_POST['placa'];
-$marca = $_POST['marca']; 
+$marca = $_POST['marca'];  
 $linea = $_POST['linea'];
-$anio = $_POST['modelo'];
+$modelo = $_POST['modelo'];
 $tipo = $_POST['tipo'];
-$id_propietario = $lastInsert;
+
+$propietario = new Propietario($identificacion,$nombres,$apellidos,$genero,$telefono,$correo,$direccion);
+$id_propietario = $taller->addPropietario($propietario);
+
+$vehiculo = new Vehiculo($placa,$marca,$modelo,$linea,$tipo,$id_propietario);
+$id_vehiculo = $taller->addVehiculo($vehiculo);
+
+echo json_encode(['registrado'=>true, 'id_vehiculo'=>$id_vehiculo]);
+
+/*
+require_once "Models/Mantenimiento.php";
+require_once "Models/Servicio.php";
+require_once "Models/Propietario.php";
+require_once "Models/Vehiculo.php";
+
+
+
+$json = array($identificacion, $placa);
+$jsonString = json_encode($json);
+echo $jsonString;
+
+/*
 
 //$lastInsert = $p->insertarPropietario((int)$identificacion,$nombres,$apellidos,$genero,$telefono,$correo,$direccion);
 
@@ -56,6 +79,6 @@ $p = new Propietario();
 $id_vehiculo = $v->insertarVehiculo($placa,$marca,$linea,$anio,$tipo,$id_propietario);
 #echo "INSERTADOS CORRECTAMENTE.";
 
-
+*/
 
 ?>

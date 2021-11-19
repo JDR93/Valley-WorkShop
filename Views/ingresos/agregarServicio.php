@@ -1,34 +1,34 @@
 <?php
 require_once "Config/conection.php";
+require_once "Models/Servicio.php";
 require_once "Models/Mantenimiento.php";
+
+$servicio = new Servicio();
 
 // VERIFICAR SI EL VEHICULO SE ENCUENTRA EN ALGUN MANTENIMIENTO, SI SÍ SE ENCUENTRA LO CREAMOS 
 // Y LUEGO LE AGREGAMOS LOS SERVICIOS SINO HACEMOS LO DE ABAJO
 
 $code_service = $_POST["code_service"];
 
-if(!empty($code_service)){
-    $conexion = BD::instanciar();
-    $result = $conexion->query("SELECT * FROM servicio WHERE codigo = $code_service");
-    $array = $result->fetchAll(PDO::FETCH_OBJ);
 
-    foreach($array as $row){
+$array_servicio = $servicio->getServicio($code_service);
+if(!empty($code_service)){
+    
+
+    foreach($array_servicio as $propiedad){
         $json[] = array(
-            'id' => $row->id,
-            'codigo' => $row->codigo,
-            'nombre' => $row->nombre,
-            'costo' => $row->costo,
-            'imagen' => $row->imagen,
-            'descripcion' => $row->descripcion
+            'id' => $propiedad->id,
+            'codigo' => $propiedad->codigo,
+            'nombre' => $propiedad->nombre,
+            'costo' => $propiedad->costo,
+            'imagen' => $propiedad->imagen,
+            'descripcion' => $propiedad->descripcion
         );
-        $id_servicio = $row->id;
     }
 
     $jsonString = json_encode($json);
     echo $jsonString;
 }   
-
-
 
 
 /*
@@ -50,7 +50,7 @@ foreach($listaServicios as $i){
 if (isset($_POST['placa'])) {
     $placaObtenida = $_POST['placa'];
 
-    $taller = new Taller('19932701', 'WorkShop');
+    $taller = new Taller();
     $resultado = $taller->getVehiculo($placaObtenida);
 
     foreach ($resultado as $veh) {

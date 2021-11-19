@@ -14,42 +14,9 @@ class Mantenimiento extends Mysql {
     private $serivicios = array();
     private $consumos = array();
 
-    public function __construct($id_vehiculo)
+    public function __construct()
     {
         parent::__construct();
-
-        $this->id_vehiculo = $id_vehiculo;
-
-        $query_insert = "INSERT INTO mantenimiento (estado, id_vehiculo)
-        VALUES (?,?)";
-        $arrData = ['P',$id_vehiculo];
-        $request_insert = $this->insert($query_insert,$arrData);
-        $this->id = $request_insert;
-
-        /*
-        $this->vehiculo = $vehiculo;
-
-        $porpietario = $vehiculo->getPropietario();
-
-        $query_insert = "INSERT INTO propietario (nuid,nombres,apellidos,genero,telefono,correo,direccion)
-        VALUES (?,?,?,?,?,?,?)";
-        $arrData = [$porpietario->nuid, $porpietario->nombres, $porpietario->apellidos,
-                     $porpietario->genero, $porpietario->telefono, $porpietario->correo, $porpietario->direccion];
-
-        $id_prop = $this->insert($query_insert,$arrData);
-        
-        $query_insert = "INSERT INTO vehiculo (placa,marca,modelo,anio,tipo,id_propietario)
-        VALUES (?,?,?,?,?,?)";
-        $arrData = [$vehiculo->placa,$vehiculo->marca,$vehiculo->modelo,$vehiculo->modelo,$vehiculo->tipo,$id_prop];
-        $id_veh = $this->insert($query_insert,$arrData);
-
-        $query_insert = "INSERT INTO mantenimiento (estado, id_vehiculo)
-        VALUES (?,?)";
-        $arrData = ['P',$id_veh];
-        $request_insert = $this->insert($query_insert,$arrData);
-        return $request_insert;
-
-        */
     }
 
     public function __get($name)
@@ -62,11 +29,17 @@ class Mantenimiento extends Mysql {
         $this->$name = $value;
     }
 
-    public function addServicio($id_servicio){
+    public function addServicio($id_mantenimiento, $id_servicio){
         $query_insert = "INSERT INTO mantenimiento_servicios (id_mantenimiento,id_servicio)
         VALUES (?,?)";
-        $arrData = [$this->id,$id_servicio];
+        $arrData = [$id_mantenimiento,$id_servicio];
         $this->insert($query_insert,$arrData);
+    }
+
+    public function getServicios($id_mantenimiento){
+        $query_select = "SELECT id_servicio FROM mantenimiento_servicios WHERE id_mantenimiento = $id_mantenimiento";
+        $request_select = $this->selectAll($query_select);
+        return $request_select;
     }
 
 }

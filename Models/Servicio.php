@@ -37,12 +37,19 @@ class Servicio extends Mysql
         return $requuest_insert;
     }
 
+
+    public function getServicioID($id_servicio)
+    {
+        $query_select = "SELECT * FROM servicio WHERE id = $id_servicio";
+        $request_select = $this->select($query_select);
+        return $request_select;
+    }
     
 
-    public function getServicio($code)
+    public function getServicio($codigo)
     {
-        $query_select = "SELECT * FROM servicio WHERE codigo = $code";
-        $request_select = $this->select($query_select);
+        $query_select = "SELECT * FROM servicio WHERE codigo = $codigo ";
+        $request_select = $this->selectAll($query_select);
         return $request_select;
     }
 

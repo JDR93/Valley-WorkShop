@@ -34,11 +34,18 @@ class Mysql extends BD
 
     public function selectAll($query)
     {
-        $this->query = $query;
 
-        $selectAll = $this->conexion->query($query);
-        $data = $selectAll->fetchAll(PDO::FETCH_OBJ);
-        return $data;
+        try {
+            $this->query = $query;
+            $selectAll = $this->conexion->query($query);
+
+            $data = $selectAll->fetchAll(PDO::FETCH_OBJ);
+            return $data;
+
+        } catch (PDOException $exc) {
+            return $exc->getMessage();
+        }
+
     }
 
     public function select($query)

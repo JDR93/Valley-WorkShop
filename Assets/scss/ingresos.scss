@@ -12,7 +12,7 @@
   font-weight: 600;
   color: #666;
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
   font-family: "Roboto", sans-serif;
   font-size: 0.82em;
@@ -135,7 +135,6 @@
 
 #registrarVehiculo,
 #agregarServicio {
-  
   height: 50;
   font-weight: 600;
   font-family: "Roboto", sans-serif;
@@ -179,4 +178,48 @@ input::placeholder {
   background-color: orange;
   float: right;
   box-shadow: 0 3px 1px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+}
+
+#buscar_vehiculo {
+  cursor: pointer;
+}
+
+#buscar_vehiculo:hover {
+  color: #007bff;
+}
+
+#Formulario input:disabled {
+  background-color: rgb(224, 224, 224);
+}
+#Formulario select:disabled {
+  background-color: rgb(224, 224, 224);
+}
+
+.formulario__validacion-correct {
+  color: green;
+}
+
+.formulario__validacion-incorrect {
+  color: red;
+}
+
+.formulario__validacion-estado {
+  position: absolute;
+  right: 20px;
+  bottom: 8px;
+  z-index: 1;
+  font-size: 16px;
+  opacity: 0;
+}
+
+label.error {
+  position: absolute;
+  top: 6px;
+  left: 206px;
+  display: block;
+  margin: 0;
+}
+
+#placa-error {
+  left: 155px;
 }
