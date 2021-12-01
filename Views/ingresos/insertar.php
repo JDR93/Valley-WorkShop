@@ -1,34 +1,49 @@
 <?php
+
 sleep(1);
 
-require_once "Models/Taller.php";
-$taller = new Taller();
+try {
 
-if(!isset($_POST)){
-    die('No autorizado');
+    require_once "Models/Taller.php";
+    $taller = new Taller();
+
+    // OBTENIENDO DATOS DEL PROPIETARIO
+    $identificacion = $_POST['identificacion'];
+    $nombres = $_POST['nombres'];
+    $apellidos = $_POST['apellidos'];
+    $genero = $_POST['genero'];;
+    $telefono = $_POST['telefono'];
+    $correo = $_POST['correo'];
+    $direccion = $_POST['direccion'];
+
+    $propietario = new Propietario($identificacion, $nombres, $apellidos, $genero, $telefono, $correo, $direccion);
+    
+    // OBTENIENDO DATOS DEL VEHICULO
+    $placa = $_POST['placa'];
+    $marca = $_POST['marca'];
+    $linea = $_POST['linea'];
+    $modelo = $_POST['modelo'];
+    $tipo = $_POST['tipo'];
+
+    
+    $vehiculo = new Vehiculo($placa, $marca, $modelo, $linea, $tipo, $propietario);
+    $idVeh = $taller->addVehiculo($vehiculo);
+
+    $json = (["insertado" => true,"vehiculo"=>$vehiculo->placa]);
+    $jsonString = json_encode($json);
+    echo ($jsonString);
+} catch (Exception $exc) {
+    $json = (["error" => true, "mensaje" => $exc->getMessage()]);
+    $jsonString = json_encode($json);
+    echo ($jsonString);
 }
 
-// OBTENIENDO DATOS DEL PROPIETARIO
-$identificacion = $_POST['identificacion'];
-$nombres = $_POST['nombres']; 
-$apellidos = $_POST['apellidos'];
-$genero = $_POST['genero'];;
-$telefono = $_POST['telefono'];
-$correo = $_POST['correo'];
-$direccion = $_POST['direccion'];
-
-// OBTENIENDO DATOS DEL VEHICULO
-$placa = $_POST['placa'];
-$marca = $_POST['marca'];  
-$linea = $_POST['linea'];
-$modelo = $_POST['modelo'];
-$tipo = $_POST['tipo'];
+/*
 
 $propietario = new Propietario($identificacion,$nombres,$apellidos,$genero,$telefono,$correo,$direccion);
 $id_propietario = $taller->addPropietario($propietario);
 
-$vehiculo = new Vehiculo($placa,$marca,$modelo,$linea,$tipo,$id_propietario);
-$id_vehiculo = $taller->addVehiculo($vehiculo);
+
 
 echo json_encode(['registrado'=>true, 'id_vehiculo'=>$id_vehiculo]);
 
@@ -80,5 +95,3 @@ $id_vehiculo = $v->insertarVehiculo($placa,$marca,$linea,$anio,$tipo,$id_propiet
 #echo "INSERTADOS CORRECTAMENTE.";
 
 */
-
-?>

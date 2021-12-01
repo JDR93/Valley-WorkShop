@@ -1,0 +1,50 @@
+.header-card {
+}
+
+.header-card #txtNombre {
+    display: block;
+    font-weight: bold;
+}
+
+.header-card #txtApellido {
+    position: relative;
+    bottom: 10px;
+    font-size: 0.8em;
+    color: #555;
+}
+
+.header-card #txtCodigo {
+    font-family: "Bebas Neue";
+    font-weight: bold;
+    color: #f4a903;
+    font-size: 1.5em;
+}
+
+.body-card {
+    color: #555;
+}
+
+.body-card h6 {
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.body-card h6 span {
+    font-weight: normal;
+}
+
+.container .table th{
+    padding: 4px;
+}
+
+label.error {
+    float: right;
+    font-size: .7em;
+    font-weight: bold;
+}
+
+#tarjeta-perfil img {
+    object-fit: cover;
+    padding: 1em; 
+    height: 150px;
+}

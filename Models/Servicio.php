@@ -12,11 +12,18 @@ class Servicio extends Mysql
     private $imagen;
     private $estado;
 
+    public function __construct($codigo, $nombre, $descripcion, $costo, $imagen , $estado){
 
-    public function __construct()
-    {
         parent::__construct();
+
+        $this->codigo = $codigo;
+        $this->nombre = $nombre;
+        $this->descripcion = $descripcion;
+        $this->costo = $costo;
+        $this->imagen = $imagen;
+        $this->estado = $estado;
     }
+
 
     public function __get($name)
     {
@@ -27,6 +34,8 @@ class Servicio extends Mysql
     {
         $this->$name = $value;
     }
+
+    /*
 
     public function insertarServicio($codigo, $nombre, $descripcion, $costo, $imagen)
     {
@@ -85,4 +94,6 @@ class Servicio extends Mysql
         $request_delete = $this->delete($query_delete);
         return $request_delete;
     }
+
+    */
 }

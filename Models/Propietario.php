@@ -1,28 +1,20 @@
 <?php
 
 require_once "./Libraries/Core/MySql.php";
+require_once "./Models/Persona.php";
 
 
-class Propietario extends Mysql {
 
-    private $id;
-    private $nuid;
-    private $nombres;
-    private $apellidos;
-    private $genero;
+class Propietario extends Persona {
+
     private $telefono;
     private $correo;
     private $direccion;
 
-
     public function __construct($nuid,$nombres,$apellidos,$genero,$telefono,$correo,$direccion)
     {
-        parent::__construct();
+        parent::__construct($nuid,$nombres,$apellidos,$genero);
 
-        $this->nuid = $nuid;
-        $this->nombres = $nombres;
-        $this->apellidos = $apellidos;
-        $this->genero = $genero;
         $this->telefono = $telefono;
         $this->correo = $correo;
         $this->direccion = $direccion;
@@ -37,6 +29,8 @@ class Propietario extends Mysql {
     {
         $this->$name = $value;
     }
+
+    /*
 
     public function mostrarPropietarios(){
         $query_select = "SELECT * FROM propietario";
@@ -63,6 +57,7 @@ class Propietario extends Mysql {
         $request_delete = $this->delete($query_delete);
         return $request_delete;
     }
+    */
 
 
 }

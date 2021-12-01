@@ -82,7 +82,7 @@
                     .done(function(respuesta) {
                         if (!respuesta.error) {
                             //if (respuesta.tipo == 'Admininstrador') {
-                                location.href = '<?php echo base_url() ?>Dashboard';
+                                location.href = '<?php echo base_url() ?>Ingresos';
                             //}
 
                         } else {

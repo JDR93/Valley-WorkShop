@@ -4,70 +4,80 @@ require_once "Models/Mantenimiento.php";
 require_once "Models/Taller.php";
 require_once "Models/Servicio.php";
 
-$taller = new Taller();
-$mantenimiento = new Mantenimiento();
-$servicio = new Servicio();
-$placa = $_POST["placa_vehiculo"];
+try {
+
+    $taller = new Taller();
+    $placa = $_POST["placa_vehiculo"];
+    $servicios = false;
+
+    $json = [];
+
+    // OBTENIENDO DATOS DEL VEHICULO
+    $vehiculo = $taller->getVehiculo($placa);
+    $json[] = (['vehiculo' => $vehiculo]);
 
 
+    // OBTENIENDO DATOS DEL PROPIETARIO
+    $propietario = $taller->getPropietario($vehiculo->id_propietario);
+    $json[] = (['propietario' => $propietario]);
 
-$array_vehiculo = $taller->getVehiculo($placa);
+    // OBTENIENDO DATOS DEL MANTENIMIENTO
+    $mantenimiento = $taller->getMantSiVehiculo($vehiculo->id);
 
-$json = [];
-$id_prop = null;
-$id_vehiculo = null;
+    if ($mantenimiento == false) {
+        $json[] = (['mantenimiento' => false]);
+        $json[] = (['servicios' => [] ]);
 
-// OBTENIENDO DATOS DEL VEHICULO
-foreach ($array_vehiculo as $propiedad) {
-    $json[] = array('vehiculo' => array(
-        'id' => $id_vehiculo = $propiedad->id,
-        'placa' => $propiedad->placa,
-        'marca' => $propiedad->marca,
-        'linea' => $propiedad->modelo,
-        'modelo' => $propiedad->anio,
-        'tipo' => $propiedad->tipo,
-        'id_propietario' => $id_prop = $propiedad->id_propietario
-    ));
+    }else{
+        $json[] = (['mantenimiento' => $mantenimiento]);
+        $json[] = (['servicios' => $taller->getServiciosMant($mantenimiento->id) ]);
+    }
+
+    $jsonString = json_encode($json);
+    echo $jsonString;
+    
+} catch (Exception $exc) {
+    $json = (['error' => true, 'mensaje'=> $exc->getMessage()]);
+    $jsonString = json_encode($json);
+    echo $jsonString;
 }
+
+
+/*
 
 if ($id_prop != null) {
 
-    // OBTENIENDO DATOS DEL PROPIETARIO
-    $array_propietario = $taller->getPropietario($id_prop);
-
-    foreach ($array_propietario as $row) {
-        $json[] = array('propietario' => array(
-            'nuid' => $row->nuid,
-            'nombres' => $row->nombres,
-            'apellidos' => $row->apellidos,
-            'genero' => $row->genero,
-            'telefono' => $row->telefono,
-            'correo' => $row->correo,
-            'direccion' => $row->direccion
-        ));
-    }
+    
 
     $mantEncontrado = $taller->getMantSiVehiculo((int)$id_vehiculo);
+    $json[] = (['manteninimiento'=>$mantEncontrado]);
+
+
+    $jsonString = json_encode($json);
+    echo $jsonString;
+
+    /*
     if ($mantEncontrado != null) {
-        $servicios = $mantenimiento->getServicios((int)$mantEncontrado->id);
+        $servicios = $mantenimiento->getServicios();
 
         $list = [];
         
         foreach ($servicios as $service){
-            array_push($list,$servicio->getServicioID((int)$service->id_servicio));
+            array_push($list,$servicio->getServicio((int)$service->id_servicio));
         }
 
         $json[] = array('servicios' => $list);
     }
 
 
-    $jsonString = json_encode($json);
-    echo $jsonString;
+
+
+    
 } else {
     $jsonString = json_encode(['vehiculo_encontrado' => false]);
     echo $jsonString;
 }
-
+*/
 
 
 

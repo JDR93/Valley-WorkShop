@@ -1,19 +1,19 @@
 <?php 
 
-require_once "Models/Servicio.php";
+require_once "Models/Taller.php";
 
 $taller = new Taller();
-$restult = $taller->getServicios();
+$servicios = $taller->servicios;
 
 $json = array();
 
-foreach($restult as $row){
+foreach($servicios as $servicio){
     $json[] = array(
-        'codigo' => $row->codigo,
-        'nombre' => $row->nombre,
-        'costo' => $row->costo,
-        'imagen' => $row->imagen,
-        'descripcion' => $row->descripcion
+        'codigo' => $servicio->codigo,
+        'nombre' => $servicio->nombre,
+        'costo' => $servicio->costo,
+        'imagen' => $servicio->imagen,
+        'descripcion' => $servicio->descripcion
     );
 }
 

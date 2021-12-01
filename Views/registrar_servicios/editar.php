@@ -3,20 +3,21 @@
 
 try {
 
-
-
     require_once "Models/Servicio.php";
+    require_once "Models/Taller.php";
+
+    $taller = new Taller();
 
     $id = $_POST["idService"];
     $codigo = $_POST["codigo"];
     $nombre = $_POST["nombre"];
     $costo = $_POST["precio"];
     $descripcion = $_POST["descripcion"];
-
     $imagen = (isset($_FILES['imagen']['name'])) ? $_FILES['imagen']['name'] : "imagen.jpg";
 
-    $conection = BD::instanciar();
 
+
+    $conection = BD::instanciar();
     $resulth = $conection->prepare("SELECT imagen FROM servicio WHERE id = :miID");
     $resulth->execute([":miID" => $id]);
 
@@ -39,14 +40,13 @@ try {
         $result = $conection->prepare("SELECT imagen FROM servicio WHERE id = '$id'");
         $result->execute();
 
+
         $resulth = $conection->prepare("UPDATE servicio SET codigo = :miCodigo, nombre = :miNombre, costo = :miCosto, imagen = :miImagen, descripcion = :miDescripcion WHERE id = :miID");
         $resulth->execute([":miCodigo" => $codigo, ":miNombre" => $nombre, ":miCosto" => $costo, ":miImagen" => $nombreArchivo, ":miDescripcion" => $descripcion, ":miID" => $id]);
 
 
         $resultImagen = $result->fetch(PDO::FETCH_LAZY);
-
         $imagenResult = $resultImagen["IMAGEN"];
-
         $tmpImagen = $_FILES["imagen"]["tmp_name"];
 
         if ($tmpImagen != "") {
@@ -54,9 +54,7 @@ try {
         }
     }
 
-    echo "El servicio fue editado correctamente.";
-
-
+    echo json_encode(['exito_editado' => true, 'mensaje' => " El servicio fue editado correctamente."]);
 } catch (Exception $exc) {
-    $exc->getMessage();
+    echo json_encode(['error' => true, 'mensaje' => $exc->getMessage()]);
 }

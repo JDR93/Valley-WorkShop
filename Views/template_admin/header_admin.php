@@ -29,11 +29,16 @@ if (empty($_SESSION['user'])) {
 
     <link rel="stylesheet" href="Assets/css/asignar.css?v=<?php echo time(); ?>">
 
-    <link rel="stylesheet" href="Assets/css/ingresos.css?v=<?php echo time(); ?>">
-
+    <?php if ($data['page_name'] == 'Ingresar vehiculo') { ?>
+        <link rel="stylesheet" href="Assets/css/ingresos.css?v=<?php echo time(); ?>">
+    <?php } ?>
     <link rel="stylesheet" href="Assets/css/facturacion.css?v=<?php echo time(); ?>">
 
     <link rel="stylesheet" href="Assets/css/productos.css?v=<?php echo time(); ?>">
+
+    <link rel="stylesheet" href="Assets/css/registrar_usuarios.css?v=<?php echo time(); ?>">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
 </head>
 

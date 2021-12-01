@@ -1,54 +1,44 @@
 <?php
 
-sleep(1);
-
-require_once "Models/Mantenimiento.php";
-require_once "Models/Taller.php";
-require_once "Models/Servicio.php";
+sleep(.4);
 
 $taller = new Taller();
-$service = new Servicio();
+$code_service = (int)$_POST["code_service"];
+$m = $_POST['mantenimiento'];
+$v = $_POST['vehiculo'];
+$s = $taller->getServicio($code_service);
 
-$id_vehiculo = (int)$_POST["id_vehiculo"];
-$lista_servicios = $_POST["arrayServicios"];
+$servicios = $_POST["servicios"];
 
-$mantenimiento = new Mantenimiento();
+if ($m == 'false') {
 
-$mantenimiento->estado = 'P';
-$mantenimiento->id_vehiculo = $id_vehiculo;
+    $veh = $taller->getVehiculo($v["placa"]);
+    $id_vehiculo =  (int)$veh->id;
 
-$id_mantenimiento = $taller->addMantPendiente($mantenimiento);
-
-foreach ($lista_servicios as $codigo) {
-
-    $id_servicio = $service->getServicio((int)$codigo)[0]->id;
-    $mantenimiento->addServicio($id_mantenimiento, $id_servicio);
-}
-
-
-$json[] = array('insertado' => true);
-$jsonString = json_encode($json);
-echo $jsonString;
-
-
-
-
-
-/*
-
-try {
-    
-    $taller->addMantPendiente($mantenimiento);
-
-    $i = 0;
-    while ($i < count($lista_servicios)) {
-        $code = (int)$lista_servicios[$i];
-        $cnx->query("INSERT INTO mantenimiento_servicios (id_mantenimiento, id_servicio) VALUES ($id_mantenimiento, $code)");
-        $i++;
+    if (count($servicios) == 0) {
+        $json = ['error_servicios_null' => true];
+        $jsonString = json_encode($json);
+        echo ($jsonString);
+        return false;
     }
-    echo "insertado correctamente";
 
-} catch (Exception $exc) {
-    
+    $id_mantenimiento = $taller->addMantenimiento($id_vehiculo);
+} else {
+    $id_vehiculo = (int)$v['id'];
+    $id_mantenimiento = (int)$m['id'];
 }
-*/
+
+//Elimina los servicios registrados para registrar los a agregar. 
+$query_delete = "DELETE FROM mantenimiento_servicios WHERE id_mantenimiento = $id_mantenimiento";
+$taller->delete($query_delete);
+
+$i = 0;
+while ($i < count($servicios)) {
+    $taller->addServicioMant($id_mantenimiento, (int)$servicios[$i][0]["id"]);
+    $i++;
+}
+
+
+$json = ['insertado' => true, $v];
+$jsonString = json_encode($json);
+echo ($jsonString);

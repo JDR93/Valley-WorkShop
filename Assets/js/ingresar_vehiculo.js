@@ -1,12 +1,17 @@
-
 $(document).ready(function () {
+
+    $("#placa").focus();
+
+
+    $("body").css("overflow", "auto");
+
 
     let vehiculo = null;
     let propietario = null;
-    let arrayServicios = [];
-    let listServicios = [];
-    let id_vehiculo = null;
+    let servicios = [];
+    let mantenimiento = false;
 
+    let template = '';
 
     validator = $("#Formulario").validate({
         rules: {
@@ -50,7 +55,7 @@ $(document).ready(function () {
             }
             ,
             correo: {
-                email: true,
+                //email: true,
                 required: true,
             }
             ,
@@ -101,7 +106,7 @@ $(document).ready(function () {
             }
             ,
             correo: {
-                required: "Campo requerido <i style='color: #8E1E1F;' class='fas fa-times-circle'></i>",
+                //required: "Campo requerido <i style='color: #8E1E1F;' class='fas fa-times-circle'></i>",
                 email: "Email no valido <i style='color: #8E1E1F;' class='fas fa-times-circle'></i>",
 
             }
@@ -110,15 +115,54 @@ $(document).ready(function () {
                 required: "Campo requerido <i style='color: #8E1E1F;' class='fas fa-times-circle'></i>"
             }
         }
-
-
-
-
     });
+
+    $("#identificacion").keyup(function () {
+
+        if ($(this).val()) {
+            let valor = $(this).val();
+
+            $.ajax({
+                url: "http://localhost/valleyworkshop/ingresos/buscarPropietario",
+                type: "POST",
+                data: { valor },
+                success: function (respuesta) {
+
+                    let resultado = JSON.parse(respuesta);
+
+                    if (resultado[0].encontrado == true) {
+
+                        $("#identificacion").val(resultado[1].propietario.nuid);
+                        $("#nombres").val(resultado[1].propietario.nombres);
+                        $("#apellidos").val(resultado[1].propietario.apellidos);
+                        $("#genero").val(resultado[1].propietario.genero).prop('readonly', false)
+                        $("#telefono").val(resultado[1].propietario.telefono);
+                        $("#correo  ").val(resultado[1].propietario.correo);
+                        $("#direccion").val(resultado[1].propietario.direccion);
+
+                        $("#nombres").attr('readonly', true);
+                        $("#apellidos").prop('readonly', true);
+                        $("#genero").css('pointer-events', 'none').addClass('desactivo');
+                        $("#telefono").prop('readonly', true);
+                        $("#correo  ").prop('readonly', true);
+                        $("#direccion").prop('readonly', true);
+
+                    } else {
+                        $("#nombres").prop('readonly', false).val('');
+                        $("#apellidos").prop('readonly', false).val('');
+                        $("#genero").val('').css('pointer-events', 'auto').removeClass('desactivo');
+                        $("#telefono").prop('readonly', false).val('');
+                        $("#correo  ").prop('readonly', false).val('');
+                        $("#direccion").prop('readonly', false).val('');
+                    }
+                }
+
+            });
+        }
+    })
 
 
     function formularizar_formulario(event) {
-
         if (validator.form()) {
 
             event.preventDefault();
@@ -138,36 +182,57 @@ $(document).ready(function () {
 
             }).done(function (res) {
 
-                id_vehiculo = res.id_vehiculo;
-
-                if (res.registrado) {
-
-                    $("#registrarVehiculo").prop('disabled', true);
-                    $("#Formulario .elform.input").each(function () {
-                        $(this).prop('disabled', true);
-                    });
-                    $("#Formulario .elform.select").each(function () {
-                        $(this).prop('disabled', true);
-                    });
-
-                    $("#placa").prop('disabled', false);
-
-
-                    $("#success-msj h5").html('<i style="color:#fff" class="fas fa-check-circle mr-2"></i>'
-                        + "Vehiculo registrado correctamente");
+                if (res.error == true) {
+                    $("#success-msj").css('background', '#D52D2F')
+                    $("#success-msj h5").html(`<i style="color:#fff" class="fas fa-exclamation-triangle mr-2"></i>${res.mensaje}`);
 
                     $('#success-msj').slideDown('slow');
                     setTimeout(function () {
                         $('#success-msj').slideUp('slow');
                     }, 4000);
 
+                } else {
+                    if (res.insertado == true) {
 
+                        vehiculo = res.vehiculo;
+
+                        $("#registrarVehiculo").prop('disabled', true);
+
+                        $("#Formulario .elform.input").each(function () {
+                            $(this).prop('disabled', true);
+                        });
+                        $("#Formulario .elform.select").each(function () {
+                            $(this).prop('disabled', true);
+                        });
+
+                        $("#placa").prop('disabled', false);
+
+                        $("#success-msj h5").html('<i style="color:#fff" class="fas fa-check-circle mr-2"></i>'
+                            + "Vehiculo registrado correctamente");
+
+                        $('#success-msj').slideDown('slow');
+                        setTimeout(function () {
+                            $('#success-msj').slideUp('slow');
+                        }, 4000);
+
+                        $(".elform input").each(function () {
+                            $(this).prop('disabled', true);
+                        });
+
+                        $(".elform select").each(function () {
+                            $(this).prop('disabled', true);
+                        });
+
+                        $("#placa").prop('disabled', false);
+
+                    }
                 }
+
+
             }).always(function () {
                 $("#registrarVehiculo").html('Registrar Vehículo');
-            }).fail(function (err) {
-                alert("Hubo un error en la petición.");
             })
+
         }
 
     }
@@ -177,20 +242,65 @@ $(document).ready(function () {
 
 
     $(document).bind("click", function () {
-        console.log(id_vehiculo);
+
+        console.log("vehiculo:".vehiculo);
+        console.log("mantenimiento: " + mantenimiento);
+        console.log("servicios: " + servicios);
+
     });
+
 
 
     $("#cerrar").click(function () {
         $("#placa").triggerHandler("focus");
     })
 
+    function mostrarServicios() {
+
+        if (servicios != '') {
+            template = '';
+
+            servicios.forEach(servicio => {
+
+                servicio.forEach(s => {
+
+                    template +=
+                        `<li id="service-li" style="position: relative; left: 0px;   width: 300px; margin-right:2em;">
+                            <!-- Square card -->
+                            <div class="container container-card_service">
+                                <div class="card">
+                                    <span name="code" id="code-tarjeta" class="badge">${s.codigo}</span>
+                                    <div class="tarjeta-title">
+                                        <h4> ${s.nombre}</h4>
+                                        <a id="deleteServicio" class="animacionClose"><i class="fas fa-times"></i></a>
+                                    </div>
+                                    <div class="card-header">
+                                        <img style="width: 100%;" src="Assets/img/images.services/${s.imagen}" alt="">
+                                    </div>
+    
+                                    <div class="card-body">
+                                        <p class="card-text">${s.descripcion}</p>
+                                    </div>
+                
+                
+                                    <div class="card-footer text-muted">
+                                        <span class="badge bg-secondary" style="width: 100%; color: #fff; padding: 1em 2em; background-color: #aaa !important; float: right; ">$ ${s.costo}</span>
+                                    </div>
+                
+                                </div>
+                            </div>
+                        </li>`
+                })
+            });
+
+            $('#listar-servicios').html(template);
+        }
+
+
+
+    }
+
     function BusquedaVehiculo() {
-
-        $('#listar-servicios').html('');
-        listServicios.length = 0;
-        arrayServicios.length = 0;
-
         let placa_vehiculo = $("#placa").val();
         if (placa_vehiculo == '') {
 
@@ -200,11 +310,28 @@ $(document).ready(function () {
             $('#error-msj').slideDown('slow');
             setTimeout(function () {
                 $('#error-msj').slideUp('slow');
-            }, 4000);
+            }, 2000);
 
         } else {
 
+            document.getElementById("Formulario").reset();
+            $('#listar-servicios').html('');
+            $("#placa").val(placa_vehiculo);
+            $("#ingresarVehiculo").prop('disabled', false);
+
+            vehiculo = null;
+            propietario = null;
+            servicios = [];
+            mantenimiento = false;
+            template = '';
+            $("#mantSi").css('display', 'none');
+            $("#mant-success").css('display', 'none');
+
+
             function accionAceptar() {
+                document.getElementById("Formulario").reset();
+                $("#placa").val(placa_vehiculo);
+
                 $('#registrarVehiculo').removeClass('disabled');
                 $('#contenido-modal').modal('hide');
 
@@ -216,23 +343,23 @@ $(document).ready(function () {
                 });
 
                 $("#registrarVehiculo").removeAttr('disabled');
+                $("#marca").focus();
             }
-
-            $("#contenido-modal").keypress(function (e) {
-                if (e.which == 13) {
-                    accionAceptar();
-                    $("#marca").focus();
-                }
-            });
 
             $("#contenido-modal #aceptar").click(function () {
                 accionAceptar();
-                $("#marca").focus();
             });
 
             $("#contenido-modal #cerrar").click(function () {
                 $("#placa").val("");
             });
+
+            $("#contenido-modal").keypress(function (e) {
+                if (e.which == 13) {
+                    accionAceptar();
+                }
+            });
+
 
             $.ajax({
                 url: "http://localhost/valleyworkshop/ingresos/buscar",
@@ -241,181 +368,190 @@ $(document).ready(function () {
                 success: function (respuesta) {
 
                     let resultado = JSON.parse(respuesta);
-                    let error = resultado.vehiculo_encontrado;
 
-                    if (error == false) {
-                        document.getElementById("Formulario").reset();
-                        $("#placa").val(placa_vehiculo);
-
+                    if (resultado.error) {
 
                         $("#contenido-modal .modal-title").html('<i style="color:orange" class="fas fa-exclamation-triangle mr-2"></i> Vehículo no Encontrado');
                         $("#contenido-modal .modal-body").html(`El vehículo con placa
                             <span style="font-weight: bolder; color: orange;">${placa_vehiculo}</span>
                             no fue encontrado en los registros.<br>
                             <b>¿Desea registrarlo como nuevo vehiculo?</b>`);
+
                         $("#contenido-modal").modal();
                         $('#listar-servicios').html('');
 
                     } else {
 
-                        if (resultado.length != 0) {
+                        $("#agregarServicio").prop('disabled', false);
+
+                        vehiculo = resultado[0].vehiculo;
+                        propietario = resultado[1].propietario;
+                        mantenimiento = resultado[2].mantenimiento;
+                        $("#registrarVehiculo").prop('disabled', true);
+
+                        $(".elform input").each(function () {
+                            $(this).prop('disabled', true);
+                        });
+                        $(".elform select").each(function () {
+                            $(this).prop('disabled', true);
+                        });
+
+                        $("#placa").prop('disabled', false);
+
+
+                        $("#placa").val(vehiculo.placa);
+                        $("#marca").val(vehiculo.marca);
+                        $("#linea").val(vehiculo.modelo);
+                        $("#modelo").val(vehiculo.anio);
+                        $("#tipo").val('A');
+
+                        $("#identificacion").val(propietario.nuid);
+                        $("#nombres").val(propietario.nombres);
+                        $("#apellidos").val(propietario.apellidos);
+                        $("#genero").val(propietario.genero);
+                        $("#telefono").val(propietario.telefono);
+                        $("#correo  ").val(propietario.correo);
+                        $("#direccion").val(propietario.direccion);
+
+                        if (mantenimiento != false) {
+
+                            $("#mant-success-msj").css('background-color', '#2B8EF8');
+                            $("#mant-success-msj h5").html("<span style='color: orange;'></span>El vehiculo se encuentra en un mantenimiento pendiente.");
+
+                            $("#mantSi").css('display', 'block');
+
+                            $('#mant-success-msj').slideDown('slow');
+                            setTimeout(function () {
+                                $('#mant-success-msj').slideUp('slow');
+                            }, 2000);
+
+                            //$("#mant-success").css('display', 'block');
+                            setTimeout(function () {
+                                $('#mant-success').slideDown('slow');
+                            }, 2000);
+
+
 
                             $("#agregarServicio").prop('disabled', false);
 
-                            vehiculo = resultado[0].vehiculo;
-                            propietario = resultado[1].propietario;
+                            servicios = resultado[3].servicios;
 
-                            id_vehiculo = vehiculo.id;
-
-                            $("#placa").val(vehiculo.placa);
-                            $("#marca").val(vehiculo.marca);
-                            $("#linea").val(vehiculo.linea);
-                            $("#modelo").val(vehiculo.modelo);
-                            $("#tipo").val(vehiculo.tipo);
-
-                            $("#identificacion").val(propietario.nuid);
-                            $("#nombres").val(propietario.nombres);
-                            $("#apellidos").val(propietario.apellidos);
-                            $("#genero").val(propietario.genero);
-                            $("#telefono").val(propietario.telefono);
-                            $("#correo  ").val(propietario.correo);
-                            $("#direccion").val(propietario.direccion);
-
-                            console.log(resultado);
-
-                            if (resultado.length == 3) {
-                                servicios = resultado[2].servicios;
-
-                                let template = '';
-                                servicios.forEach(servicio => {
-                                    template += `<li id="service-li" style="position: relative; left: 0px;   width: 300px; margin-right:2em;">
-                                                                    <!-- Square card -->
-                                                                    <div class="container container-card_service">
-                                                                        <div class="card">
-                                                                            <span name="code" id="code-tarjeta" class="badge">${servicio.codigo}</span>
-                                                                            <h4 class="card-title">${servicio.nombre}</h4>
-                                                                            <div class="card-header">
-                                                                                <img style="width: 100%;" src="Assets/img/images.services/${servicio.imagen}" alt="">
-                                                                            </div>
-                                                                            <div class="card-body">
-                            
-                                                                                <p class="card-text">${servicio.descripcion}</p>
-                                                                            </div>
-                            
-                            
-                                                                            <div class="card-footer text-muted">
-                                                                                <span class="badge bg-secondary" style="width: 100%; color: #fff; padding: 1em 2em; background-color: #aaa !important; float: right; ">$ ${servicio.costo}</span>
-                                                                            </div>
-                            
-                                                                        </div>
-                                                                    </div>
-                                                                </li>`
-                                });
-                                $('#listar-servicios').html(template);
-
-                            }
+                            mostrarServicios();
 
                         }
 
                     }
 
-
-
-
-                    /*
-                    btnRegistrarVeh = document.getElementById('registrarVehiculo');
-    
-    
-                    if (respuesta != 0) {
-    
-                        let vehiculo = JSON.parse(respuesta);
-    
-    
-                        id_vehiculo = vehiculo[0].id;
-    
-                        id_mantenimiento = vehiculo[3];
-    
-                        $("#placa").val(vehiculo[0].placa);
-                        $("#marca").val(vehiculo[0].marca);
-                        $("#linea").val(vehiculo[0].linea);
-                        $("#modelo").val(vehiculo[0].modelo);
-                        $("#tipo").val(vehiculo[0].tipo);
-    
-                        $("#identificacion").val(vehiculo[1].nuid);
-                        $("#nombres").val(vehiculo[1].nombres);
-                        $("#apellidos").val(vehiculo[1].apellidos);
-                        $("#genero").val(vehiculo[1].genero);
-                        $("#telefono").val(vehiculo[1].telefono);
-                        $("#correo  ").val(vehiculo[1].correo);
-                        $("#direccion").val(vehiculo[1].direccion);
-    
-                        let template = '';
-    
-                        if (vehiculo[2] != undefined) {
-    
-                            listServicios = vehiculo[2];
-    
-                            listServicios.forEach(servicio => {
-                                template += `<li id="service-li" style="position: relative; left: 0px;   width: 300px; margin-right:2em;">
-                                                                    <!-- Square card -->
-                                                                    <div class="container container-card_service">
-                                                                        <div class="card">
-                                                                            <span name="code" id="code-tarjeta" class="badge">${servicio.codigo}</span>
-                                                                            <h4 class="card-title">${servicio.nombre}</h4>
-                                                                            <div class="card-header">
-                                                                                <img style="width: 100%;" src="Assets/img/images.services/${servicio.imagen}" alt="">
-                                                                            </div>
-                                                                            <div class="card-body">
-                            
-                                                                                <p class="card-text">${servicio.descripcion}</p>
-                                                                            </div>
-                            
-                            
-                                                                            <div class="card-footer text-muted">
-                                                                                <span class="badge bg-secondary" style="width: 100%; color: #fff; padding: 1em 2em; background-color: #aaa !important; float: right; ">$ ${servicio.costo}</span>
-                                                                            </div>
-                            
-                                                                        </div>
-                                                                    </div>
-                                                                </li>`
-                            });
-                            $('#listar-servicios').html(template);
-    
-                        }
-                        $('#registrarVehiculo').addClass('disabled');
-    
-                    } else {
-                        $('#registrarVehiculo').removeClass('disabled');
-                        $("#Formulario").trigger('reset');
-                        $("#placa").val(valor);
-                        $('#listar-servicios').html('');
-                        id_vehiculo = null;
-                    }
-                    */
-                }, error: function () {
-                    console.log("ocurrió un error.");
                 }
 
             });
-
         }
     }
 
     $("#buscar_vehiculo").click(BusquedaVehiculo);
     $("#placa").keypress(function (e) {
-
         if (e.which == 13) {
             BusquedaVehiculo();
         }
+    });
+
+
+    let code_service;
+    let element_li;
+
+    $(document).on('click', "#deleteServicio", function () {
+
+        element_li = $(this)[0].parentElement.parentElement.parentElement.parentElement;
+        code_service = $(this)[0].parentElement.parentElement.firstElementChild.lastChild.nodeValue;
+
+        $("#contenido-modal-Service .modal-title").html(`<i style="color:orange" class="fas fa-exclamation-triangle mr-2"></i> Eliminar servicio <span style="color: orange">[${code_service}]</span>`);
+        $("#contenido-modal-Service .modal-body").html(`
+                    <b>¿Desea Eliminar el servicio selecionado?</b>`);
+        $("#contenido-modal-Service").modal();
+    });
+
+    document.getElementById("aceptarS").addEventListener('click', function () {
+
+        $("#contenido-modal-Service").modal("hide");
+        $.post('http://localhost/valleyworkshop/ingresos/eliminarServicio', { code_service, mantenimiento, servicios }, function (respuesta) {
+
+            let resultado = JSON.parse(respuesta);
+
+            /*if (resultado.mantenimiento == null) {
+                servicios = false;
+            }*/
+
+            if (resultado.eliminado) {
+
+                buttonsDelete = (document.querySelectorAll("#deleteServicio"));
+                servicios = resultado.servicios;
+
+                $("#container-service").animate({
+                    //scrollLeft: "+=0px"
+                }, 1000, function () {
+                    $(this).animate({
+                        scrollLeft: "-=320px"
+                    }, 1000)
+
+                });
+
+                Swal.fire({
+                    title: '¡Servicio eliminado correctamente!',
+                    icon: 'success',
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutRight animate__fast'
+                    }
+                })
+
+                $(element_li).animate({
+                    //marginLeft: "-=0px"
+                }, 0, function () {
+
+                    $(this).css("margin-top", "0px");
+                    $(this).animate({
+                        marginTop: "+=420px"
+                    }, 1000);
+                });
+
+                for (i = 0; i < buttonsDelete.length; i++) {
+
+                    if (buttonsDelete[i].parentElement.parentElement.parentElement.parentElement == element_li) {
+
+                        element_li_next = buttonsDelete[i + 1].parentElement.parentElement.parentElement.parentElement;
+                        $(element_li_next).animate({
+                            marginLeft: "-=0px"
+                        }, 0, function () {
+
+                            $(this).css("margin-top", "0px");
+                            $(this).animate({
+                                marginLeft: "-=332px"
+                            }, 1000);
+                        });
+
+
+                    }
+
+                    setTimeout(function () {
+
+                        mostrarServicios();
+                        return false;
+
+                    }, 2000);
+                }
+
+            }
+
+
+
+
+        });
+
 
 
     });
 
-
     $("#agregarServicio").click(function (event) {
         event.preventDefault();
-
-
 
         if ($("#placa").val() == '') {
 
@@ -426,11 +562,11 @@ $(document).ready(function () {
             $('#error-msj').slideDown('slow');
             setTimeout(function () {
                 $('#error-msj').slideUp('slow');
-            }, 4000);
+            }, 2000);
 
         } else {
 
-            if (id_vehiculo == null) {
+            if (vehiculo == null) {
                 $("#error-msj h5").html('<i style="color:orange" class="fas fa-exclamation-triangle mr-2"></i>'
                     + "<span style='color: orange;'></span> Por favor registre el vehiculo.");
 
@@ -439,135 +575,68 @@ $(document).ready(function () {
                     $('#error-msj').slideUp('slow');
                 }, 6000);
             } else {
-                if (validator.form()) {
 
+                if (validator.form()) {
 
                     $("#ingresarVehiculo").prop('disabled', false);
 
                     try {
-                        let placa = $("#placa").val();
                         let code_service = $("#servicio").val();
+                        $.ajax({
+                            url: "http://localhost/valleyworkshop/ingresos/agregarServicio",
+                            type: "POST",
+                            data: { code_service, servicios },
+                            success: function (respuesta) {
+                                let resultado = JSON.parse(respuesta);
+                                servicios = resultado.servicios;
 
-                        console.log(code_service);
+                                //SI EL SERVICIO SE ENCUENTRA EN EL LISTADO DE LOS SERVICIOS AGREGADOS ARROJA ERROR DE DUPLICADO.
+                                if (resultado.error == true) {
 
-                        listServicios.forEach(servicio => {
+                                    $("#insertado").css("background", "#35528C");
+                                    $("#insertado h5").html('<i style="color:orange" class="fas fa-exclamation-triangle mr-2"></i>'
+                                        + "El servicio con codigo <span style='color: orange;'>" + code_service + "</span> ya se encunetra registrado.");
 
+                                    $('#insertado').slideDown('slow');
+                                    setTimeout(function () {
+                                        $('#insertado').slideUp('slow');
+                                    }, 4000);
 
-
-                            //SI EL SERVICIO SE ENCUENTRA EN EL LISTADO DE LOS SERVICIOS AGREGADOS ARROJA ERROR DE DUPLICADO.
-                            
-                            if (servicio.codigo == code_service) {
-                                $("#error-services-null h5").html('<i style="color:orange" class="fas fa-exclamation-triangle mr-2"></i>'
-                                    + "El servicio con codigo <span style='color: orange;'>" + code_service + "</span> ya se encunetra registrado.");
-            
-                                $('#error-services-null').slideDown('slow');
-                                setTimeout(function () {
-                                    $('#error-services-null').slideUp('slow');
-                                }, 4000);
-            
-                                throw new Error("El servicio ya se encuentra registrado.");
-                            }
-                        });
-
-                        if (listServicios.includes(code_service) == false) {
-
-
-                            $.ajax({
-                                url: "http://localhost/valleyworkshop/ingresos/agregarServicio",
-                                type: "POST",
-                                data: { code_service },
-                                success: function (respuesta) {
-
-                                    let servicios = JSON.parse(respuesta);
-                                    let template = '';
-
-
-                                    servicios.forEach(servicio => {
-                                        listServicios.push(servicio);
-                                    });
-
-                                    arrayServicios.push(servicios[0].codigo);
-
-                                    listServicios.forEach(servicio => {
-
-                                        template += `<li id="service-li" style="position: relative; left: 0px;   width: 300px; margin-right:2em;">
-                                                                        <!-- Square card -->
-                                                                        <div class="container container-card_service">
-                                                                            <div class="card">
-    
-                                                                                <span name="code" id="code-tarjeta" class="badge">${servicio.codigo}</span>
-                                                                                <h4 class="card-title">${servicio.nombre}</h4>
-                                                                                <div class="card-header">
-                                                                                    <img style="width: 100%;" src="Assets/img/images.services/${servicio.imagen}" alt="">
-                                                                                </div>
-                                                                                <div class="card-body">
-                                
-                                                                                    <p class="card-text">${servicio.descripcion}</p>
-                                                                                </div>
-                                
-                                
-                                                                                <div class="card-footer text-muted">
-                                                                                    <span class="badge bg-secondary" style="width: 100%; color: #fff; padding: 1em 2em; background-color: #aaa !important; float: right; ">$ ${servicio.costo}</span>
-                                                                                </div>
-                                
-                                                                            </div>
-                                                                        </div>
-                                                                    </li>`
-                                    });
-                                    $('#listar-servicios').html(template);
-
-
-
-                                    if (listServicios.length < 2) {
-                                        $("#service-li:last-child").animate({
-                                            marginLeft: "-=0px"
-                                        }, 0, function () {
-
-                                            //$(this).delay("2000"); Funcion Espera un momento.
-                                            $(this).css("margin-left", "1100px");
-                                            $(this).animate({
-                                                marginLeft: "-=1100px"
-                                            }, 1000)
-                                        });
-                                    } else {
-                                        $("#service-li:last-child").animate({
-                                            marginLeft: "-=0px"
-                                        }, 0, function () {
-
-                                            //$(this).delay("2000"); Funcion Espera un momento.
-                                            $(this).css("margin-left", "800px");
-                                            $(this).animate({
-                                                marginLeft: "-=800px"
-                                            }, 1000)
-                                        });
-                                    }
-
+                                    throw new Error("El servicio ya se encuentra registrado.");
                                 }
 
-                            });
+                                mostrarServicios();
 
 
-                        } else {
+                                $("#service-li:last-child").animate({
+                                    marginLeft: "-=0px"
+                                }, 0, function () {
 
-                            $("#error-duplicate-msj h5").html('<i style="color:orange" class="fas fa-exclamation-triangle mr-2"></i>'
-                                + "El servicio con codigo <span style='color: orange;'>" + valor + "</span> ya se encunetra registrado.");
+                                    //$(this).delay("2000"); Funcion Espera un momento.
+                                    $(this).css("margin-left", "1040px");
+                                    $(this).animate({
+                                        marginLeft: "-=1040px"
+                                    }, 1000)
+                                });
 
-                            $('#error-duplicate-msj').slideDown('slow');
-                            setTimeout(function () {
-                                $('#error-duplicate-msj').slideUp('slow');
-                            }, 4000);
-                        }
+                                $("#container-service").animate({
+                                    scrollLeft: "+=0px"
+                                }, 1000, function () {
+                                    $(this).animate({
+                                        scrollLeft: "+=400px"
+                                    }, 1000)
 
+                                });
 
+                            }
 
+                        });
 
                     } catch (error) {
                         console.error(error);
                     }
 
-                    setTimeout(function () {
-                        document.getElementById('container-service').scrollLeft += 1000;
-                    }, 2000);
+
                 }
 
             }
@@ -577,78 +646,120 @@ $(document).ready(function () {
 
     });
 
-
     $("#ingresarVehiculo").click(function (event) {
+
         event.preventDefault();
 
-        if (validator.form()) {
-            if (arrayServicios.length == 0) {
-                $("#error-services-null").css('background-color', '#35528C');
-                $("#error-services-null h5").html('<i style="color:orange" class="fas fa-exclamation-triangle mr-2"></i>'
-                    + "<span style='color: orange;'></span>No se puede ingresar vehiculo sin servicios registrados.");
+        if ($("#placa").val() == '') {
 
-                $('#error-services-null').slideDown('slow');
+            window.scroll(0, 0);
+
+
+            $("#error-msj h5").html('<i style="color:orange" class="fas fa-exclamation-triangle mr-2"></i>'
+                + "<span style='color: orange;'></span> Por favor digite la placa.");
+
+            $('#error-msj').slideDown('slow');
+            setTimeout(function () {
+                $('#error-msj').slideUp('slow');
+            }, 2000);
+
+
+        } else {
+
+            if (vehiculo == null) {
+
+                window.scroll(0, 0);
+
+
+                $("#error-msj h5").html('<i style="color:orange" class="fas fa-exclamation-triangle mr-2"></i>'
+                    + "<span style='color: orange;'></span> Por favor registre el vehiculo.");
+
+                $('#error-msj').slideDown('slow');
                 setTimeout(function () {
-                    $('#error-services-null').slideUp('slow');
-                }, 5000);
+                    $('#error-msj').slideUp('slow');
+                }, 6000);
 
-                throw new Error("Array Servicios null.");
+
+            } else {
+
+                if (validator.form()) {
+
+                    if (servicios == false) {
+                        Swal.fire({
+                            title: '¡Mantenimiento sin Servicios!',
+                            text: 'Por favor registre algun servicio al mantenimiento.',
+                            icon: 'error',
+                            hideClass: {
+                                popup: 'animate__animated animate__fadeOutRight animate__fast'
+                            },
+                            timer: 3000
+                        })
+                        return false;
+                    } else {
+
+                        $("#ingresarVehiculo").prop('disabled', false);
+
+                        try {
+
+                            let code_service = $("#servicio").val();
+
+                            $.ajax({
+                                url: "http://localhost/valleyworkshop/ingresos/ingresar",
+                                type: "POST",
+                                data: { code_service, vehiculo, mantenimiento, servicios },
+                                success: function (respuesta) {
+
+                                    let resultado = JSON.parse(respuesta);
+
+
+
+                                    if (resultado.insertado) {
+
+                                        Swal.fire({
+                                            title: '¡Insertado Correctamente!',
+                                            text: 'Exitosamente fue registrado como mantenimiento pendiente',
+                                            icon: 'success',
+                                            timer: '5000',
+                                            //showConfirmButton: false,
+
+                                            hideClass: {
+                                                popup: 'animate__animated animate__fadeOutRight animate__fast'
+                                            }
+                                        })
+
+
+
+                                        document.getElementById("Formulario").reset();
+                                        $('#listar-servicios').html('');
+                                        vehiculo = null;
+                                        propietario = null;
+                                        servicios = null;
+                                        mantenimiento = null;
+                                        template = '';
+                                        $("#mantSi").css('display', 'none');
+
+                                    }
+
+
+                                }
+
+                            });
+
+                        } catch (error) {
+                            console.error(error);
+                        }
+
+                    }
+
+
+                }
+
             }
 
-            $.ajax({
-
-                url: "http://localhost/valleyworkshop/ingresos/ingresar",
-                type: "POST",
-                data: { 'id_vehiculo': id_vehiculo, arrayServicios },
-
-                beforeSend: function () {
-                    $("#ingresarVehiculo").html('Ingresando Vehiculo...');
-                },
-
-                success: function (respuesta) {
-
-                    let resultado = JSON.parse(respuesta);
-
-                    /*
-     
-                    if (respuesta.includes('constraint violation')) {
-                        $("#error-services-null h5").html('<i style="color:orange" class="fas fa-exclamation-triangle mr-2"></i>'
-                            + "<span style='color: orange;'></span>El vehiculo ya se encuentra en un mantenimiento pendiente.");
-     
-                        $('#error-services-null').slideDown('slow');
-                        setTimeout(function () {
-                            $('#error-services-null').slideUp('slow');
-                        }, 5000);
-     
-                        throw new Error("Violacion duplicado de llaves.");
-                    }
-                    */
-
-                    if (resultado[0].insertado) {
-
-                        $("#error-services-null").css('background-color', '#00D440');
-                        $("#error-services-null h5").html('<i class="fas fa-car mr-2"></i>'
-                            + "<span>Vehiculo ingresado correctamente.</span>");
-
-                        $('#error-services-null').slideDown('slow');
-                        setTimeout(function () {
-                            $('#error-services-null').slideUp('slow');
-                        }, 5000);
-
-
-                        document.getElementById("Formulario").reset();
-                        $('#listar-servicios').html('');
-                        listServicios.length = 0;
-                        arrayServicios.length = 0;
-                        $("#registrarVehiculo").prop('disabled', true);
-                    }
-
-                },
-                complete: function () {
-                    $("#ingresarVehiculo").html('Ingresar Vehiculo');
-                }
-            });
         }
+
+
+
     });
 
 })

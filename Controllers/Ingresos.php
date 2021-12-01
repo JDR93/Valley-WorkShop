@@ -32,14 +32,21 @@ class Ingresos extends Controllers
         $this->views->getView($this,"agregarServicio");
     }
 
-    public function registrarVehiculo()
-    {
-        $this->views->getView($this,"registrarVehiculo");
-    }
     public function ingresar()
     {
         $this->views->getView($this,"ingresar");
     }
+    public function eliminarServicio()
+    {
+        $this->views->getView($this,"eliminarServicio");
+    }
+
+    public function buscarPropietario()
+    {
+        $this->views->getView($this,"buscarPropietario");
+    }
+
+    
 }
 
 

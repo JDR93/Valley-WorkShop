@@ -96,8 +96,8 @@
 
                     </div><!-- CARD BODY END -->
 
-                    <div id="registrado-msj" style="display: none; background-color: #00D440; text-align: center; height: auto;">
-                        <h5 style="color: #fff; font-family: 'Bebas Neue', cursive; padding: .5em; margin: 0;">Servicio registrado satisfactoriamente.</h5>
+                    <div id="registrado-msj" style="display: none; background-color: #00B894; text-align: center; height: auto;">
+                        <h5 style="color: #fff; font-family: 'Bebas Neue', cursive; padding: .5em; margin: 0;"></h5>
                     </div>
                     <div id="error-duplicate-msj" style="display: none; background-color: #35528C; text-align: center">
                         <h5 style="color: #fff; font-family: 'Bebas Neue', cursive; padding: .5em; margin: 0;"><i style="color:#fff" class="fas fa-exclamation-triangle mr-2"></i>El servicio ya se encunetra registrado.</h5>
@@ -158,7 +158,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Eliminar Servicio</h5>
+                <h5 class="modal-title" id="exampleModalLabel"><b>Eliminar Servicio</b></h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">&times;</button>
             </div>
             <div class="modal-body">

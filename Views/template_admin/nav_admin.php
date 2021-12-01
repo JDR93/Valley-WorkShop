@@ -102,6 +102,7 @@ if ($_SESSION['rol'] == 'Administrador' || $_SESSION['rol'] == 'Ingresos' || $_S
                                 <i class="fa fa-chart-line"></i>
                                 <span>Estadisticas</span>
                             </a>
+
                             <div class="sidebar-submenu">
                                 <ul>
                                     <li>
@@ -112,7 +113,17 @@ if ($_SESSION['rol'] == 'Administrador' || $_SESSION['rol'] == 'Ingresos' || $_S
                                     </li>
                                 </ul>
                             </div>
+
+
                         </li>
+
+                        <li class="">
+                            <a href="<?php echo base_url() ?>registrar_usuarios">
+                                <i class="fas fa-users"></i>
+                                <span>Registro de Usuarios</span>
+                            </a>
+                        </li>
+
                     <?php } ?>
 
                 </ul>
@@ -128,14 +139,33 @@ if ($_SESSION['rol'] == 'Administrador' || $_SESSION['rol'] == 'Ingresos' || $_S
         </div>
         <!-- sidebar-content  -->
         <div class="sidebar-footer">
-            <a href="#">
+            <a title="Configuración" href="#">
                 <i class="fa fa-cog"></i>
                 <!-- <span class="badge-sonar"></span> -->
             </a>
-            <a href="<?php echo base_url() ?>login/cerrar_session">
+            <a id="cerrar_session" title="Cerrar Sesión" href="<?php echo base_url() ?>login/cerrar_session">
                 <i class="fa fa-power-off"></i>
             </a>
         </div>
     </nav>
+
+    <script>
+        $(document).ready(function() {
+
+            $("#cerrar_session").click(function() {
+                Swal.fire({
+                    title: '¡Cerrando Sesión!',
+                    icon: 'success',
+                    showConfirmButton: false
+
+                })
+                Swal.showLoading(Swal.getDenyButton())
+            })
+
+
+        })
+    </script>
+
+
 
 <?php } ?>

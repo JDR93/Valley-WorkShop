@@ -1,20 +1,17 @@
 
 $(document).ready(function () {
 
-    window.addEventListener("resize", function(event) {
+    window.addEventListener("resize", function (event) {
         if (document.body.clientWidth < 1150) {
             $("#close-sidebar").click();
-        }   
+        }
     })
-    
-        
 
     edit = false;
 
     ////////////////////////////////////////////////////
     // VALIDACION DE DATOS
     ////////////////////////////////////////////////////
-
     $("#Formulario").validate({
         rules: {
             codigo: {
@@ -50,7 +47,6 @@ $(document).ready(function () {
 
     });
 
-
     $("#Formulario").on('submit', function (event) {
 
         if (edit == false) {
@@ -65,69 +61,88 @@ $(document).ready(function () {
                 type: 'POST',
                 url: ElUrl,
                 data: new FormData(this),
-                dataType: 'json',
                 contentType: false,
                 cache: false,
-                processData: false
+                processData: false,
+
+                beforeSend: function () {
+                    $("#registrar").html('Enviando...');
+                }
+
+
 
             }).done(function (respuesta) {
 
-                console.log(respuesta);
+                let resultado = JSON.parse(respuesta);
+                console.log(resultado);
 
-            }).fail(function (resp) {
+                if (resultado.exito) {
+                    $("#codigo").focus();
+                    $("#registrado-msj").css('background','#00B894')
+                    $("#registrado-msj h5").html('<i class="fas fa-check-circle"></i>' + resultado.mensaje);
 
-                respuesa = resp.responseText;
-                array = respuesa.split(" ");
+                    $('#registrado-msj').slideDown('slow');
+                    setTimeout(function () {
+                        $('#registrado-msj').slideUp('slow');
+                    }, 5000);
 
-                array.forEach(function (value) {
-                    if (value == 'codigo') {
-                        $("#codigo").focus();
-                        $("#error-duplicate-msj h5").html('<i style="color:orange" class="fas fa-exclamation-triangle mr-2"></i>' + resp.responseText);
+                    document.getElementById("Formulario").reset();
 
-                        $('#error-duplicate-msj').slideDown('slow');
-                        setTimeout(function () {
-                            $('#error-duplicate-msj').slideUp('slow');
-                        }, 4000);
-                    }
-                    if (value == 'nombre') {
+                }
+
+                if (resultado.exito_editado) {
+                    $("#codigo").focus();
+                    $("#registrado-msj").css('background','#E0A800')
+                    $("#registrado-msj h5").html('<i class="fas fa-check-circle"></i>' + resultado.mensaje);
+
+                    $('#registrado-msj').slideDown('slow');
+                    setTimeout(function () {
+                        $('#registrado-msj').slideUp('slow');
+                    }, 5000);
+                    
+                    document.getElementById("Formulario").reset();
+
+                }
+
+                if (resultado.error) {
+                    $("#error-duplicate-msj h5").html('<i style="color:orange" class="fas fa-exclamation-triangle mr-2"></i>' + resultado.mensaje);
+
+                    $('#error-duplicate-msj').slideDown('slow');
+                    setTimeout(function () {
+                        $('#error-duplicate-msj').slideUp('slow');
+                    }, 4000);
+
+                    if (resultado.mensaje.includes('nombre')) {
                         $("#nombre").focus();
-                        $("#error-duplicate-msj h5").html('<i style="color:orange" class="fas fa-exclamation-triangle mr-2"></i>' + resp.responseText);
 
-                        $('#error-duplicate-msj').slideDown('slow');
-                        setTimeout(function () {
-                            $('#error-duplicate-msj').slideUp('slow');
-                        }, 4000);
+                    } else if (resultado.mensaje.includes('codigo')) {
+                        $("#codigo").focus();
                     }
-                    if (value == 'registrado') {
-                        $('#registrado-msj').slideDown('slow');
-                        setTimeout(function () {
-                            $('#registrado-msj').slideUp('slow');
-                        }, 3000);
-                        document.getElementById("Formulario").reset();
-                    }
+                }
 
-                    if (value == 'editado') {
-                        $('#editado-msj').slideDown('slow');
-                        setTimeout(function () {
-                            $('#editado-msj').slideUp('slow');
-                        }, 3000);
-                        $("#div_cancelar_edicion").attr('style', 'display: none;');
-                        $("#registrar").replaceWith('<button type="submit" name="registrar" id="registrar" class="btn btn-warning btn-lg btn-block">Registrar servicio</button>');
-                        document.getElementById("Formulario").reset();
-                    }
+                /*
+                                if (value == 'editado') {
+                                    $('#editado-msj').slideDown('slow');
+                                    setTimeout(function () {
+                                        $('#editado-msj').slideUp('slow');
+                                    }, 3000);
+                                    $("#div_cancelar_edicion").attr('style', 'display: none;');
+                                             }
+                */
 
-
-                });
 
             }).always(function () {
+                edit = false;
                 listarServicios();
-                console.log("complete");
+
+                $("#registrar").html('Registrar Servicio');
+                $("#div_cancelar_edicion").attr('style', 'display: none;');
+
+
             });
             event.preventDefault();
         }
     });
-
-
 
 
     listarServicios();
@@ -155,7 +170,7 @@ $(document).ready(function () {
                         } else {
                             src = "Assets/img/images.services/" + servicio.imagen;
                         }
-    
+
                         template += `<tr serviceCode="${servicio.codigo}" > ` +
                             `<td> ${servicio.codigo} </td>` +
                             `<td> ${servicio.nombre} </td>` +
@@ -175,7 +190,6 @@ $(document).ready(function () {
 
     })
 
-
     function listarServicios() {
         $.ajax({
             url: 'http://localhost/valleyworkshop/registrar_servicios/listar',
@@ -183,6 +197,8 @@ $(document).ready(function () {
             success: function (respuesta) {
                 let services = JSON.parse(respuesta);
                 let template = '';
+
+                //console.log(respuesta);
 
                 services.forEach(servicio => {
 
@@ -206,6 +222,8 @@ $(document).ready(function () {
             }
         });
     }
+
+
 
     $("#cancelar_edicion").click(function () {
         $("#div_cancelar_edicion").attr('style', 'display: none;');
@@ -244,6 +262,10 @@ $(document).ready(function () {
         let element = $(this)[0].parentElement.parentElement;
         let code = $(element).attr('serviceCode');
 
+        console.log(element);
+
+
+
         $.post('http://localhost/valleyworkshop/registrar_servicios/obtener', { code }, function (respuesta) {
             const service = JSON.parse(respuesta);
 
@@ -254,8 +276,10 @@ $(document).ready(function () {
             $('#descripcion').val(service.descripcion);
             $('#imagen-input').val(service.imagen);
             edit = true;
-            $("#registrar").replaceWith('<button style="color:#fff;" type="submit" name="registrar" id="registrar" class="btn btn-success btn-lg btn-block">Editar servicio</button>')
+            $("#registrar").replaceWith('<button style="color:#fff;" type="submit" name="registrar" id="registrar" class="btn btn-success btn-lg btn-block animate__animated animate__wobble">Editar servicio</button>')
         })
+
+
 
     })
 

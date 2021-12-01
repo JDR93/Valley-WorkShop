@@ -4,11 +4,11 @@ require_once "Models/Servicio.php";
 require_once "Config/conection.php";
 
 $code = $_POST['code'];
+$taller = new Taller();
 
 if (isset($_POST['code'])) {
 
     $conection = BD::instanciar();
-
     $result = $conection->prepare("SELECT imagen FROM servicio WHERE codigo = '$code'");
     $result->execute();
 
@@ -19,11 +19,7 @@ if (isset($_POST['code'])) {
         unlink("Assets/img/images.services/".$txtImagen);
     }
 
-    $service = new Servicio();
-    $result = $service->removerServicio($code);
-    if (!$result) {
-        die("Ha ocurrido un problema... ");
-    }
+    $taller->removerServicio($code);
 }
 
 echo "Eliminado correctamente.";

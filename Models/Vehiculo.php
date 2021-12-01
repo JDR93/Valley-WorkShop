@@ -1,6 +1,7 @@
 <?php
 
 require_once "./Libraries/Core/MySql.php";
+require_once "./Models/Propietario.php";
 
 
 class Vehiculo extends Mysql {
@@ -11,29 +12,41 @@ class Vehiculo extends Mysql {
     private $anio;
     private $modelo;
     private $tipo;
-    private $id_propietario;
+    private $propietario;
 
-    public function __construct($placa, $marca, $anio, $modelo, $tipo, $id_propietario)
+    public function __construct($placa, $marca, $anio, $modelo, $tipo, $propietario)
     {
+        parent::__construct();
+
         $this->placa = $placa;
         $this->marca = $marca;
         $this->modelo = $modelo;
         $this->anio = $anio;
         $this->tipo = $tipo;
-        $this->id_propietario = $id_propietario;
+        $this->propietario = $propietario;
 
-        parent::__construct();
     }
 
-    public function __get($name)
-    {
-        return $this->$name;
+    public function __get($property){
+        if(property_exists($this, $property)) {
+            return $this->$property;
+        }else{
+            return "Propiedad no existe";
+        }
     }
+
 
     public function __set($name, $value)
     {
         $this->$name = $value;
     }
+
+    public function getPlaca()
+    {
+        return $this->placa;
+    }
+
+    /*
     
     public function getPropietario(){
         $query_select = "SELECT * FROM propietario WHERE id = $this->id_propietario ";
@@ -57,8 +70,6 @@ class Vehiculo extends Mysql {
         $query_delete = "DELETE FROM vehiculo WHERE id = $id";
         $request_delete = $this->delete($query_delete);
         return $request_delete;
-    }
+    }*/
 
 }
-
-?>

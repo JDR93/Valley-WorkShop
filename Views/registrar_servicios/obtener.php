@@ -1,15 +1,10 @@
 <?php
 
-require_once "Models/Servicio.php";
-
+require_once "Models/Taller.php";
+$taller = new Taller();
 $code = $_POST['code'];
 
-$service = new Servicio();
-$result = $service->getServicio($code);
-
-if (!$result) {
-    die("Ha ocurrido un problema... ");
-}
+$result = $taller->getServicio($code);
 
 $json[] = array(
     'id' => $result->id,
@@ -19,7 +14,6 @@ $json[] = array(
     'imagen' => $result->imagen,
     'descripcion' => $result->descripcion
 );
-
 
 $jsonString = json_encode($json[0]);
 echo $jsonString;
