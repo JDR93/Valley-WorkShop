@@ -12,7 +12,7 @@
 
             <div class="col-6 ml-0 ">
                 <form class="form-inline my-2 my-lg-0 justify-content-end ">
-                    <input id="input-buscar" class="form-control mr-sm-2" type="text" placeholder="Buscar servicio">
+                    <input id="input-buscar" class="form-control mr-sm-2" type="text" placeholder="Buscar producto">
                     <button id="buscar" class="btn btn-outline-success my-2 my-sm-0" type="button">Buscar</button>
                 </form>
             </div>
@@ -33,32 +33,32 @@
 
                             <div class="row">
 
-                                <input name="idService" type="hidden" id="idService">
+                                <input name="idProduct" type="hidden" id="idService">
 
                                 <div class="col-6 col-md-2">
                                     <div class="form-group">
                                         <label for="codigo">Codigo:</label>
-                                        <input type="text" class="form-control" name="codigo" id="codigo" autocomplete="off" placeholder="codigo del servicio">
-                                    </div>
-                                </div>
-
-                                <div class="col-6 col-md-2">
-                                    <div class="form-group">
-                                        <label for="precio">Precio:</label>
-                                        <input type="text" class="form-control" name="precio" id="precio" autocomplete="off" aria-describedby="helpId" placeholder="precio del servicio">
+                                        <input type="text" class="form-control" name="codigo" id="codigo" autocomplete="off" placeholder="codigo del producto">
                                     </div>
                                 </div>
 
                                 <div class="col-6 col-md-4">
                                     <div class="form-group">
                                         <label for="nombre">Nombre:</label>
-                                        <input type="text" class="form-control" name="nombre" id="nombre" autocomplete="off" aria-describedby="helpId" placeholder="nombre del servicio">
+                                        <input type="text" class="form-control" name="nombre" id="nombre" autocomplete="off" aria-describedby="helpId" placeholder="nombre del producto">
+                                    </div>
+                                </div>
+
+                                <div class="col-6 col-md-2">
+                                    <div class="form-group">
+                                        <label for="precio">Precio:</label>
+                                        <input type="text" class="form-control" name="precio" id="precio" autocomplete="off" aria-describedby="helpId" placeholder="precio del producto">
                                     </div>
                                 </div>
 
                                 <!-- COMPONENTE INPUT-FILE START -->
                                 <div class="col-6 col-md-4">
-                                    <div class="input-group input-file" style="margin-top: .4em;">
+                                    <div class="input-group input-file" style="margin-top: 0.4em;">
 
                                         <span class="input-group-btn">
                                             <button id="button-image" style="font-size: .9em;" class="btn btn-default btn-choose" type="button">Imagen</button>
@@ -78,16 +78,16 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="descripcion">Descripción:</label>
-                                        <textarea class="form-control" name="descripcion" id="descripcion" rows="3" placeholder="descripción del servicio"></textarea>
+                                        <textarea class="form-control" name="descripcion" id="descripcion" rows="3" placeholder="descripción del producto"></textarea>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col">
-                                    <button type="submit" name="registrar" id="registrar" class="btn btn-warning btn-lg btn-block">Registrar servicio</button>
+                                    <button type="submit" name="registrar" id="registrar" class="btn btn-warning btn-lg btn-block">Registrar producto</button>
                                 </div>
-                                <div class="col "style="display: none;" id="div_cancelar_edicion">
+                                <div class="col " style="display: none;" id="div_cancelar_edicion">
                                     <button style="font-size: 0.8em; font-weight: 600; font-family: 'Roboto', sans-serif; " type="submit" name="cancelar_edicion" id="cancelar_edicion" class="btn btn-danger btn-lg btn-block">Cancelar</button>
                                 </div>
                             </div>
@@ -100,11 +100,11 @@
                         <h5 style="color: #fff; font-family: 'Bebas Neue', cursive; padding: .5em; margin: 0;"></h5>
                     </div>
                     <div id="error-duplicate-msj" style="display: none; background-color: #35528C; text-align: center">
-                        <h5 style="color: #fff; font-family: 'Bebas Neue', cursive; padding: .5em; margin: 0;"><i style="color:#fff" class="fas fa-exclamation-triangle mr-2"></i>El servicio ya se encunetra registrado.</h5>
+                        <h5 style="color: #fff; font-family: 'Bebas Neue', cursive; padding: .5em; margin: 0;"><i style="color:#fff" class="fas fa-exclamation-triangle mr-2"></i>El producto ya se encunetra registrado.</h5>
                     </div>
 
                     <div id="editado-msj" style="display: none; background-color: #00B8B8; text-align: center">
-                        <h5 style="color: #fff; font-family: 'Bebas Neue', cursive; padding: .5em; margin: 0;"><i style="color: #fff;" class="fas fa-check-circle mr-2"></i>El servicio fue editado correctamente.</h5>
+                        <h5 style="color: #fff; font-family: 'Bebas Neue', cursive; padding: .5em; margin: 0;"><i style="color: #fff;" class="fas fa-check-circle mr-2"></i>El producto fue editado correctamente.</h5>
                     </div>
 
                 </div><!-- CARD FORM END -->
@@ -158,11 +158,11 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><b>Eliminar Servicio</b></h5>
+                <h5 class="modal-title" id="exampleModalLabel"><b>Eliminar producto</b></h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">&times;</button>
             </div>
             <div class="modal-body">
-                ¿Deseas eliminar el servicio seleccionado?
+                ¿Deseas eliminar el producto seleccionado?
             </div>
             <div class="modal-footer">
                 <button id="cerrar" class="btn btn-danger" data-dismiss="modal">Cancelar</button>

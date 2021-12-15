@@ -42,7 +42,7 @@ if ($mantenimiento == "false") {
     $servicios = $taller->getServiciosMant($id_mantenimiento);
 
     if ($servicios == null) {
-        $json = ["eliminado" => true, "servicios" => false, "mantenimiento" => $mantenimiento];
+        $json = ["eliminado" => true, "servicios" => [], "mantenimiento" => $mantenimiento];
         $jsonString = json_encode($json);
         echo $jsonString;
     } else {

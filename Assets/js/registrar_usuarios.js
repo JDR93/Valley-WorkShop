@@ -1,14 +1,24 @@
 $(document).ready(function (event) {
 
+    $("#codigo").focus();
+
+
+    //COMPRIMIENDO MENU BAR LATERAL SI ES INFERIOR AL VALOR DADO.
+    window.addEventListener("resize", function (event) {
+        if (document.body.clientWidth < 1150) {
+            $("#close-sidebar").click();
+        }
+    })
+
     $("#registrarMecanico").click(function () {
         $(".container-mecanico").css("display", "block");
-        $(".container-ingresoss").css("display", "none");
+        $(".container-ingresos").css("display", "none");
         $(".container-inventario").css("display", "none");
         $(".container-adminstrador").css("display", "none");
     })
 
     $("#registrarUIngresos").click(function () {
-        $(".container-ingresoss").css("display", "block");
+        $(".container-ingresos").css("display", "block");
         $(".container-mecanico").css("display", "none");
         $(".container-inventario").css("display", "none");
         $(".container-adminstrador").css("display", "none");
@@ -29,12 +39,6 @@ $(document).ready(function (event) {
     })
 
 
-
-    window.addEventListener("resize", function (event) {
-        if (document.body.clientWidth < 1150) {
-            $("#close-sidebar").click();
-        }
-    })
 
 
     edit = false;
@@ -146,38 +150,67 @@ $(document).ready(function (event) {
                 }
 
                 if (resultado.exito_editado) {
-                    $("#codigo").focus();
-                    $("#registrado-msj").css('background', '#E0A800')
-                    $("#registrado-msj h5").html('<i class="fas fa-check-circle"></i>' + resultado.mensaje);
 
-                    $('#registrado-msj').slideDown('slow');
-                    setTimeout(function () {
-                        $('#registrado-msj').slideUp('slow');
-                    }, 5000);
+                    edit = false;
+                    $("#registrar").html('Registrar Mecanico');
+                    $("#div_cancelar_edicion").attr('style', 'display: none;');
 
-                    document.getElementById("Formulario").reset();
-
-                }
-
-                if (resultado.error) {
-                    $("#codigo").focus();
                     Swal.fire({
-                        title: '¡El mecanico no pudo ser registrado!',
-                        icon: 'error',
+                        title: '¡Registrado!',
+                        text: resultado.mensaje,
+                        icon: 'success',
                         hideClass: {
                             popup: 'animate__animated animate__fadeOutRight animate__fast'
                         }
                     })
+                    document.getElementById("Formulario").reset();
+                }
+
+                if (resultado.error) {
+
+                    if (resultado.mensaje.includes("codigo")) {
+                        $("#codigo").focus();
+                        Swal.fire({
+                            title: '¡El mecanico no pudo ser registrado!',
+                            html: 'Mecanico con codigo <b style="color:orange;">' + $("#codigo").val() + '</b> ya se encuentra registrado',
+                            icon: 'error',
+                            hideClass: {
+                                popup: 'animate__animated animate__fadeOutRight animate__fast'
+                            }
+                        })
+                    } else if (resultado.mensaje.includes("nuid")) {
+
+                        $("#nuid").focus();
+                        Swal.fire({
+                            title: '¡El mecanico no pudo ser registrado!',
+                            html: 'Mecanico con identificación <b style="color: orange;">' + $("#nuid").val() + '</b> ya se encuentra registrado',
+                            icon: 'error',
+                            hideClass: {
+                                popup: 'animate__animated animate__fadeOutRight animate__fast'
+                            }
+                        })
+
+                    } else {
+
+                        $("#codigo").focus();
+                        Swal.fire({
+                            title: '¡El Mecanico no pudo ser registrado!',
+                            text: resultado.mensaje,
+                            icon: 'error',
+                            hideClass: {
+                                popup: 'animate__animated animate__fadeOutRight animate__fast'
+                            }
+                        })
+                    }
                 }
 
             }).always(function () {
-                edit = false;
+                if (edit == true) {
+                    $("#registrar").html('Editar Mecanico');
+                } else if (edit == false) {
+                    $("#registrar").html('Registrar Mecanico');
+                }
                 listarMecanico();
-
-                $("#registrar").html('Registrar Servicio');
-                $("#div_cancelar_edicion").attr('style', 'display: none;');
-
-
             });
             event.preventDefault();
         }
@@ -201,6 +234,8 @@ $(document).ready(function (event) {
                     let mecanicos = JSON.parse(respuesta);
                     let template = '';
 
+                    console.log(respuesta);
+
                     mecanicos.forEach(mecanico => {
 
                         if ((mecanico.imagen) == 'imagen.png') {
@@ -210,7 +245,7 @@ $(document).ready(function (event) {
                         }
 
                         template += `<tr MecanicoID="${mecanico.id}" > ` +
-                            `<td> ${mecanico.codigo} </td>` +
+                            `<td> ${mecanico.codigo}</td>` +
                             `<td> ${mecanico.nuid} </td>` +
                             `<td> ${mecanico.nombre} </td>` +
                             `<td> ${mecanico.telefono}</td>` +
@@ -220,6 +255,7 @@ $(document).ready(function (event) {
                     });
 
                     $("#resultado").html(template);
+
                 }
 
 
@@ -228,10 +264,9 @@ $(document).ready(function (event) {
 
     })
 
-    $("#buscar").click(function () {
+    let encontradoTarjeta = false;
 
-        event.preventDefault;
-
+    function buscarMecanicoTarjeta() {
         if ($("#input-buscar").val()) {
             let valor = $("#input-buscar").val();
 
@@ -243,48 +278,101 @@ $(document).ready(function (event) {
                     let mecanicos = JSON.parse(respuesta);
                     let templateTarjeta = '';
 
-                    console.log(mecanicos);
+                    console.log(mecanicos.encontrado);
 
-                    mecanicos.forEach(mecanico => {
-
-                        if ((mecanico.imagen) == 'imagen.png') {
-                            src = "Assets/img/imagen.png";
-                        } else {
-                            src = "Assets/img/images.mecanicos/" + mecanico.imagen;
-                        }
-
-                        templateTarjeta += `<img class="card-img-top" src="Assets/img/images.perfiles_mecanicos/${mecanico.imagen}" alt="Card image cap">
+                    if (mecanicos.encontrado == false) {
+                        templateTarjeta += `
+                        <div class="card animate__animated animate__wobble" id="tarjeta-perfil">
+                            <img class="card-img-top" src="Assets/img/images.perfiles_mecanicos/perfil_default.jpg" alt="Card image cap">
 
                             <div class="card-body py-0">
-    
+
                                 <div class="header-card row">
                                     <div class="col-8">
-                                        <span id="txtNombre" class="card-title my-0">${mecanico.nombre}</span>
-                                        <span id="txtApellido" class="">${mecanico.apellido}</span>
+                                        <span id="txtNombre" class="card-title my-0">Nombre Mec.</span>
+                                        <span id="txtApellido" class="">Apellido Mec.</span>
                                     </div>
 
-                                    <div class="col-4 px-0"><span id="txtCodigo">${mecanico.codigo}</span></div>
-    
+                                    <div class="col-4 px-0"><span id="txtCodigo">CODIGO</span></div>
+
                                 </div>
-    
+
                                 <div class="body-card">
                                     <ul style="list-style: none; padding: 0;">
-                                        <li><h6>CC: <span>${mecanico.nuid}</span></h6></li>
-                                        <li><h6>Genero: <span>${mecanico.genero}</span></h6></li>
-                                        <li><h6>Telefono: <span>${mecanico.telefono}</span></h6></li>
-                                        <li><h6>Correo: <span>${mecanico.correo}</span></h6></li>
+                                        <li><h6>CC: <span>IDENTIFICACION</span></h6></li>
+                                        <li><h6>Genero: <span>Genero</span></h6></li>
+                                        <li><h6>Telefono: <span>######</span></h6></li>
+                                        <li><h6>Correo: <span>ejemplo@email.com</span></h6></li>
                                     </ul>
                                 </div>
-                            </div>`
-                    });
+                            </div>
+                        </div>`
 
-                    $("#tarjeta-perfil").html(templateTarjeta);
+                    } else {
+
+                        mecanicos.forEach(mecanico => {
+
+                            if ((mecanico.imagen) == 'imagen.png') {
+                                src = "Assets/img/imagen.png";
+                            } else {
+                                src = "Assets/img/images.mecanicos/" + mecanico.imagen;
+                            }
+
+                            templateTarjeta += `
+                            <div class="card animate__animated animate__wobble" id="tarjeta-perfil">
+                                <img class="card-img-top" src="Assets/img/images.perfiles_mecanicos/${mecanico.imagen}" alt="Card image cap">
+    
+                                <div class="card-body py-0">
+    
+                                    <div class="header-card row">
+                                        <div class="col-8">
+                                            <span id="txtNombre" class="card-title my-0">${mecanico.nombre}</span>
+                                            <span id="txtApellido" class="">${mecanico.apellido}</span>
+                                        </div>
+    
+                                        <div class="col-4 px-0"><span id="txtCodigo">${mecanico.codigo}</span></div>
+    
+                                    </div>
+    
+                                    <div class="body-card">
+                                        <ul style="list-style: none; padding: 0;">
+                                            <li><h6>CC: <span>${mecanico.nuid}</span></h6></li>
+                                            <li><h6>Genero: <span>${mecanico.genero}</span></h6></li>
+                                            <li><h6>Telefono: <span>${mecanico.telefono}</span></h6></li>
+                                            <li><h6>Correo: <span>${mecanico.correo}</span></h6></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>`
+
+
+                        });
+
+
+                    }
+
+                    $("#tarjeta-perfil").replaceWith(templateTarjeta);
+
+
                 }
+
+
 
 
             });
         }
 
+    }
+
+    $("#input-buscar").keypress(function (e) {
+        if (e.which == 13) {
+            buscarMecanicoTarjeta();
+        }
+    });
+
+    $("#buscar").click(function () {
+        event.preventDefault;
+        buscarMecanicoTarjeta();
     })
 
     function listarMecanico() {
@@ -304,7 +392,7 @@ $(document).ready(function (event) {
                         src = "Assets/img/images.mecanicos/" + mecanico.imagen;
                     }
 
-                    console.log(respuesta);
+                    //console.log(respuesta);
 
                     template += `<tr MecanicoID="${mecanico.id}" > ` +
                         `<td> ${mecanico.codigo}</td>` +
@@ -326,6 +414,8 @@ $(document).ready(function (event) {
     }
 
     $("#cancelar_edicion").click(function () {
+
+        edit = false;
         $("#div_cancelar_edicion").attr('style', 'display: none;');
         $("#registrar").replaceWith('<button type="submit" name="registrar" id="registrar" class="btn btn-warning btn-lg btn-block">Registrar mecanico</button>');
         document.getElementById("Formulario").reset();
@@ -334,23 +424,35 @@ $(document).ready(function (event) {
     $(document).on('click', "#btn-delete", function () {
 
         let element = $(this)[0].parentElement.parentElement;
-        let code = $(element).attr('serviceCode');
+        let id = $(element).attr('mecanicoid');
 
 
         document.getElementById("aceptar").addEventListener('click', function () {
 
-            $.post('http://localhost/valleyworkshop/registrar_servicios/eliminar', { code }, function (respuesta) {
+            $.post('http://localhost/valleyworkshop/registrar_usuarios/eliminar_mecanico', { id }, function (respuesta) {
                 listarMecanico();
                 $("#cerrar").click()
+
+                Swal.fire({
+                    title: '¡Eliminado correctamente!',
+                    icon: 'success',
+                    timer: 2000,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutRight animate__fast'
+                    }
+                })
             });
         });
 
+
+
         document.getElementById("cerrar").addEventListener('click', function () {
             element = null;
-            code = null;
+            id = null;
         });
 
     });
+
 
     $(document).on('click', "#btn-edit", function () {
 
@@ -359,28 +461,30 @@ $(document).ready(function (event) {
         $("#div_cancelar_edicion").attr('style', 'display: block;').attr('class', 'col-3');
 
         let element = $(this)[0].parentElement.parentElement;
-        let code = $(element).attr('serviceCode');
+        let id = $(element).attr('MecanicoID');
 
         console.log(element);
 
+        $.post('http://localhost/valleyworkshop/registrar_usuarios/obtener_mecanico', { id }, function (respuesta) {
 
+            const mecanico = JSON.parse(respuesta);
+            $('#idService').val(mecanico.id);
 
-        $.post('http://localhost/valleyworkshop/registrar_servicios/obtener', { code }, function (respuesta) {
-            const service = JSON.parse(respuesta);
-
-            $('#idService').val(service.id);
-            $('#codigo').val(service.codigo);
-            $('#precio').val(service.costo);
-            $('#nombre').val(service.nombre);
-            $('#descripcion').val(service.descripcion);
-            $('#imagen-input').val(service.imagen);
+            $('#codigo').val(mecanico.codigo);
+            $('#nuid').val(mecanico.nuid);
+            $('#nombres').val(mecanico.nombres);
+            $('#apellidos').val(mecanico.apellidos);
+            $('#genero').val(mecanico.genero);
+            $('#telefono').val(mecanico.telefono);
+            $('#correo').val(mecanico.correo);
+            $('#imagen').val(mecanico.iamgen);
             edit = true;
             $("#registrar").replaceWith('<button style="color:#fff;" type="submit" name="registrar" id="registrar" class="btn btn-success btn-lg btn-block animate__animated animate__wobble">Editar servicio</button>')
+
         })
-
-
-
     })
+
+
 
 
 })

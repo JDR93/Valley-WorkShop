@@ -23,10 +23,7 @@ class Registrar_usuarios extends Controllers
         $this->views->getView($this,"insertar_mecanico");
     }
 
-    public function editar_mecanico()
-    {   
-        $this->views->getView($this,"editar_mecanico");
-    }
+    
 
     public function listar_mecanicos()
     {   
@@ -41,6 +38,21 @@ class Registrar_usuarios extends Controllers
     public function buscar_mecanicoTarjeta()
     {   
         $this->views->getView($this,"buscar_mecanicoTarjeta");
+    }
+
+    public function editar_mecanico()
+    {   
+        $this->views->getView($this,"editar_mecanico");
+    }
+
+    public function obtener_mecanico()
+    {   
+        $this->views->getView($this,"obtener_mecanico");
+    }
+
+    public function eliminar_mecanico()
+    {   
+        $this->views->getView($this,"eliminar_mecanico");
     }
 
     /*

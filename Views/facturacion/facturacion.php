@@ -20,16 +20,16 @@
                  <div id="invoice-top">
                      <div class="logo"></div>
                      <div class="info">
-                         <h2>Michael Truong</h2>
-                         <p> hello@michaeltruong.ca </br>
+                         <h2>Valley WorkShop</h2>
+                         <p> valleworkshop@gmail.com </br>
                              289-335-6503
                          </p>
                      </div>
                      <!--End Info-->
                      <div class="title">
-                         <h1>Invoice #1069</h1>
-                         <p>Issued: May 27, 2015</br>
-                             Payment Due: June 27, 2015
+                         <h1>Factura#1069</h1>
+                         <p>Generada: Noviembre 27, 2021</br>
+                             Fecha de Pago: Diciembre 12, 2021
                          </p>
                      </div>
                      <!--End Title-->
@@ -42,14 +42,14 @@
 
                      <div class="clientlogo"></div>
                      <div class="info">
-                         <h2>Client Name</h2>
-                         <p>JohnDoe@gmail.com</br>
+                         <h2>Nombre del cliente</h2>
+                         <p>clientecorreo@gmail.com</br>
                              555-555-5555</br>
                      </div>
 
                      <div id="project">
-                         <h2>Project Description</h2>
-                         <p>Proin cursus, dui non tincidunt elementum, tortor ex feugiat enim, at elementum enim quam vel purus. Curabitur semper malesuada urna ut suscipit.</p>
+                         <h2>Descripcion de la factura</h2>
+                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut laboriosam animi consectetur optio illum. Officiis recusandae autem accusantium reiciendis illo.</p>
                      </div>
 
                  </div>
@@ -61,13 +61,13 @@
                          <table>
                              <tr class="tabletitle">
                                  <td class="item">
-                                     <h2>Item Description</h2>
+                                     <h2>Servicio solicitado</h2>
                                  </td>
                                  <td class="Hours">
-                                     <h2>Hours</h2>
+                                     <h2>Costo</h2>
                                  </td>
                                  <td class="Rate">
-                                     <h2>Rate</h2>
+                                     <h2>Cantidad</h2>
                                  </td>
                                  <td class="subtotal">
                                      <h2>Sub-total</h2>
@@ -76,94 +76,76 @@
 
                              <tr class="service">
                                  <td class="tableitem">
-                                     <p class="itemtext">Communication</p>
+                                     <p class="itemtext">Servicio de ejemplificacion 1</p>
                                  </td>
                                  <td class="tableitem">
-                                     <p class="itemtext">5</p>
+                                     <p class="itemtext">$45.000</p>
                                  </td>
                                  <td class="tableitem">
-                                     <p class="itemtext">$75</p>
+                                     <p class="itemtext">1</p>
                                  </td>
                                  <td class="tableitem">
-                                     <p class="itemtext">$375.00</p>
+                                     <p class="itemtext">$45.000</p>
                                  </td>
                              </tr>
 
                              <tr class="service">
                                  <td class="tableitem">
-                                     <p class="itemtext">Asset Gathering</p>
+                                     <p class="itemtext">Servicio de ejemplificacion 2</p>
                                  </td>
                                  <td class="tableitem">
-                                     <p class="itemtext">3</p>
+                                     <p class="itemtext">$32.500</p>
                                  </td>
                                  <td class="tableitem">
-                                     <p class="itemtext">$75</p>
+                                     <p class="itemtext">2</p>
                                  </td>
                                  <td class="tableitem">
-                                     <p class="itemtext">$225.00</p>
+                                     <p class="itemtext">$65.000</p>
                                  </td>
                              </tr>
-
                              <tr class="service">
                                  <td class="tableitem">
-                                     <p class="itemtext">Design Development</p>
+                                     <p class="itemtext">Servicio de ejemplificacion 3</p>
                                  </td>
                                  <td class="tableitem">
-                                     <p class="itemtext">5</p>
+                                     <p class="itemtext">$410.000</p>
                                  </td>
                                  <td class="tableitem">
-                                     <p class="itemtext">$75</p>
+                                     <p class="itemtext">$1</p>
                                  </td>
                                  <td class="tableitem">
-                                     <p class="itemtext">$375.00</p>
+                                     <p class="itemtext">$410.000</p>
                                  </td>
                              </tr>
-
                              <tr class="service">
                                  <td class="tableitem">
-                                     <p class="itemtext">Animation</p>
+                                     <p class="itemtext">Servicio de ejemplificacion 4</p>
                                  </td>
                                  <td class="tableitem">
-                                     <p class="itemtext">20</p>
+                                     <p class="itemtext">$125.000</p>
                                  </td>
                                  <td class="tableitem">
-                                     <p class="itemtext">$75</p>
+                                     <p class="itemtext">1</p>
                                  </td>
                                  <td class="tableitem">
-                                     <p class="itemtext">$1,500.00</p>
+                                     <p class="itemtext">$125.000</p>
                                  </td>
                              </tr>
-
                              <tr class="service">
                                  <td class="tableitem">
-                                     <p class="itemtext">Animation Revisions</p>
+                                     <p class="itemtext">Servicio de ejemplificacion 5</p>
                                  </td>
                                  <td class="tableitem">
-                                     <p class="itemtext">10</p>
+                                     <p class="itemtext">$21.200</p>
                                  </td>
                                  <td class="tableitem">
-                                     <p class="itemtext">$75</p>
+                                     <p class="itemtext">$2</p>
                                  </td>
                                  <td class="tableitem">
-                                     <p class="itemtext">$750.00</p>
+                                     <p class="itemtext">$42.400</p>
                                  </td>
                              </tr>
-
-                             <tr class="service">
-                                 <td class="tableitem">
-                                     <p class="itemtext"></p>
-                                 </td>
-                                 <td class="tableitem">
-                                     <p class="itemtext">HST</p>
-                                 </td>
-                                 <td class="tableitem">
-                                     <p class="itemtext">13%</p>
-                                 </td>
-                                 <td class="tableitem">
-                                     <p class="itemtext">$419.25</p>
-                                 </td>
-                             </tr>
-
+                             
 
                              <tr class="tabletitle">
                                  <td></td>
@@ -172,7 +154,7 @@
                                      <h2>Total</h2>
                                  </td>
                                  <td class="payment">
-                                     <h2>$3,644.25</h2>
+                                     <h2>$687.400</h2>
                                  </td>
                              </tr>
 

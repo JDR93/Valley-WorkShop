@@ -13,6 +13,9 @@ $(document).ready(function () {
 
     let template = '';
 
+    const options2 = { style: 'currency', currency: 'COP', minimumFractionDigits: 0 };
+    const numberFormat2 = new Intl.NumberFormat('es-CO', options2);
+
     validator = $("#Formulario").validate({
         rules: {
             other_camp: {
@@ -34,11 +37,11 @@ $(document).ready(function () {
             tipo: {
                 required: true,
             },
-            identificacion: {
+            /*identificacion: {
                 digits: true,
                 required: true,
             }
-            ,
+            ,*/
             nombres: {
                 required: true,
             }
@@ -161,7 +164,6 @@ $(document).ready(function () {
         }
     })
 
-
     function formularizar_formulario(event) {
         if (validator.form()) {
 
@@ -207,6 +209,7 @@ $(document).ready(function () {
 
                         $("#placa").prop('disabled', false);
 
+                        $("#success-msj").css("background", "#8CC63E");
                         $("#success-msj h5").html('<i style="color:#fff" class="fas fa-check-circle mr-2"></i>'
                             + "Vehiculo registrado correctamente");
 
@@ -243,13 +246,11 @@ $(document).ready(function () {
 
     $(document).bind("click", function () {
 
-        console.log("vehiculo:".vehiculo);
+        console.log("vehiculo:" + vehiculo);
         console.log("mantenimiento: " + mantenimiento);
         console.log("servicios: " + servicios);
 
     });
-
-
 
     $("#cerrar").click(function () {
         $("#placa").triggerHandler("focus");
@@ -284,7 +285,7 @@ $(document).ready(function () {
                 
                 
                                     <div class="card-footer text-muted">
-                                        <span class="badge bg-secondary" style="width: 100%; color: #fff; padding: 1em 2em; background-color: #aaa !important; float: right; ">$ ${s.costo}</span>
+                                        <span class="badge bg-secondary" style="width: 100%; color: #fff; padding: 1em 2em; background-color: #aaa !important; float: right; "> ${numberFormat2.format(s.costo)}</span>
                                     </div>
                 
                                 </div>
@@ -387,6 +388,7 @@ $(document).ready(function () {
                         vehiculo = resultado[0].vehiculo;
                         propietario = resultado[1].propietario;
                         mantenimiento = resultado[2].mantenimiento;
+
                         $("#registrarVehiculo").prop('disabled', true);
 
                         $(".elform input").each(function () {
@@ -433,13 +435,10 @@ $(document).ready(function () {
 
 
                             $("#agregarServicio").prop('disabled', false);
-
                             servicios = resultado[3].servicios;
-
                             mostrarServicios();
 
                         }
-
                     }
 
                 }
@@ -454,7 +453,6 @@ $(document).ready(function () {
             BusquedaVehiculo();
         }
     });
-
 
     let code_service;
     let element_li;
@@ -477,10 +475,6 @@ $(document).ready(function () {
 
             let resultado = JSON.parse(respuesta);
 
-            /*if (resultado.mantenimiento == null) {
-                servicios = false;
-            }*/
-
             if (resultado.eliminado) {
 
                 buttonsDelete = (document.querySelectorAll("#deleteServicio"));
@@ -495,12 +489,15 @@ $(document).ready(function () {
 
                 });
 
+
+
                 Swal.fire({
                     title: '¡Servicio eliminado correctamente!',
                     icon: 'success',
                     hideClass: {
                         popup: 'animate__animated animate__fadeOutRight animate__fast'
-                    }
+                    },
+                    timer: 3000
                 })
 
                 $(element_li).animate({
@@ -516,6 +513,7 @@ $(document).ready(function () {
                 for (i = 0; i < buttonsDelete.length; i++) {
 
                     if (buttonsDelete[i].parentElement.parentElement.parentElement.parentElement == element_li) {
+
 
                         element_li_next = buttonsDelete[i + 1].parentElement.parentElement.parentElement.parentElement;
                         $(element_li_next).animate({
@@ -554,6 +552,10 @@ $(document).ready(function () {
         event.preventDefault();
 
         if ($("#placa").val() == '') {
+
+            $("#placa").focus();
+
+            window.scroll(0, 0);
 
             console.log("paso algo");
             $("#error-msj h5").html('<i style="color:orange" class="fas fa-exclamation-triangle mr-2"></i>'
@@ -653,6 +655,7 @@ $(document).ready(function () {
         if ($("#placa").val() == '') {
 
             window.scroll(0, 0);
+            $("#placa").focus();
 
 
             $("#error-msj h5").html('<i style="color:orange" class="fas fa-exclamation-triangle mr-2"></i>'
@@ -684,7 +687,7 @@ $(document).ready(function () {
 
                 if (validator.form()) {
 
-                    if (servicios == false) {
+                    if (servicios == []) {
                         Swal.fire({
                             title: '¡Mantenimiento sin Servicios!',
                             text: 'Por favor registre algun servicio al mantenimiento.',
@@ -710,6 +713,21 @@ $(document).ready(function () {
                                 success: function (respuesta) {
 
                                     let resultado = JSON.parse(respuesta);
+
+                                    if (resultado.servicios_null) {
+                                        Swal.fire({
+                                            title: '¡Sin servicios asignados!',
+                                            text: "Matenimiento no puede ser ingresado sin servicios asignados.",
+                                            icon: 'error',
+                                            timer: '5000',
+                                            //showConfirmButton: false,
+
+                                            hideClass: {
+                                                popup: 'animate__animated animate__fadeOutRight animate__fast'
+                                            }
+                                        })
+                                        throw new Excption("Servicios null");
+                                    }
 
 
 

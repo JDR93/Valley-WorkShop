@@ -1,8 +1,6 @@
 
 <?php
 
-sleep(1);
-
 require_once "Models/Taller.php";
 require_once "Models/Mecanico.php";
 

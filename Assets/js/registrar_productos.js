@@ -52,9 +52,9 @@ $(document).ready(function () {
     $("#Formulario").on('submit', function (event) {
 
         if (edit == false) {
-            ElUrl = 'http://localhost/valleyworkshop/registrar_servicios/insertar';
+            ElUrl = 'http://localhost/valleyworkshop/registrar_productos/insertar';
         } else if (edit == true) {
-            ElUrl = "http://localhost/valleyworkshop/registrar_servicios/editar";
+            ElUrl = "http://localhost/valleyworkshop/registrar_productos/editar";
         }
 
         var validator = $("#Formulario").validate();
@@ -70,8 +70,6 @@ $(document).ready(function () {
                 beforeSend: function () {
                     $("#registrar").html('Enviando...');
                 }
-
-
 
             }).done(function (respuesta) {
 
@@ -95,7 +93,7 @@ $(document).ready(function () {
                 if (resultado.exito_editado) {
 
                     edit = false;
-                    $("#registrar").html('Registrar Servicio');
+                    $("#registrar").html('Registrar producto');
                     $("#div_cancelar_edicion").attr('style', 'display: none;');
 
                     Swal.fire({
@@ -116,8 +114,8 @@ $(document).ready(function () {
                     if (resultado.mensaje.includes("codigo")) {
                         $("#codigo").focus();
                         Swal.fire({
-                            title: '¡El servicio no pudo ser registrado!',
-                            html: 'Servicio con codigo <b style="color:orange;">' + $("#codigo").val() + '</b> ya se encuentra registrado',
+                            title: '¡El producto no pudo ser registrado!',
+                            html: 'producto con codigo <b style="color:orange;">' + $("#codigo").val() + '</b> ya se encuentra registrado',
                             icon: 'error',
                             hideClass: {
                                 popup: 'animate__animated animate__fadeOutRight animate__fast'
@@ -127,8 +125,8 @@ $(document).ready(function () {
 
                         $("#nombre").focus();
                         Swal.fire({
-                            title: '¡El servicio no pudo ser registrado!',
-                            html: 'Servicio con nombre <b style="color: orange;">' + $("#nombre").val() + '</b> ya se encuentra registrado',
+                            title: '¡El producto no pudo ser registrado!',
+                            html: 'producto con nombre <b style="color: orange;">' + $("#nombre").val() + '</b> ya se encuentra registrado',
                             icon: 'error',
                             hideClass: {
                                 popup: 'animate__animated animate__fadeOutRight animate__fast'
@@ -139,7 +137,7 @@ $(document).ready(function () {
 
                         $("#codigo").focus();
                         Swal.fire({
-                            title: '¡El servicio no pudo ser registrado!',
+                            title: '¡El producto no pudo ser registrado!',
                             text: resultado.mensaje,
                             icon: 'error',
                             hideClass: {
@@ -152,49 +150,49 @@ $(document).ready(function () {
 
             }).always(function () {
                 if (edit == true) {
-                    $("#registrar").html('Editar Servicio');
+                    $("#registrar").html('Editar producto');
                 } else if (edit == false) {
-                    $("#registrar").html('Registrar Servicio');
+                    $("#registrar").html('Registrar producto');
                 }
-                listarServicios();
+                listarproductos();
             });
             event.preventDefault();
         }
     });
 
 
-    listarServicios();
+    listarproductos();
     $("#input-buscar").keyup(function () {
 
         if ($(this).val() == '') {
-            listarServicios();
+            listarproductos();
         }
 
         if ($(this).val()) {
             let valor = $(this).val();
 
             $.ajax({
-                url: "http://localhost/valleyworkshop/registrar_servicios/buscar",
+                url: "http://localhost/valleyworkshop/registrar_productos/buscar",
                 type: "POST",
                 data: { valor },
                 success: function (respuesta) {
-                    let servicios = JSON.parse(respuesta);
+                    let productos = JSON.parse(respuesta);
                     let template = '';
 
-                    servicios.forEach(servicio => {
+                    productos.forEach(producto => {
 
-                        if ((servicio.imagen) == 'imagen.png') {
+                        if ((producto.imagen) == 'imagen.png') {
                             src = "Assets/img/imagen.png";
                         } else {
-                            src = "Assets/img/images.services/" + servicio.imagen;
+                            src = "Assets/img/images.products/" + producto.imagen;
                         }
 
-                        template += `<tr serviceCode="${servicio.codigo}" > ` +
-                            `<td> ${servicio.codigo} </td>` +
-                            `<td> ${servicio.nombre} </td>` +
-                            `<td> ${servicio.costo} </td>` +
+                        template += `<tr productCode="${producto.codigo}" > ` +
+                            `<td> ${producto.codigo} </td>` +
+                            `<td> ${producto.nombre} </td>` +
+                            `<td> ${producto.costo} </td>` +
                             `<td style="padding: 0;"><img style="width: 100%; padding: .5em;" src="${src}"></td>` +
-                            `<td> ${servicio.descripcion}</td>` +
+                            `<td> ${producto.descripcion}</td>` +
                             `<td><button id="btn-delete" type="button" class="btn btn-danger" data-toggle="modal" data-target="#contenido-modal"><i class="far fa-trash-alt"></i></button>` +
                             `<button id="btn-edit" type="button" class="btn btn-success"><i class="fas fa-pencil-alt"></i></button></td></tr>`
                     });
@@ -208,30 +206,30 @@ $(document).ready(function () {
 
     })
 
-    function listarServicios() {
+    function listarproductos() {
         $.ajax({
-            url: 'http://localhost/valleyworkshop/registrar_servicios/listar',
+            url: 'http://localhost/valleyworkshop/registrar_productos/listar',
             type: 'GET',
             success: function (respuesta) {
-                let services = JSON.parse(respuesta);
+                let products = JSON.parse(respuesta);
                 let template = '';
 
                 //console.log(respuesta);
 
-                services.forEach(servicio => {
+                products.forEach(producto => {
 
-                    if ((servicio.imagen) == 'imagen.png') {
+                    if ((producto.imagen) == 'imagen.png') {
                         src = "Assets/img/imagen.png";
                     } else {
-                        src = "Assets/img/images.services/" + servicio.imagen;
+                        src = "Assets/img/images.products/" + producto.imagen;
                     }
 
-                    template += `<tr serviceCode="${servicio.codigo}" > ` +
-                        `<td> ${servicio.codigo} </td>` +
-                        `<td> ${servicio.nombre} </td>` +
-                        `<td> ${servicio.costo} </td>` +
+                    template += `<tr ProductCode="${producto.codigo}" > ` +
+                        `<td> ${producto.codigo} </td>` +
+                        `<td> ${producto.nombre} </td>` +
+                        `<td> ${producto.costo} </td>` +
                         `<td style="padding: 0;"><img style="width: 100%; padding: .5em;" src="${src}"></td>` +
-                        `<td> ${servicio.descripcion}</td>` +
+                        `<td> ${producto.descripcion}</td>` +
                         `<td><button id="btn-delete" type="button" class="btn btn-danger" data-toggle="modal" data-target="#contenido-modal"><i class="far fa-trash-alt"></i></button>` +
                         `<button id="btn-edit" type="button" class="btn btn-success"><i class="fas fa-pencil-alt"></i></button></td></tr>`
                 });
@@ -243,7 +241,7 @@ $(document).ready(function () {
 
     $("#cancelar_edicion").click(function () {
         $("#div_cancelar_edicion").attr('style', 'display: none;');
-        $("#registrar").replaceWith('<button type="submit" name="registrar" id="registrar" class="btn btn-warning btn-lg btn-block">Registrar servicio</button>');
+        $("#registrar").replaceWith('<button type="submit" name="registrar" id="registrar" class="btn btn-warning btn-lg btn-block">Registrar producto</button>');
         document.getElementById("Formulario").reset();
     })
 
@@ -251,13 +249,13 @@ $(document).ready(function () {
     $(document).on('click', "#btn-delete", function () {
 
         let element = $(this)[0].parentElement.parentElement;
-        let code = $(element).attr('serviceCode');
+        let code = $(element).attr('productCode');
 
 
         document.getElementById("aceptar").addEventListener('click', function () {
 
-            $.post('http://localhost/valleyworkshop/registrar_servicios/eliminar', { code }, function (respuesta) {
-                listarServicios();
+            $.post('http://localhost/valleyworkshop/registrar_productos/eliminar', { code }, function (respuesta) {
+                listarproductos();
                 $("#cerrar").click()
             });
         });
@@ -276,21 +274,21 @@ $(document).ready(function () {
         $("#div_cancelar_edicion").attr('style', 'display: block;').attr('class', 'col-3');
 
         let element = $(this)[0].parentElement.parentElement;
-        let code = $(element).attr('serviceCode');
+        let code = $(element).attr('productCode');
 
         console.log(element);
 
-        $.post('http://localhost/valleyworkshop/registrar_servicios/obtener', { code }, function (respuesta) {
-            const service = JSON.parse(respuesta);
+        $.post('http://localhost/valleyworkshop/registrar_productos/obtener', { code }, function (respuesta) {
+            const product = JSON.parse(respuesta);
 
-            $('#idService').val(service.id);
-            $('#codigo').val(service.codigo);
-            $('#precio').val(service.costo);
-            $('#nombre').val(service.nombre);
-            $('#descripcion').val(service.descripcion);
-            $('#imagen-input').val(service.imagen);
+            $('#idProduct').val(product.id);
+            $('#codigo').val(product.codigo);
+            $('#precio').val(product.costo);
+            $('#nombre').val(product.nombre);
+            $('#descripcion').val(product.descripcion);
+            $('#imagen-input').val(product.imagen);
             edit = true;
-            $("#registrar").replaceWith('<button style="color:#fff;" type="submit" name="registrar" id="registrar" class="btn btn-success btn-lg btn-block animate__animated animate__wobble">Editar servicio</button>')
+            $("#registrar").replaceWith('<button style="color:#fff;" type="submit" name="registrar" id="registrar" class="btn btn-success btn-lg btn-block animate__animated animate__wobble">Editar producto</button>')
         })
 
 

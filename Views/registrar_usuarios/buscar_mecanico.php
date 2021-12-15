@@ -1,9 +1,12 @@
 <?php
+
+
 require_once "Config/conection.php";
 
 $valor = $_POST["valor"];
 
 if(!empty($valor)){
+
     $conexion = BD::instanciar();
     $result = $conexion->query("SELECT * FROM mecanico WHERE nombres LIKE '$valor%' OR nuid LIKE '$valor%' OR codigo LIKE '$valor%'");
     $mecanicos = $result->fetchAll(PDO::FETCH_OBJ);
@@ -16,6 +19,7 @@ if(!empty($valor)){
 
     foreach($mecanicos as $mecanico){
         $json[] = array(
+            'id' => $mecanico->id,
             'codigo' => $mecanico->codigo,
             'nuid' => $mecanico->nuid,
             'nombre' => $mecanico->nombres,
@@ -29,6 +33,8 @@ if(!empty($valor)){
 
     $jsonString = json_encode($json);
     echo $jsonString;
+    
 }
+
 
 ?>

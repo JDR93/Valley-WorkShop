@@ -1,10 +1,82 @@
-
 .btn-select {
     width: 100%;
     height: 40px;
     font-weight: 600;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     color: rgb(255, 255, 255);
     font-size: 1em;
-    padding-top: .8em;
+    padding-top: 0.8em;
+}
+
+#conteiner-imgs {
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+}
+
+#img_service {
+    cursor: pointer;
+    margin: 0 0.5em;
+}
+
+#img_service:hover {
+    border: 1px solid grey;
+}
+
+.container-mants-tarjetas {
+    display: flex;
+    justify-content: center;
+    overflow-x: visible;
+    overflow-y: hidden;
+    min-width: 600px;
+    scroll-behavior: smooth;
+}
+
+.tarjeta {
+    width: 600px;
+    margin: 0 auto;
+}
+
+.container-principal {
+    height: 80vh;
+}
+
+.service-li {
+    display: grid;
+    grid-template-columns: 10% 60% 30%;
+    grid-auto-rows: minmax(20px, auto);
+    padding: 0.5em;
+    font-family: "Roboto", sans-serif;
+}
+
+.service-li .img-li {
+    width: 40px;
+    margin-right: 1em;
+}
+
+.service-li .text-li {
+    font-size: 0.8em;
+}
+
+.service-li .costo-li {
+    text-align: center;
+    background-color: #f0f0f0;
+    border-radius: 0.4em;
+    padding: 0.5em;
+    font-family: "Bebas Neue";
+}
+
+.btnPlaca {
+    font-size: 1.6em;
+    box-shadow: inset 0px 0px 1px 1px #000;
+    color: black;
+    font-family: "Bebas Neue";
+}
+
+
+#btn_seleccionar {
+    background-color: #1C5EA5;
+    font-weight: 600;
+    font-family: "Roboto", sans-serif;
+    color: #ffffff;
+    font-size: 0.8em;
 }

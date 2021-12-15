@@ -25,11 +25,14 @@ try {
     $modelo = $_POST['modelo'];
     $tipo = $_POST['tipo'];
 
-    
     $vehiculo = new Vehiculo($placa, $marca, $modelo, $linea, $tipo, $propietario);
     $idVeh = $taller->addVehiculo($vehiculo);
 
-    $json = (["insertado" => true,"vehiculo"=>$vehiculo->placa]);
+    $instancia = BD::instanciar();
+    $result = $instancia->query("SELECT * FROM vehiculo WHERE id = $idVeh");
+    $arrayVeh = $result->fetch(PDO::FETCH_OBJ);
+
+    $json = (["insertado" => true,"vehiculo"=>$arrayVeh]);
     $jsonString = json_encode($json);
     echo ($jsonString);
 } catch (Exception $exc) {

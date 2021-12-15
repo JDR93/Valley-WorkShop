@@ -17,6 +17,11 @@ class Asignar extends Controllers
         $this->views->getView($this,"asignarMec",$data);
     }
 
+    public function asignacion()
+    {   
+        $this->views->getView($this,"asignacion");
+    }
+
 }
 
 

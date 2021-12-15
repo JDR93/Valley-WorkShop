@@ -121,7 +121,7 @@
                                         <button type="submit" name="registrar" id="registrar" class="btn btn-warning btn-lg btn-block">Registrar mecanico</button>
                                     </div>
                                     <div class="col " style="display: none;" id="div_cancelar_edicion">
-                                        <button style="font-size: 0.8em; font-weight: 600; font-family: 'Roboto', sans-serif; " type="submit" name="cancelar_edicion" id="cancelar_edicion" class="btn btn-danger btn-lg btn-block">Cancelar</button>
+                                        <button style="font-size: 0.8em; font-weight: 600; font-family: 'Roboto', sans-serif; " type="button" name="cancelar_edicion" id="cancelar_edicion" class="btn btn-danger btn-lg btn-block">Cancelar</button>
                                     </div>
                                 </div>
 
@@ -166,7 +166,7 @@
                                         <h6>Telefono: <span>######</span></h6>
                                     </li>
                                     <li>
-                                        <h6>Correo: <span>ejemplocorreo@email.com</span></h6>
+                                        <h6>Correo: <span>ejemplo@email.com</span></h6>
                                     </li>
                                 </ul>
                             </div>
@@ -175,15 +175,15 @@
                     </div>
 
                     <div class=" ml-0 ">
-                        <form class="form-inline my-2">
+                        <div class="form-inline my-2" id="Form_search">
                             <input style="width: 78%;" id="input-buscar" class="form-control mr-sm-2" type="text" placeholder="Buscar servicio">
                             <button id="buscar" class="btn btn-outline-success my-2 my-sm-0" type="button"><i class="fas fa-search"></i></button>
-                        </form>
+                        </div>
                     </div>
+
                 </div>
 
-                <div class="col-9">
-                    <!-- ROW TABLE START -->
+                <div class="col-9"><!-- TABLE START -->
                     <div class="row">
                         <div class="col">
                             <div class="card">
@@ -202,7 +202,7 @@
                                         </thead>
                                         <tbody id="resultado">
 
-                                        
+
                                         </tbody>
                                     </table>
 
@@ -210,12 +210,12 @@
                             </div>
                         </div>
                     </div>
-                    <!-- ROW TABLE END -->
-                </div>
+
+                </div><!-- TABLE END -->
             </div>
         </div>
 
-        <div style="display: none;" class="container pt-2 container-ingresoss animate__animated animate__bounceInRight" id="registrar_ingresos-container">
+        <div style="display: none;" class="container container-ingresos animate__animated animate__bounceInLeft" id="registrar_Uingresos-container">
             <!-- ROW FORM START -->
             <div class="row py-2">
                 <!-- COL FORM START -->
@@ -240,7 +240,7 @@
 
                                     <div class="col-6 col-md-2">
                                         <div class="form-group">
-                                            <label for="nuid">Identificación:</label>
+                                            <label for="nuid">CC:</label>
                                             <input type="text" class="form-control" name="nuid" id="nuid" autocomplete="off" aria-describedby="helpId" placeholder="Nuid del mecanico">
                                         </div>
                                     </div>
@@ -262,14 +262,13 @@
                                     <div class="col-6 col-md-2">
                                         <div class="form-group">
                                             <label for="genero">Genero:</label>
-                                            <select disabled name="genero" id="genero" class="form-control-plaintext px-2">
+                                            <select name="genero" id="genero" class="form-control-plaintext px-2">
                                                 <option value="">Seleccione</option>
                                                 <option value="M">Masculino</option>
                                                 <option value="F">Femenino</option>
                                             </select>
                                         </div>
                                     </div>
-
 
                                     <div class="col-6 col-md-2">
                                         <div class="form-group">
@@ -285,23 +284,9 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-6 col-md-4">
-                                        <div class="form-group">
-                                            <label for="Usuario">Usuario:</label>
-                                            <input type="text" class="form-control" name="usuario" id="usuario" autocomplete="off" aria-describedby="helpId" placeholder="Nombre de usuario">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-6 col-md-4">
-                                        <div class="form-group">
-                                            <label for="pass">Contraseña:</label>
-                                            <input type="text" class="form-control" name="pass" id="pass" autocomplete="off" aria-describedby="helpId" placeholder="contraseña del usuario">
-                                        </div>
-                                    </div>
-
                                     <!-- COMPONENTE INPUT-FILE START -->
                                     <div class="col-6 col-md-4">
-                                        <div class="input-group input-file" style="margin-top: 1.8em;">
+                                        <div class="input-group input-file" style="margin-top: .4em;">
 
                                             <span class="input-group-btn">
                                                 <button id="button-image" style="font-size: .9em;" class="btn btn-default btn-choose" type="button">Imagen de perfil</button>
@@ -320,10 +305,10 @@
 
                                 <div class="row">
                                     <div class="col">
-                                        <button type="submit" name="registrar" id="registrar" class="btn btn-primary btn-lg btn-block" style="background-color: #1C5EA5; color: #fff">Registrar secretario de ingresos</button>
+                                        <button type="submit" name="registrar" id="registrar" class="btn btn-warning btn-lg btn-block">Registrar mecanico</button>
                                     </div>
                                     <div class="col " style="display: none;" id="div_cancelar_edicion">
-                                        <button style="font-size: 0.8em; font-weight: 600; font-family: 'Roboto', sans-serif; " type="submit" name="cancelar_edicion" id="cancelar_edicion" class="btn btn-danger btn-lg btn-block">Cancelar</button>
+                                        <button style="font-size: 0.8em; font-weight: 600; font-family: 'Roboto', sans-serif; " type="button" name="cancelar_edicion" id="cancelar_edicion" class="btn btn-danger btn-lg btn-block">Cancelar</button>
                                     </div>
                                 </div>
 
@@ -336,23 +321,22 @@
 
             </div><!-- ROW FORM START -->
 
-            <div class="row py-2">
+            <div class="row">
 
                 <div class="col-3">
-                    <div class="card">
-                        <img style="object-fit: cover; padding: 1em; height: 195px;" class="card-img-top" src="<?php echo base_url() ?>/Assets/img/images.perfiles/images.jpg" alt="Card image cap">
-
+                    <div class="card" id="tarjeta-perfil">
+                        <img class="card-img-top" src="Assets/img/images.perfiles_mecanicos/perfil_default.jpg" alt="Default image">
 
                         <div class="card-body py-0">
 
-                            <div class="header-card">
-                                <div class="col-8 px-0">
-                                    <span id="txtNombre" class="card-title my-0">José Miguel</span>
-                                    <span id="txtApellido" class="">Hernández Tulípue</span>
+                            <div class="header-card row">
+                                <div class="col-8">
+                                    <span id="txtNombre" class="card-title my-0">Nombre Mec.</span>
+                                    <span id="txtApellido" class="">Apellido</span>
                                 </div>
 
                                 <div class="col-4 px-0">
-                                    <span id="txtCodigo">M3001</span>
+                                    <span id="txtCodigo">CODIGO</span>
                                 </div>
 
                             </div>
@@ -360,26 +344,33 @@
                             <div class="body-card">
                                 <ul style="list-style: none; padding: 0;">
                                     <li>
-                                        <h6>CC: <span>1006341244</span></h6>
+                                        <h6>CC: <span>IDENTIFICACION</span></h6>
                                     </li>
                                     <li>
-                                        <h6>Genero: <span>Masculino</span></h6>
+                                        <h6>Genero: <span>Genero</span></h6>
                                     </li>
                                     <li>
-                                        <h6>Telefono: <span>2897523</span></h6>
+                                        <h6>Telefono: <span>######</span></h6>
                                     </li>
                                     <li>
-                                        <h6>Correo: <span>josetulipue@hotmail.com</span></h6>
+                                        <h6>Correo: <span>ejemplo@email.com</span></h6>
                                     </li>
                                 </ul>
                             </div>
 
                         </div>
                     </div>
+
+                    <div class=" ml-0 ">
+                        <div class="form-inline my-2" id="Form_search">
+                            <input style="width: 78%;" id="input-buscar" class="form-control mr-sm-2" type="text" placeholder="Buscar servicio">
+                            <button id="buscar" class="btn btn-outline-success my-2 my-sm-0" type="button"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="col-9">
-                    <!-- ROW TABLE START -->
+                <div class="col-9"><!-- TABLE START -->
                     <div class="row">
                         <div class="col">
                             <div class="card">
@@ -397,6 +388,8 @@
                                             </tr>
                                         </thead>
                                         <tbody id="resultado">
+
+
                                         </tbody>
                                     </table>
 
@@ -404,12 +397,10 @@
                             </div>
                         </div>
                     </div>
-                    <!-- ROW TABLE END -->
-                </div>
+
+                </div><!-- TABLE END -->
             </div>
-
         </div>
-
     </div>
 
 
@@ -417,9 +408,6 @@
 </main><!-- page-content" -->
 
 
-
-<!-- MODAL START -->
-<!-- Button trigger modal -->
 
 
 <!-- Modal -->
@@ -441,23 +429,6 @@
     </div>
 </div>
 <!-- MODAL END -->
-
-
-<!-- Modal -->
-<div class="modal fade" id="contenido-modal-registro" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered" style="max-width: 200px;">
-        <div class="modal-content" style="border-radius: 100%;">
-            <div class="modal-body" style="padding: 0;">
-
-                <img src="./Assets/img/check.gif" width="200px" style="border-radius: 100%;">
-
-            </div>
-
-        </div>
-    </div>
-</div>
-<!-- MODAL END -->
-
 
 
 <?php footerAdmin($data); ?>

@@ -12,7 +12,7 @@ if ($_SESSION['rol'] == 'Administrador' || $_SESSION['rol'] == 'Ingresos' || $_S
             </div>
             <div class="sidebar-header">
                 <div class="user-pic">
-                    <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg" alt="User picture">
+                    <img class="img-responsive img-rounded" src="<?php echo base_url() ?>Assets/img/user.jpg" alt="User picture">
                 </div>
                 <div class="user-info">
                     <span class="user-name">
@@ -78,7 +78,7 @@ if ($_SESSION['rol'] == 'Administrador' || $_SESSION['rol'] == 'Ingresos' || $_S
                             <span>Registro</span>
                         </li>
                         <li class="sidebar-dropdown">
-                            <a href="#">
+                            <a href="#s">
                                 <i class="fas fa-dolly-flatbed"></i>
                                 <span>Inventario</span>
                                 <!-- <span class="badge badge-pill badge-warning">New</span> -->
@@ -91,7 +91,7 @@ if ($_SESSION['rol'] == 'Administrador' || $_SESSION['rol'] == 'Ingresos' || $_S
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">Registrar productos</a>
+                                        <a href="<?php echo base_url() ?>registrar_productos">Registrar productos</a>
                                     </li>
                                 </ul>
                             </div>

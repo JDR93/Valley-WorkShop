@@ -9,6 +9,7 @@ $json = array();
 
 foreach ($mecanicos as $mecanico) {
     $json[] = array(
+        'id'=>$mecanico->id,
         'codigo' => $mecanico->codigo,
         'nuid' => $mecanico->nuid,
         'nombre' => $mecanico->nombres . " " . $mecanico->apellidos,

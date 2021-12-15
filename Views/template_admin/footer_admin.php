@@ -22,7 +22,18 @@
     <script src="<?php base_url() ?>Assets/js/ingresar_vehiculo.js?v=<?php echo time(); ?>"></script>
 <?php } ?>
 
+<?php if ($data['page_name'] == 'Asignar mecanico') { ?>
+    <script src="<?php base_url() ?>Assets/js/asignar.js?v=<?php echo time(); ?>"></script>
+<?php } ?>
+
+<?php if ($data['page_name'] == 'Registrar producto') { ?>
+    <script src="<?php base_url() ?>Assets/js/function_file.js"></script>
+    <script src="<?php base_url() ?>Assets/js/registrar_productos.js?v=<?php echo time(); ?>"></script>
+<?php } ?>
+
 <script src="<?php base_url() ?>Assets/js/side_menu.js"></script>
+
+
 
 
 </body>

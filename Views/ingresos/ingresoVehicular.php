@@ -223,7 +223,7 @@
                                 $array = $result->fetchAll(PDO::FETCH_BOTH);
 
                                 foreach ($array as $row) { ?>
-                                    <option value="<?php echo $row[1]; ?>"><?php echo $row[1] . " - " . $row[2] . " - " . $row[4]; ?></option>
+                                    <option value="<?php echo $row[1]; ?>"><?php echo $row[1] . " - " . $row[2] . " - " .formatMoney($row[4]); ?></option>
                                 <?php }
 
                                 ?>

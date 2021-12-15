@@ -29,6 +29,7 @@ class Taller extends Mysql
         parent::__construct();
         $this->vehiculos = $this->getVehiculos();
         $this->servicios = $this->getServicios();
+        $this->productos = $this->getProductos();
         $this->propietarios = $this->getPropietarios();
         $this->mecanicos = $this->getMecanicos();
     }
@@ -68,14 +69,16 @@ class Taller extends Mysql
 
     public function addServicio(Servicio $servicio): void
     {
+        /*
         foreach ($this->servicios as $s) {
             if (strcasecmp($s->codigo, $servicio->codigo) == 0) {
-                throw new Exception("Servicio  con codigo <span style='color: orange'><b>" . $s->codigo . "</b></span> ya se encuentra registrado");
+                throw new Exception("Servicio  con codigo " . $s->codigo . " ya se encuentra registrado");
             }
             if (strcasecmp($s->nombre, $servicio->nombre) == 0) {
-                throw new Exception("Servicio con nombre <span style='color: orange'><b>" . $s->nombre . "</b></span> ya se encuentra registrado");
+                throw new Exception("Servicio con nombre " . $s->nombre . " ya se encuentra registrado");
             }
         }
+        */
 
         $query_insert = "INSERT INTO servicio (codigo, nombre, descripcion, costo, imagen , estado) 
         VALUES (?,?,?,?,?,?)";
@@ -84,6 +87,18 @@ class Taller extends Mysql
 
         array_push($this->servicios, $servicio);
     }
+
+    public function addProducto(Producto $producto): void
+    {
+
+        $query_insert = "INSERT INTO producto (codigo, nombre, descripcion, costo, imagen) 
+        VALUES (?,?,?,?,?)";
+        $arrData = [$producto->codigo, $producto->nombre, $producto->descripcion, $producto->costo, $producto->imagen];
+        $last_insert = $this->insert($query_insert, $arrData);
+
+        array_push($this->productos, $producto);
+    }
+
 
     public function addMantenimiento($id_vehiculo)
     {
@@ -115,6 +130,20 @@ class Taller extends Mysql
 
 
             if ($this->vehiculos[$i]->placa == $placa) {
+                return  $this->vehiculos[$i];
+            }
+            $i++;
+        }
+        throw new Exception("El vehiculo no se encontro.");
+    }
+
+    public function getVehiculoID($id)
+    {
+        $i = 0;
+        while ($i < count($this->vehiculos)) {
+
+
+            if ($this->vehiculos[$i]->id == $id) {
                 return  $this->vehiculos[$i];
             }
             $i++;
@@ -222,7 +251,7 @@ class Taller extends Mysql
 
     public function getServicios()
     {
-        $query_select = "SELECT * FROM servicio";
+        $query_select = "SELECT * FROM servicio ORDER BY codigo desc";
         $request_select = $this->selectAll($query_select);
         return $request_select;
     }
@@ -249,15 +278,56 @@ class Taller extends Mysql
     }
 
     ////////////////////////////////////////////////////
+    // PRODUCTO
+    ////////////////////////////////////////////////////
+
+    public function getProductos()
+    {
+        $query_select = "SELECT * FROM producto ORDER BY codigo desc";
+        $request_select = $this->selectAll($query_select);
+        return $request_select;
+    }
+
+    public function getProducto($codigo)
+    {
+        $i = 0;
+        while ($i < count($this->productos)) {
+
+
+            if ($this->productos[$i]->codigo == $codigo) {
+                return  $this->productos[$i];
+            }
+            $i++;
+        }
+        throw new Exception("El producto no se encontro.");
+    }
+
+    public function removerProducto($codigo)
+    {
+        $query_delete = "DELETE FROM producto WHERE codigo = $codigo";
+        $request_delete = $this->delete($query_delete);
+        return $request_delete;
+    }
+
+    ////////////////////////////////////////////////////
     // MECANICO
     ////////////////////////////////////////////////////
 
     public function getMecanicos()
     {
-        $query_select = "SELECT * FROM mecanico";
+        $query_select = "SELECT * FROM mecanico ORDER BY codigo";
         $request_select = $this->selectAll($query_select);
         return $request_select;
     }
+
+    public function getMecanicosDisponibles()
+    {
+        $query_select = "SELECT * FROM mecanico WHERE disponibilidad = 'D' ORDER BY codigo";
+        $request_select = $this->selectAll($query_select);
+        return $request_select;
+
+    }
+      
 
     public function getMecanico($id)
     {
@@ -273,19 +343,41 @@ class Taller extends Mysql
         throw new Exception("El Mecanico no se encontro.");
     }
 
+    public function getIDMecanico($nuid)
+    {
+        $i = 0;
+        while ($i < count($this->mecanicos)) {
+
+
+            if ($this->mecanicos[$i]->nuid == $nuid) {
+                return  $this->mecanicos[$i];
+            }
+            $i++;
+        }
+        throw new Exception("El mecanico no se encontro.");
+    }
+
 
     public function addMecanico(Mecanico $mecanico)
     {
-
+        /*
         foreach ($this->mecanicos as $m) {
             if ($m->nuid == $mecanico->nuid) {
                 throw new Exception("Mecanico con identificacion [" . $m->nuid . "] ya se encuentra registrado");
             }
         }
+        */
         $query_insert = "INSERT INTO mecanico (codigo,nuid,nombres,apellidos,genero,telefono,correo,imagen) VALUES (?,?,?,?,?,?,?,?)";
-        $arrData = [$mecanico->codigo,$mecanico->nuid, $mecanico->nombres, $mecanico->apellidos, $mecanico->genero, $mecanico->telefono, $mecanico->correo, $mecanico->imagen];
+        $arrData = [$mecanico->codigo, $mecanico->nuid, $mecanico->nombres, $mecanico->apellidos, $mecanico->genero, $mecanico->telefono, $mecanico->correo, $mecanico->imagen];
         $id_mec = $this->insert($query_insert, $arrData);
         return $id_mec;
+    }
+
+    public function removerMecanico($id)
+    {
+        $query_delete = "DELETE FROM mecanico WHERE id = $id";
+        $request_delete = $this->delete($query_delete);
+        return $request_delete;
     }
 
     ////////////////////////////////////////////////////
@@ -299,9 +391,16 @@ class Taller extends Mysql
         return $request_select;
     }
 
+
+    public function getMantenimientosSinMecanico()
+    {
+        $query_select = "SELECT * FROM mantenimiento where id_mecanico IS NULL";
+        $request_select = $this->selectAll($query_select);
+        return $request_select;
+    }
+
     public function getMantenimineto($id)
     {
-
         foreach ($this->mantenimientos as $m) {
             if ($m->id == $id) {
                 return $m;

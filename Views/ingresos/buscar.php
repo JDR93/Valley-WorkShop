@@ -8,7 +8,7 @@ try {
 
     $taller = new Taller();
     $placa = $_POST["placa_vehiculo"];
-    $servicios = false;
+    $servicios = [];
 
     $json = [];
 
@@ -26,11 +26,15 @@ try {
 
     if ($mantenimiento == false) {
         $json[] = (['mantenimiento' => false]);
-        $json[] = (['servicios' => [] ]);
+        $json[] = (['servicios' => []]);
 
     }else{
         $json[] = (['mantenimiento' => $mantenimiento]);
-        $json[] = (['servicios' => $taller->getServiciosMant($mantenimiento->id) ]);
+        $resultServices = $taller->getServiciosMant($mantenimiento->id);
+        if($resultServices == false){
+            $resultServices = [];
+        }
+        $json[] = (['servicios' => $resultServices]);
     }
 
     $jsonString = json_encode($json);

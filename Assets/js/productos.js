@@ -1,261 +1,152 @@
-$(function () {
-  $("#btnAdd").bind("click", function () {
-    var div = $("<tr />");
-    div.html(GetDynamicTextBox(""));
-    $("#TextBoxContainer").append(div);
-  });
-  $("body").on("click", ".remove", function () {
-    $(this).closest("tr").remove();
-  });
-});
-function GetDynamicTextBox(value) {
-  return '<td><input name="txtCodigo" type="text" value = "' + value + '" class="form-control" /></td>'
-    + '<td><input name="txtNombre" type="text" value = "' + value + '" class="form-control" /></td>'
-    + '<td><input name="txtCosto" type="text" value = "' + value + '" class="form-control" /></td>'
-    + '<td><input type="number" value="1" min="1"></td>'
-    + '<td><button type="button" class="btn btn-danger remove "><i class="fas fa-trash-alt"></i></button></td>'
-}
-
-
-// NEW TABLE
-
-/* Shivving (IE8 is not supported, but at least it won't look as awful)
-/* ========================================================================== */
-
-(function (document) {
-	var
-	head = document.head = document.getElementsByTagName('head')[0] || document.documentElement,
-	elements = 'article aside audio bdi canvas data datalist details figcaption figure footer header hgroup mark meter nav output picture progress section summary time video x'.split(' '),
-	elementsLength = elements.length,
-	elementsIndex = 0,
-	element;
-
-	while (elementsIndex < elementsLength) {
-		element = document.createElement(elements[++elementsIndex]);
-	}
-
-	element.innerHTML = 'x<style>' +
-		'article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block}' +
-		'audio[controls],canvas,video{display:inline-block}' +
-		'[hidden],audio{display:none}' +
-		'mark{background:#FF0;color:#000}' +
-	'</style>';
-
-	return head.insertBefore(element.lastChild, head.firstChild);
-})(document);
-
-/* Prototyping
-/* ========================================================================== */
-
-(function (window, ElementPrototype, ArrayPrototype, polyfill) {
-	function NodeList() { [polyfill] }
-	NodeList.prototype.length = ArrayPrototype.length;
-
-	ElementPrototype.matchesSelector = ElementPrototype.matchesSelector ||
-	ElementPrototype.mozMatchesSelector ||
-	ElementPrototype.msMatchesSelector ||
-	ElementPrototype.oMatchesSelector ||
-	ElementPrototype.webkitMatchesSelector ||
-	function matchesSelector(selector) {
-		return ArrayPrototype.indexOf.call(this.parentNode.querySelectorAll(selector), this) > -1;
-	};
-
-	ElementPrototype.ancestorQuerySelectorAll = ElementPrototype.ancestorQuerySelectorAll ||
-	ElementPrototype.mozAncestorQuerySelectorAll ||
-	ElementPrototype.msAncestorQuerySelectorAll ||
-	ElementPrototype.oAncestorQuerySelectorAll ||
-	ElementPrototype.webkitAncestorQuerySelectorAll ||
-	function ancestorQuerySelectorAll(selector) {
-		for (var cite = this, newNodeList = new NodeList; cite = cite.parentElement;) {
-			if (cite.matchesSelector(selector)) ArrayPrototype.push.call(newNodeList, cite);
-		}
-
-		return newNodeList;
-	};
-
-	ElementPrototype.ancestorQuerySelector = ElementPrototype.ancestorQuerySelector ||
-	ElementPrototype.mozAncestorQuerySelector ||
-	ElementPrototype.msAncestorQuerySelector ||
-	ElementPrototype.oAncestorQuerySelector ||
-	ElementPrototype.webkitAncestorQuerySelector ||
-	function ancestorQuerySelector(selector) {
-		return this.ancestorQuerySelectorAll(selector)[0] || null;
-	};
-})(this, Element.prototype, Array.prototype);
-
-/* Helper Functions
-/* ========================================================================== */
-
-function generateTableRow() {
-	var emptyColumn = document.createElement('tr');
-
-	emptyColumn.innerHTML = 
-
-  '<td><a class="cut"  style="font-weight: bolder; font-size: 1em; border-radius: .3em; margin: .2em 0 0 -2em; padding:.6em 1em; color: #fff; background-color: red; ">X</a><span  contenteditable></span></td>'+
-  '<td><span ></span></td>' +
-  '<td><span data-prefix>$</span><span>0.0</span></td>' +
-  '<td><span contenteditable>1</span></td>' +
-  '<td><span data-prefix>$</span><span>600.00</span></td>'
-
-	return emptyColumn;
-}
+$(document).ready(function (event) {
 
-function parseFloatHTML(element) {
-	return parseFloat(element.innerHTML.replace(/[^\d\.\-]+/g, '')) || 0;
-}
+	$("#buscar_vehiculo").click(function (event) {
 
-function parsePrice(number) {
-	return number.toFixed(2).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1,');
-}
+		placa = $("#placa").val();
 
-/* Update Number
-/* ========================================================================== */
+		$.ajax({
+			url: "http://localhost/valleyworkshop/productos/buscarMantenimiento",
+			type: "POST",
+			data: { placa },
+			success: function (respuesta) {
 
-function updateNumber(e) {
-	var
-	activeElement = document.activeElement,
-	value = parseFloat(activeElement.innerHTML),
-	wasPrice = activeElement.innerHTML == parsePrice(parseFloatHTML(activeElement));
+				resultado = JSON.parse(respuesta);
 
-	if (!isNaN(value) && (e.keyCode == 38 || e.keyCode == 40 || e.wheelDeltaY)) {
-		e.preventDefault();
 
-		value += e.keyCode == 38 ? 1 : e.keyCode == 40 ? -1 : Math.round(e.wheelDelta * 0.025);
-		value = Math.max(value, 0);
+				$("#marca").val("res")
 
-		activeElement.innerHTML = wasPrice ? parsePrice(value) : value;
-	}
+				if (resultado.error != true) {
 
-	updateInvoice();
-}
+					vehiculo = resultado.vehiculo;
+					mecanico = resultado.mecanico;
+					mantenimiento = resultado.mantenimiento;
+					servicios = resultado.servicios;
 
-/* Update Invoice
-/* ========================================================================== */
 
-function updateInvoice() {
-	var total = 0;
-	var cells, price, total, a, i;
 
-	// update inventory cells
-	// ======================
+					$("#marca").val(vehiculo.marca);
+					$("#linea").val(vehiculo.modelo);
+					$("#modelo").val(vehiculo.anio);
 
-	for (var a = document.querySelectorAll('table.inventory tbody tr'), i = 0; a[i]; ++i) {
-		// get inventory row cells
-		cells = a[i].querySelectorAll('span:last-child');
+					template = '';
+					templateTarjeta = '';
 
-		// set price as cell[2] * cell[3]
-		price = parseFloatHTML(cells[2]) * parseFloatHTML(cells[3]);
+					servicios.forEach(servicio => {
 
-		// add price to total
-		total += price;
+						template +=
+							`<tr >                       
+								<td>${servicio[0].codigo}</td>
+								<td>${servicio[0].nombre}</td>
+								<td>${servicio[0].costo}</td>
+								<td style="height: 40px;">
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+									</div>
+								</td>
+							</tr>`
 
-		// set row total
-		cells[4].innerHTML = price;
-	}
+					});
 
-	// update balance cells
-	// ====================
 
-	// get balance cells
-	cells = document.querySelectorAll('table.balance td:last-child span:last-child');
 
-	// set total
-	cells[0].innerHTML = total;
+					templateTarjeta += `
+                        <div class="card animate__animated animate__wobble" id="tarjeta-perfil">
+                            <img class="card-img-top" src="Assets/img/images.perfiles_mecanicos/${mecanico.imagen}" alt="Card image cap">
 
-	// set balance and meta balance
-	cells[2].innerHTML = document.querySelector('table.meta tr:last-child td:last-child span:last-child').innerHTML = parsePrice(total - parseFloatHTML(cells[1]));
+                            <div class="card-body py-0">
 
-	// update prefix formatting
-	// ========================
+                                <div class="header-card row">
+                                    <div class="col-8">
+                                        <span id="txtNombre" class="card-title my-0">${mecanico.nombres}</span>
+                                        <span id="txtApellido" class="">${mecanico.apellidos}</span>
+                                    </div>
 
-	var prefix = document.querySelector('#prefix').innerHTML;
-	for (a = document.querySelectorAll('[data-prefix]'), i = 0; a[i]; ++i) a[i].innerHTML = prefix;
+                                    <div class="col-4 px-0"><span id="txtCodigo">${mecanico.codigo}</span></div>
 
-	// update price formatting
-	// =======================
+                                </div>
 
-	for (a = document.querySelectorAll('span[data-prefix] + span'), i = 0; a[i]; ++i) if (document.activeElement != a[i]) a[i].innerHTML = parsePrice(parseFloatHTML(a[i]));
-}
+                                <div class="body-card">
+                                    <ul style="list-style: none; padding: 0;">
+                                        <li><h6>CC: <span>${mecanico.nuid}</span></h6></li>
+                                        <li><h6>Genero: <span>${mecanico.genero}</span></h6></li>
+                                        <li><h6>Telefono: <span>${mecanico.telefono}</span></h6></li>
+                                        <li><h6>Correo: <span>${mecanico.correo}</span></h6></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>`
 
-/* On Content Load
-/* ========================================================================== */
+					$('#servicios_registrados').html(template);
+					$('#tarjeta-perfil').html(templateTarjeta);
 
-function onContentLoad() {
-	updateInvoice();
 
-	var
-	input = document.querySelector('input'),
-	image = document.querySelector('img');
+				} else {
 
-	function onClick(e) {
-		var element = e.target.querySelector('[contenteditable]'), row;
+					$("#marca").val('');
+					$("#linea").val('');
+					$("#modelo").val('');
 
-		element && e.target != document.documentElement && e.target != document.body && element.focus();
+					Swal.fire({
+						title: '¡Algo salio mal!',
+						text: resultado.mensaje,
+						icon: 'error',
+						hideClass: {
+							popup: 'animate__animated animate__fadeOutRight animate__fast'
+						}
+					})
+				}
 
-		if (e.target.matchesSelector('.add')) {
-			document.querySelector('table.inventory tbody').appendChild(generateTableRow());
-		}
-		else if (e.target.className == 'cut') {
-			row = e.target.ancestorQuerySelector('tr');
 
-			row.parentNode.removeChild(row);
-		}
 
-		updateInvoice();
-	}
 
-	function onEnterCancel(e) {
-		e.preventDefault();
+			}
 
-		image.classList.add('hover');
-	}
+		});
 
-	function onLeaveCancel(e) {
-		e.preventDefault();
+	})
 
-		image.classList.remove('hover');
-	}
+	$("#buscar_producto").click(function (event) {
 
-	function onFileInput(e) {
-		image.classList.remove('hover');
+		codigo = $("#codigo").val();
 
-		var
-		reader = new FileReader(),
-		files = e.dataTransfer ? e.dataTransfer.files : e.target.files,
-		i = 0;
+		$.ajax({
+			url: "http://localhost/valleyworkshop/productos/buscarProducto",
+			type: "POST",
+			data: { codigo },
+			success: function (respuesta) {
 
-		reader.onload = onFileLoad;
+				resultado = JSON.parse(respuesta);
 
-		while (files[i]) reader.readAsDataURL(files[i++]);
-	}
 
-	function onFileLoad(e) {
-		var data = e.target.result;
+				if (resultado.error != true) {
 
-		image.src = data;
-	}
+					producto = resultado.producto;
+					$("#nombre").val(producto.nombre);
+					$("#costo").val(producto.costo);
 
-	if (window.addEventListener) {
-		document.addEventListener('click', onClick);
 
-		document.addEventListener('mousewheel', updateNumber);
-		document.addEventListener('keydown', updateNumber);
 
-		document.addEventListener('keydown', updateInvoice);
-		document.addEventListener('keyup', updateInvoice);
+				} else {
 
-		input.addEventListener('focus', onEnterCancel);
-		input.addEventListener('mouseover', onEnterCancel);
-		input.addEventListener('dragover', onEnterCancel);
-		input.addEventListener('dragenter', onEnterCancel);
+					Swal.fire({
+						title: '¡Algo salio mal!',
+						text: resultado.mensaje,
+						icon: 'error',
+						hideClass: {
+							popup: 'animate__animated animate__fadeOutRight animate__fast'
+						}
+					})
+				}
 
-		input.addEventListener('blur', onLeaveCancel);
-		input.addEventListener('dragleave', onLeaveCancel);
-		input.addEventListener('mouseout', onLeaveCancel);
 
-		input.addEventListener('drop', onFileInput);
-		input.addEventListener('change', onFileInput);
-	}
-}
 
-window.addEventListener && document.addEventListener('DOMContentLoaded', onContentLoad);
+
+			}
+
+		});
+
+	})
+
+
+
+})
